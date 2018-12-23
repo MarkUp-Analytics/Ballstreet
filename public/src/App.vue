@@ -2,7 +2,7 @@
   <div id="app">
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
       <div class="container px-5">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="#/">
           <img src="@/assets/Ballstreet.png" width="25" />
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,7 +12,7 @@
         <div class="collapse navbar-collapse" id="navbarsExample09">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link active" href="#">Home</a>
+              <a class="nav-link active" href="#/">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Discover</a>
@@ -21,6 +21,29 @@
               <a class="nav-link" href="#">Create</a>
             </li>
           </ul>
+          <ul class="navbar-nav" v-if="loggedIn">
+					<li class="nav-item">
+						<a class="nav-link" href="#">Investments</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							{{userDetails.email}}
+						</a>
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="#">
+								<span class="text-secondary">Ballstreet ID</span><br/>
+								{{userDetails.userid}}
+							</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="#">
+								<span class="text-secondary">Funds</span><br/>
+								INR 739
+							</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="" @click="logout()">Log Out</a>
+						</div>
+					</li>
+				</ul>
         </div>
       </div>
     </nav>
@@ -42,7 +65,38 @@
 
 <script>
   export default {
-    name: 'App'
+    name: 'App',
+    created() {
+      // if(localStorage.getItem('userDetails')){ //If user is already logged in, it takes it to profile page
+      //           this.loggedIn = true;
+      //           this.userDetails = JSON.parse(localStorage.getItem('userDetails'));
+      //       }
+    },
+    computed:{
+      loggedIn(){
+        if(localStorage.getItem('userDetails')){ 
+            return true;
+        }
+        else{
+          return false;
+        }
+      },
+      userDetails() {
+        if(localStorage.getItem('userDetails')){
+            return JSON.parse(localStorage.getItem('userDetails'));
+        }
+      }
+    },
+    data() {
+      return{
+
+      }
+    },
+    methods: {
+      logout: function(){
+        localStorage.removeItem('userDetails');
+      }
+    }
   }
 </script>
 

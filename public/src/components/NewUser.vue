@@ -11,24 +11,24 @@
                     </ul>
                 </p>
                 <div style="margin:5px;">
-                    <label>FIRST NAME*</label>
-                    <input type="text" class="form-control loginInput" v-model="firstname">
+                    <!-- <label>FIRST NAME*</label> -->
+                    <input type="text" class="form-control loginInput" v-model="firstname" placeholder="Firstname*">
                 </div>
                 <div style="margin:5px;">
-                    <label>LAST NAME*</label>
-                    <input type="text" class="form-control loginInput" v-model="lastname">
+                    <!-- <label>LAST NAME*</label> -->
+                    <input type="text" class="form-control loginInput" v-model="lastname" placeholder="Lastname*">
                 </div>
                 <div style="margin:5px;">
-                    <label>EMAIL ADDRESS*</label>
-                    <input type="email" class="form-control loginInput" v-model="email">
+                    <!-- <label>EMAIL ADDRESS*</label> -->
+                    <input type="email" class="form-control loginInput" v-model="email" placeholder="Email*">
                 </div>
                 <div style="margin:5px;">
-                    <label>PASSWORD*</label>
-                    <input type="password" class="form-control loginInput" v-model="password">
+                    <!-- <label>PASSWORD*</label> -->
+                    <input type="password" class="form-control loginInput" v-model="password" placeholder="Password*">
                 </div>
                 <div style="margin:5px;">
-                    <label>REPEAT PASSWORD*</label>
-                    <input type="password" class="form-control loginInput" v-model="repeatpassword">
+                    <!-- <label>REPEAT PASSWORD*</label> -->
+                    <input type="password" class="form-control loginInput" v-model="repeatpassword" placeholder="Repeat Password*">
                 </div>
                 <div class="row" style="margin-left:5px; margin-top:10px; text-align:center">
                     <div class="col-sm-12">
@@ -44,7 +44,7 @@
 
 <script>
 import api from '@/services/api';
-
+import commonServices from '@/services/commonServices';
     export default {
         name: 'NewUser',
         data: function() {
@@ -62,7 +62,7 @@ import api from '@/services/api';
                 this.errors = [];
                 if (!this.firstname || !this.lastname || !this.email || !this.password || !this.repeatpassword) {
                     this.errors.push("Required fields are missing.");
-                } else if (!this.validEmail(this.email)) {
+                } else if (!commonServices.validEmail(this.email)) {
                     this.errors.push('Valid email required.');
                 }
                 if(this.password !== this.repeatpassword){
@@ -85,15 +85,16 @@ import api from '@/services/api';
 	                })
                 }
     
-            },
-            validEmail: function(email) {
-                var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                return re.test(email);
             }
         }
     }
 </script>
 
-<style>
-    
+<style scoped>
+    .loginInput {
+        border: 0;
+        border-bottom: 1px solid #dddedf;
+        padding: 4px 8px;
+        margin: 4px;
+    }
 </style>
