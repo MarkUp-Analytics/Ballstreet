@@ -17,6 +17,7 @@ router.get('/associatedLeagues', (req, res, next) => { //Method to get all leagu
                 if(associatedLeagues.length === 0){
                     res.status(200).json({
                         message: "User is not associated with any league",
+                        leagues: []
                         
                     })
                 }

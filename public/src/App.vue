@@ -32,7 +32,7 @@
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 							<a class="dropdown-item" href="#">
 								<span class="text-secondary">Ballstreet ID</span><br/>
-								{{userDetails.userid}}
+								{{userDetails.shortid}}
 							</a>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="#">
