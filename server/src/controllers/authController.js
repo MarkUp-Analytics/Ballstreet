@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const saltRounds = 8;
+const shortid = require('shortid');
 const pool = require('../db');
 
 var authController = {};
@@ -36,14 +37,15 @@ authController.createUser = function(newUserDetails, callback){
     var email = newUserDetails.email;
     var password = newUserDetails.password;
     var accountcreationdate = new Date();
+    var newShortid = shortid.generate();
     var active = true;
     var deleted = false;
     
     bcrypt.hash(password, saltRounds, function(err, hash) {
         
-        var queryText = 'INSERT INTO users (firstname, lastname, age, sex, email, password, accountcreationdate, active, deleted) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)';
+        var queryText = 'INSERT INTO users (firstname, lastname, age, sex, email, password, accountcreationdate, shortid, active, deleted) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
     
-        var queryParams = [firstname, lastname, age, sex, email, hash, accountcreationdate, active, deleted];
+        var queryParams = [firstname, lastname, age, sex, email, hash, accountcreationdate, newShortid, active, deleted];
 
         pool.query(queryText, queryParams, (err, result) => {
             callback(err, result);
@@ -66,7 +68,8 @@ authController.comparePassword = function(userDetails, callback){
                         email: user.email,
                         age: user.age,
                         sex: user.sex,
-                        accountcreationdate: user.accountcreationdate
+                        accountcreationdate: user.accountcreationdate,
+                        shortid: user.shortid
                     }
                     callback(err, userInfo);
                 }
