@@ -4,6 +4,7 @@ import Home from '@/components/Home'
 import Login from '@/components/Login'
 import NewUser from '@/components/NewUser'
 import Profile from '@/components/Profile'
+import NewLeague from '@/components/NewLeague'
 
 Vue.use(Router)
 
@@ -23,6 +24,11 @@ export default new Router({
       path: '/profile',
       name: 'Profile',
       component: Profile
+    },
+    {
+      path: '/newLeague',
+      name: 'NewLeague',
+      component: NewLeague
     }
   ]
 })

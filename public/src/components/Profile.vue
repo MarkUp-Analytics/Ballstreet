@@ -7,7 +7,7 @@
             </div>
         </div>
         <div style="margin: 15px;">
-            <a href="" class="btn btn-info">Create New League</a>
+            <a href="#/newLeague" class="btn btn-info">Create New League</a>
             <a href="" class="btn btn-success">Join League</a>
         </div>
     </div>
@@ -24,7 +24,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="(index,league) in associatedLeagues">
+            <tr v-for="(league, index) in associatedLeagues">
                 <td>
                     {{index + 1}}
                 </td>
