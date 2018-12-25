@@ -15,5 +15,12 @@ app.use(cors());
 const routes = require('./routes/');
 routes(app);
 
+//These 2 lines make sure that vue and express app are coming from the same server.
+app.use('/static', express.static(path.join(__dirname, "../public/dist/static/")));
+
+app.get('/', function(req,res) {
+    res.sendFile('index.html', { root: path.join(__dirname, '../public/dist/') });
+  });
+
 
 module.exports = app
