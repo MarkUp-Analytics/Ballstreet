@@ -46,12 +46,60 @@
                     {{tour.tournament_end_date | formatDate}}
                 </td>
                 <td>
-                    <a href="" title="click to create a new league for this tournament" class="btn btn-sm btn-success">Create League</a>
+                    <button title="click to create a new league for this tournament" @click="newLeagueDialog(tour)" class="btn btn-sm btn-success">Create League</button>
                 </td>
             </tr>
         </tbody>
     </table>
     </div>
+    <div v-if="newLeague" class="modal fade" id="myModal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">New League</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+            <div class="row" style="margin-bottom:5px;">
+                <div class="col-md-4" style="text-align: right;">
+                    <label>Tournament:</label>
+                </div>
+                <div class="col-md-8">
+                    <span>{{newLeague.tournament_name}}</span>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:5px;">
+                <div class="col-md-4" style="text-align: right;">
+                <label>League Name:</label>
+                </div>
+                <div class="col-md-8">
+                <input type="text" class="form-control" v-model="newLeague.league_name">
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:5px;">
+                <div class="col-md-4" style="text-align: right;">
+                <label>Minimum bet:</label>
+                </div>
+                <div class="col-md-8">
+                <input type="number" class="form-control" v-model="newLeague.minimum_bet">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success">Save</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
     </div>
 </template>
 
@@ -64,7 +112,8 @@ export default{
     },
     data() {
         return {
-            upcomingTours:[]
+            upcomingTours:[],
+            newLeague: {}
         }
     },
     methods: {
@@ -73,8 +122,13 @@ export default{
                 this.upcomingTours = result.data.tours;
             },
             err=>{
-
+                console.log(err)
             })
+        },
+        newLeagueDialog: function(tour){
+            this.newLeague = {};
+            this.newLeague.tournament_name = tour.tournament_name;
+            $('#myModal').modal();
         }
     }
 }
