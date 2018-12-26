@@ -21,7 +21,7 @@
               <a class="nav-link" href="#">Create</a>
             </li>
           </ul>
-          <ul class="navbar-nav" v-if="loggedIn">
+          <ul class="navbar-nav" v-if="['Login'].indexOf($route.name) != 0">
 					<li class="nav-item">
 						<a class="nav-link" href="#">Investments</a>
 					</li>
@@ -67,29 +67,30 @@
   export default {
     name: 'App',
     created() {
-      // if(localStorage.getItem('userDetails')){ //If user is already logged in, it takes it to profile page
-      //           this.loggedIn = true;
-      //           this.userDetails = JSON.parse(localStorage.getItem('userDetails'));
-      //       }
+    
     },
     computed:{
-      loggedIn(){
-        if(localStorage.getItem('userDetails')){ 
-            return true;
-        }
-        else{
-          return false;
-        }
-      },
-      userDetails() {
-        if(localStorage.getItem('userDetails')){
-            return JSON.parse(localStorage.getItem('userDetails'));
-        }
-      }
+      // loggedIn(){
+      //   if(localStorage.getItem('userDetails')){ 
+      //       return true;
+      //   }
+      //   else{
+      //     return false;
+      //   }
+      // },
+      // userDetails() {
+      //   if(localStorage.getItem('userDetails')){
+      //       return JSON.parse(localStorage.getItem('userDetails'));
+      //   }
+      // }
     },
     data() {
       return{
-
+        get userDetails() {
+          if(localStorage.getItem('userDetails')){
+            return JSON.parse(localStorage.getItem('userDetails'));
+          }
+      }
       }
     },
     methods: {
