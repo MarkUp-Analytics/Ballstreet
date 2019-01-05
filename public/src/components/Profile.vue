@@ -6,9 +6,13 @@
                 <b>You are not associated with any league. You can create a new league or you can join your friend's league</b>
             </div>
         </div>
-        <div style="margin: 15px;">
-            <a href="#/newLeague" class="btn btn-info">Create New League</a>
-            <a href="" class="btn btn-success">Join League</a>
+        <div class="row" style="margin: 15px 0px;">
+            <div class="col-lg-6 col-sm-6 col-6" style="padding: 0px;">
+                <a href="#/newLeague" class="btn btn-sm btn-info pull-left">Create New League</a>
+            </div>
+            <div class="col-lg-6 col-sm-6 col-6" style="padding: 0px;">
+                <a href="" class="btn btn-sm btn-success pull-right">Join League</a>
+            </div>
         </div>
     </div>
     <table v-if="associatedLeagues.length > 0" class="table table-border">

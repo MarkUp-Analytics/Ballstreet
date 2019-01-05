@@ -82,7 +82,16 @@ import commonServices from '@/services/commonServices';
                     
                     api().post('/auth/signup', formData).then(result=>{
 		                console.log(result.data.message);
-	                })
+                        localStorage.setItem('userDetails', JSON.stringify(result.data.userDetails)); // Store the user details in browser local storage
+                        this.$router.push({
+                            name: 'Profile', 
+                        })
+                    },
+                    err => {
+                        this.errors = [];
+                        localStorage.removeItem('userDetails');
+                        this.errors.push(err.response.data.message);
+                    })
                 }
     
             }

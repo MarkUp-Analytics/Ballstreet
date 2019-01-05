@@ -7,48 +7,47 @@
                 </div>
             </div>
         </div>
-        <div v-if="upcomingTours.length > 0">
-            <h3 style="margin-bottom:15px;">Upcoming tournaments</h3>
-            <table class="table table-border">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>
-                            Tournament name
-                        </th>
-                        <th>
-                            Sport name
-                        </th>
-                        <th>
-                            Start date
-                        </th>
-                        <th>
-                            End date
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
+        <div v-if="upcomingTours.length > 0" class="table-responsive">
+            <h4 style="margin-bottom:15px;">Upcoming tournaments</h4>
+            <table class="table table-striped">
                 <tbody>
-                    <tr v-for="(tour, index) in upcomingTours">
+                    <template v-for="(tour, index) in upcomingTours">
+                    <tr>
                         <td>
-                            {{index + 1}}
+                            <div class="row cursorPointer p10" @click="toggleDetails(tour)">
+                                <div class="col-1 p0">
+                                        <i v-if="!tour.showDetails" class="fa fa-angle-right" style="margin-right:10px"></i>
+                                        <i v-if="tour.showDetails" class="fa fa-angle-down" style="margin-right:10px"></i>
+                                </div>
+                                <div class="col-11 pl5">
+                                    {{tour.tournament_name}}
+                                </div>
+                            </div>
                         </td>
                         <td>
-                            {{tour.tournament_name}}
+                            <button title="click to create a new league for this tournament" @click="newLeagueDialog(tour)" class="btn btn-sm btn-success textCenter">Create League</button>
                         </td>
-                        <td>
-                            {{tour.sport_name}}
+                        
+                    </tr>
+                    <template v-if="tour.showDetails">
+                    <tr>
+                        <td class="pb0 pl15">
+                            Start Date: 
                         </td>
-                        <td>
+                        <td class="pb0 pl15 textCenter">
                             {{tour.tournament_start_date | formatDate}}
                         </td>
-                        <td>
+                    </tr>
+                    <tr>
+                        <td class="pb0 pl15">
+                            End Date: 
+                        </td>
+                        <td class="pb0 pl15 textCenter">
                             {{tour.tournament_end_date | formatDate}}
                         </td>
-                        <td>
-                            <button title="click to create a new league for this tournament" @click="newLeagueDialog(tour)" class="btn btn-sm btn-success">Create League</button>
-                        </td>
                     </tr>
+                    </template>
+                    </template>
                 </tbody>
             </table>
         </div>
@@ -59,7 +58,7 @@
                     <!-- Modal Header -->
                     <div class="modal-header">
                         <h4 class="modal-title">New League</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <button type="button" class="close" @click="closeModal()">&times;</button>
                     </div>
     
                     <!-- Modal body -->
@@ -68,26 +67,26 @@
                             <b v-for="error in errors"><i class="fa fa-warning" style="margin-right:5px;"></i>{{ error}}</b>
                         </p>
                         <div class="row" style="margin-bottom:5px;">
-                            <div class="col-md-4" style="text-align: right;">
+                            <div class="col-4" style="text-align: right;">
                                 <label>Tournament:</label>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-8">
                                 <span>{{newLeague.tournament_name}}</span>
                             </div>
                         </div>
                         <div class="row" style="margin-bottom:5px;">
-                            <div class="col-md-4" style="text-align: right;">
+                            <div class="col-4" style="text-align: right;">
                                 <label>League Name:</label>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-8">
                                 <input type="text" class="form-control" v-model="newLeague.league_name">
                             </div>
                         </div>
                         <div class="row" style="margin-bottom:5px;">
-                            <div class="col-md-4" style="text-align: right;">
+                            <div class="col-4" style="text-align: right;">
                                 <label>Minimum bet:</label>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-8">
                                 <input type="number" class="form-control" v-model="newLeague.minimum_bet">
                             </div>
                         </div>
@@ -96,7 +95,7 @@
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-success" @click="saveLeague()">Save</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" @click="closeModal()">Close</button>
                     </div>
     
                 </div>
@@ -126,11 +125,21 @@
         methods: {
             getTournamentList: function() {
                 api().get('/tournament/upcomingTournaments').then(result => {
+                        this.addShowDetailsFlag(result.data.tours);
                         this.upcomingTours = result.data.tours;
                     },
                     err => {
                         console.log(err)
                     })
+            },
+            addShowDetailsFlag: function(tourList){
+                for(var i=0; i<tourList.length; i++){
+                    tourList[i].showDetails = false;
+                }
+            },
+            toggleDetails: function(tour) {
+                tour.showDetails = !tour.showDetails;
+                return false;
             },
             newLeagueDialog: function(tour) { //Method to open modal window
                 this.newLeague = {};
@@ -150,13 +159,17 @@
                 else{
                     api().post('/createLeague', self.newLeague).then(result=>{
                         console.log("League created");
-                        $('#myModal').modal('hide');
+                        self.closeModal();
                     },
                     err=>{
                         console.log(err);
                         self.errors.push("Error creating new league");
                     })
                 }
+            },
+            closeModal: function(){
+                this.errors = [];
+                $('#myModal').modal('hide');
             }
         }
     }

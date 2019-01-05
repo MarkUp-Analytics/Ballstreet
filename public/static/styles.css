@@ -1,0 +1,30 @@
+.p0{
+    padding: 0px !important;
+}
+
+.p10{
+    padding: 10px;
+}
+
+.pb0{
+    padding-bottom: 0px !important;
+}
+
+.pl0{
+    padding-left: 0px;
+}
+
+.pl5{
+    padding-left: 5px !important;
+}
+.pl15{
+    padding-left: 15px !important;
+}
+
+.cursorPointer{
+    cursor: pointer;
+}
+
+.textCenter{
+    text-align: center;
+}
