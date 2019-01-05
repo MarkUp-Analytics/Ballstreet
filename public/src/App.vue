@@ -21,7 +21,7 @@
               <a class="nav-link" href="#">Create</a>
             </li>
           </ul>
-          <ul class="navbar-nav" v-if="['Login'].indexOf($route.name) != 0">
+          <ul class="navbar-nav" v-if="['Login', 'NewUser'].indexOf($route.name) == -1">
 					<li class="nav-item">
 						<a class="nav-link" href="#">Investments</a>
 					</li>

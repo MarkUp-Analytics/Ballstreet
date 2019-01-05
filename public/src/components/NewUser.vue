@@ -32,7 +32,7 @@
                 </div>
                 <div class="row" style="margin-left:5px; margin-top:10px; text-align:center">
                     <div class="col-sm-12">
-                        <button class="btn btn-danger" @click="checkForm()">Create User</button>
+                        <button class="btn btn-sm btn-danger" @click="checkForm()">Create User</button>
                     </div>
                 </div>
             </div>
