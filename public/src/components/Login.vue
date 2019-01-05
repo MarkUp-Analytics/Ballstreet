@@ -2,8 +2,8 @@
     <div class="container bg-white py-5 px-5 shadow-sm w-95">
         <h3>Sign into Ballstreet</h3>
         <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
+            <div class="col-2"></div>
+            <div class="col-8">
                 <p v-if="errors.length" style="color:red;">
                     <b v-for="error in errors"><i class="fa fa-warning" style="margin-right:5px;"></i>{{ error}}</b>
                 </p>
@@ -14,15 +14,15 @@
                     <input type="password" class="form-control loginInput" v-model="password" placeholder="Password">
                 </div>
                 <div class="row" style="margin-left:5px; margin-top:10px;">
-                    <div class="col-sm-6">
-                        <button class="btn btn-danger" @click="login()">Sign in</button>
+                    <div class="col-6">
+                        <button class="btn btn-sm btn-danger" @click="login()">Sign in</button>
                     </div>
-                    <div class="col-sm-6">
-                        <a href="/#/newuser" class="btn btn-primary">New User?</a>
+                    <div class="col-6">
+                        <a href="/#/newuser" class="btn btn-sm btn-primary">New User?</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-2"></div>
+            <div class="col-2"></div>
     
         </div>
     </div>
