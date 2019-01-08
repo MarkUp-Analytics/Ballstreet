@@ -1,70 +1,167 @@
-body {
-    padding-bottom: 20px;
-    background: #fafafa;
+html {
+    font-size: 14px;
+    font-family: 'Oxygen', sans-serif;
+  }
+  
+  .font-family-ubuntu {
     font-family: 'Ubuntu', sans-serif;
   }
   
+  @media (min-width: 768px) {
+    html {
+      font-size: 16px;
+    }
+  }
+  
   .container {
-    max-width: 975px;
+    max-width: 960px;
   }
   
-  .img-square-50 {
-    width: 50px;
+  .pricing-header {
+    max-width: 700px;
+  }
+  
+  .ballstreet-logo-full {
+    background: url('/static/assets/icons/ballstreet-low.png') center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 80px;
+    width: 300px;
+  }
+  
+  .ballstreet-logo-only {
+    background: url('/static/assets/icons/ballstreet-logo-only-low.png') center center;
+    background-repeat: no-repeat;
+    background-size: contain;
     height: 50px;
+    width: 300px;
   }
   
-  .img-square-75 {
-    width: 75px;
-    height: 75px;
+  .ballstreet-logo-only-violet {
+    background: url('/static/assets/icons/ballstreet-logo-only-violet-low.png') center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 80px;
+    width: 300px;
   }
   
-  .img-square-100 {
-    width: 100px;
-    height: 100px;
+  .bg-green {
+    background-color: #47b39d;
   }
   
-  .img-square-125 {
-    width: 125px;
-    height: 125px;
+  .bg-yellow {
+    background-color: #ffc153;
   }
   
-  footer {
-    font-size: .95rem;
+  .bg-red {
+    background-color: #eb6b56;
   }
   
-  .w-95 {
-      width: 95%;
+  .bg-pink {
+    background-color: #b05f6d;
   }
   
-  .overflow-x-auto {
-      overflow-x: auto;
+  .bg-violet {
+    background-color: #462446;
   }
   
-  .bg-fafafa {
-    background-color: #fafafa;
+  .bg-dark-blue {
+    background-color: #355C7D;
   }
   
-  .z-index-0 {
-      z-index: 0;
+  .bg-light-blue {
+    background-color: #4FC1E9;
   }
   
-  .z-index-1 {
-      z-index: 1;
+  .text-green {
+    color: #47b39d;
   }
   
-  .z-index-2 {
-      z-index: 2;
+  .text-yellow {
+    color: #ffc153;
   }
   
-  .z-index-3 {
-      z-index: 5;
+  .text-red {
+    color: #eb6b56;
   }
   
-  .z-index-4 {
-      z-index: 5;
+  .text-pink {
+    color: #b05f6d;
   }
   
-  .z-index-5 {
-      z-index: 5;
+  .text-violet {
+    color: #462446;
+  }
+  
+  .text-dark-blue {
+    color: #355C7D;
+  }
+  
+  .text-light-blue {
+    color: #4FC1E9;
+  }
+  
+  a:hover, a:active {
+    text-decoration: underline;
+    color: inherit;
+  }
+  
+  .bg-game-of-skill {
+    background: url(/static/assets/images/bg-game-of-skill-low.png) center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 300px;
+  }
+  
+  .bg-index-sign-in {
+    background: url(/static/assets/images/bg-index-sign-in-low.png) center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 250px;
+  }
+  
+  .bg-index-sign-up {
+    background: url(/static/assets/images/bg-index-sign-up-low.png) center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 250px;
+  }
+  
+  .font-size-12pc {
+      font-size: 12px;
+  }
+  
+  /* not active */
+  #v-about-ballstreet-tab:not(.active),
+  #v-how-ballstreet-works-tab:not(.active),
+  #v-games-of-skill-tab:not(.active),
+  #v-features-tab:not(.active),
+  #v-security-tab:not(.active),
+  #v-downloads-tab:not(.active),
+  #v-brand-center-tab:not(.active),
+  #v-privacy-and-terms-tab:not(.active),
+  #v-returns-and-refunds-tab:not(.active),
+  #v-faqs-tab:not(.active),
+  #v-get-in-touch-tab:not(.active) {
+    background-color: white;
+    color: #eb6b56;
+    font-weight: bold;
+  }
+  
+  /* active (faded) */
+  #v-about-ballstreet-tab,
+  #v-how-ballstreet-works-tab,
+  #v-games-of-skill-tab,
+  #v-features-tab,
+  #v-security-tab,
+  #v-downloads-tab,
+  #v-brand-center-tab,
+  #v-privacy-and-terms-tab,
+  #v-returns-and-refunds-tab,
+  #v-faqs-tab,
+  #v-get-in-touch-tab {
+    background-color: #eb6b56;
+    color: white;
+    font-weight: bold;
   }
   
