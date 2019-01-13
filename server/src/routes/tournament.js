@@ -27,7 +27,7 @@ tournamentController.getUpcomingTours(function(err, upcomingTours){
 });
 
 router.get('/totalGames', (req, res, next) => { //Method to get total games for a tournament
-tournamentController.getTotalGames(req.tournamentID, function(err, totalGames){
+tournamentController.getTotalGames(req.query.tournamentID, function(err, totalGames){
     if(err){
         res.status(400).json({
             message: "Unable to get total games"
@@ -36,7 +36,7 @@ tournamentController.getTotalGames(req.tournamentID, function(err, totalGames){
     else{
         res.status(200).json({
             message: "Total games: " + totalGames,
-            totalGames: totalGames
+            totalGames: totalGames.total_games
         })
     }
 })

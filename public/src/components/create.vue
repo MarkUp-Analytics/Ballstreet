@@ -1,7 +1,15 @@
 <template>
-<div class="p-5 text-center">
+<div class="pt-3 pr-5 pl-5 text-center">
 		<h1 class="mb-4 text-center text-violet">Create League</h1>
 		<div class="row mx-auto">
+            <div v-if="errors.length" class="alert alert-danger alert-dismissible fade show w-100" role="alert">
+					<span v-for="error in errors">
+                    <strong>Error!</strong> {{error}}
+					</span>
+					<button type="button" class="close" data-dismiss="alert" @click="errors = [];" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				</div>
 			<div class="col-md"></div>
 			<div class="col-md">
 				<form class="mb-5">
@@ -16,7 +24,7 @@
 					</div>
 					<div class="form-group mt-3">
 						<label>Tournament</label>
-						<select class="form-control" v-model="selectedTour">
+						<select class="form-control" v-model="selectedTour" :disabled="!sportFilter">
                             <option v-for="tour in filteredUpcomingTours" :value="tour">
                                 {{ tour.tournament_name }}
                             </option>
@@ -25,12 +33,16 @@
 					</div>
 					<div class="form-group mt-3">
 						<label>Enter Cash Per Game, INR</label>
-						<input class="form-control" type="text" placeholder="Example: INR 10">
-						<small>Total Cash Required, {{'INR'}}: {{'5200'}}</a></small>
+						<input class="form-control" type="text" placeholder="Example: INR 10" v-model="minimum_bet">
+						<small v-if="minimum_bet">Total Cash Required, {{'INR'}}: {{minimum_bet * totalGames}}</a></small>
+					</div>
+                    <div class="form-group mt-3">
+						<label>League Name</label>
+						<input class="form-control" type="text" placeholder="Enter League name" v-model="league_name">
 					</div>
 					<div class="row mt-4 text-right">
 						<div class="col-lg">
-							<button type="submit" class="btn btn-dark bg-red border-0 w-100">Create League</button>
+							<a href="" class="btn btn-dark bg-red border-0 w-100" @click.prevent="saveLeague()">Create League</a>
 						</div>
 					</div>
 				</form>
@@ -72,9 +84,16 @@ import api from '@/services/api';
         },
         data() {
             return {
+                get userDetails() {
+					if (localStorage.getItem('userDetails')) {
+						return JSON.parse(localStorage.getItem('userDetails'));
+					}
+				},
                 sportFilter: null,
                 selectedTour: null,
                 totalGames: null,
+                minimum_bet: null,
+                league_name: null,
                 upcomingTours: [],
                 sportsList: [],
                 newLeague: {
@@ -99,7 +118,7 @@ import api from '@/services/api';
                         tournamentID: tournamentID
                     }
                 }).then(result => {
-                        this.totalGames = result.data;
+                        this.totalGames = result.data.totalGames;
                     },
                     err => {
                         console.log(err)
@@ -115,39 +134,42 @@ import api from '@/services/api';
                 }
             },
             
-            toggleDetails: function(tour) {
-                tour.showDetails = !tour.showDetails;
-                return false;
-            },
-            newLeagueDialog: function(tour) { //Method to open modal window
-                this.newLeague = {};
-                this.newLeague.tournament_name = tour.tournament_name;
-                this.newLeague.tournament_id = tour.tournament_id;
-                $('#myModal').modal();
-            },
             saveLeague: function() {
+                console.log('test');
                 var self = this;
                 self.errors = [];
-                if (commonServices.isEmpty(self.newLeague.league_name) ||
-                    commonServices.isEmpty(self.newLeague.minimum_bet)) {
+                if (commonServices.isEmpty(self.league_name) ||
+                    commonServices.isEmpty(self.minimum_bet) ||
+                    commonServices.isEmpty(self.selectedTour)) {
                     self.errors.push("Required fields cannot be empty.");
-                } else if (self.newLeague.minimum_bet < 10) {
+                } else if (self.minimum_bet < 10) {
                     self.errors.push("Minimum bet for a match has to be atleast Rs. 10.");
+                }else if(self.minimum_bet > 100){
+                    self.errors.push("Maximum bet for a match cannot exceed Rs. 100.");
                 }
                 else{
-                    api().post('/createLeague', self.newLeague).then(result=>{
+                    var formData = {
+                        userid: this.userDetails.userid,
+                        newLeague : {
+                            league_name: this.league_name.trim().toUpperCase(),
+                            minimum_bet: this.minimum_bet,
+                            tournament_id: this.selectedTour.tournament_id
+                        }
+                    }
+                    api().post('/league/createLeague/', formData).then(result=>{
                         console.log("League created");
-                        self.closeModal();
                     },
                     err=>{
                         console.log(err);
-                        self.errors.push("Error creating new league");
+                        if(err.response.data.message){
+                            self.errors.push(err.response.data.message);
+                        }
+                        else{
+                            self.errors.push("Error creating new league");
+                        }
+                        
                     })
                 }
-            },
-            closeModal: function(){
-                this.errors = [];
-                $('#myModal').modal('hide');
             }
         }
     }

@@ -4,7 +4,10 @@ export default{
         return re.test(email);
     },
     isEmpty: function(str){
-        if(!str || str.trim().length === 0){
+        if(!str){
+            return true;
+        }
+        else if(typeof str === 'string' && str.trim().length === 0){
             return true;
         }
         else{

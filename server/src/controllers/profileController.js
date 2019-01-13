@@ -10,6 +10,6 @@ profileController.getAssociatedLeagues = function(userid, callback){
         
         callback(err, result.rows);
     });
-}
+};
 
 module.exports = profileController;
