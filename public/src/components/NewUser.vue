@@ -1,45 +1,42 @@
 <template>
-    <div class="container bg-white py-5 px-5 shadow-sm w-95">
-        <h3>Create your Ballstreet account</h3>
+    <div class="row pt-3 pr-5 pl-5 pb-5 mx-auto text-center bg-light">
+        <div class="container">
+        <h1 class="text-violet mt-1 mb-3">Sign Up</h1>
         <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <p v-if="errors.length" style="color:red;">
-                    <b>Please correct the following error(s):</b>
-                    <ul>
-                        <li v-for="error in errors">{{ error }}</li>
-                    </ul>
-                </p>
-                <div style="margin:5px;">
-                    <!-- <label>FIRST NAME*</label> -->
-                    <input type="text" class="form-control loginInput" v-model="firstname" placeholder="Firstname*">
+            <div v-if="errors.length" class="alert alert-danger alert-dismissible fade show w-100" role="alert">
+					<span v-for="error in errors">
+                    <strong>Error!</strong> {{error}}<br>
+					</span>
+					<button type="button" class="close" data-dismiss="alert" @click="errors = [];" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				</div>
+                <div class="col-sm-6 bg-index-sign-up"></div>
+                <div class="col-sm-6">
+                <div class="form-group px-2">
+                    <input type="text" class="form-control" v-model="firstname" placeholder="Firstname*">
                 </div>
-                <div style="margin:5px;">
-                    <!-- <label>LAST NAME*</label> -->
-                    <input type="text" class="form-control loginInput" v-model="lastname" placeholder="Lastname*">
+                <div class="form-group px-2">
+                    <input type="text" class="form-control" v-model="lastname" placeholder="Lastname*">
                 </div>
-                <div style="margin:5px;">
-                    <!-- <label>EMAIL ADDRESS*</label> -->
-                    <input type="email" class="form-control loginInput" v-model="email" placeholder="Email*">
+                <div class="form-group px-2">
+                    <input type="email" class="form-control" v-model="email" placeholder="Email*">
                 </div>
-                <div style="margin:5px;">
-                    <!-- <label>PASSWORD*</label> -->
-                    <input type="password" class="form-control loginInput" v-model="password" placeholder="Password*">
+                <div class="form-group px-2">
+                    <input type="password" class="form-control" v-model="password" placeholder="Password*">
                 </div>
-                <div style="margin:5px;">
-                    <!-- <label>REPEAT PASSWORD*</label> -->
-                    <input type="password" class="form-control loginInput" v-model="repeatpassword" placeholder="Repeat Password*">
+                <div class="form-group px-2">
+                    <input type="password" class="form-control" v-model="repeatpassword" placeholder="Repeat Password*">
                 </div>
-                <div class="row" style="margin-left:5px; margin-top:10px; text-align:center">
+                <div class="form-group mt-4 px-2">
                     <div class="col-sm-12">
-                        <button class="btn btn-sm btn-danger" @click="checkForm()">Create User</button>
+                        <button class="btn btn-dark bg-red border-0 w-100 font-weight-bold" @click="checkForm()">Create User</button>
                     </div>
                 </div>
+                </div>
             </div>
-            <div class="col-md-2"></div>
-    
         </div>
-    </div>
+        </div>
 </template>
 
 <script>

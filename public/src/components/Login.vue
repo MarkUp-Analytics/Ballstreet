@@ -1,30 +1,70 @@
 <template>
-    <div class="container bg-white py-5 px-5 shadow-sm w-95">
-        <h3>Sign into Ballstreet</h3>
-        <div class="row">
-            <div class="col-2"></div>
-            <div class="col-8">
-                <p v-if="errors.length" style="color:red;">
-                    <b v-for="error in errors"><i class="fa fa-warning" style="margin-right:5px;"></i>{{ error}}</b>
-                </p>
-                <div style="margin:5px; margin-bottom: 15px;">
-                    <input type="email" class="form-control loginInput" v-model="email" placeholder="Email">
-                </div>
-                <div style="margin:5px; margin-bottom: 15px;">
-                    <input type="password" class="form-control loginInput" v-model="password" placeholder="Password">
-                </div>
-                <div class="row" style="margin-left:5px; margin-top:10px;">
-                    <div class="col-6">
-                        <button class="btn btn-sm btn-danger" @click="login()">Sign in</button>
-                    </div>
-                    <div class="col-6">
-                        <a href="/#/newuser" class="btn btn-sm btn-primary">New User?</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-2"></div>
-    
-        </div>
+    <div>
+        	<div class="row p-2 mx-auto text-center bg-light" id="sign-in">
+    	<div class="container">
+			<h1 class="text-violet mt-1 mb-3">Sign In</h1>
+			<div class="row my-5">
+                <div v-if="errors.length" class="alert alert-danger alert-dismissible fade show w-100" role="alert">
+					<span v-for="error in errors">
+                    <strong>Error!</strong> {{error}}
+					</span>
+					<button type="button" class="close" data-dismiss="alert" @click="errors = [];" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				</div>
+				<div class="col-sm-6 bg-index-sign-in"></div>
+				<div class="col-sm-6">
+				  <div class="form-group px-2">
+				    <input type="email" class="form-control" id="exampleInputEmail1" v-model="email" aria-describedby="emailHelp" placeholder="Enter email">
+				  </div>
+				  <div class="form-group mt-3 px-2">
+				    <input type="password" class="form-control" id="exampleInputPassword1" v-model="password" placeholder="Password">
+						<small><a href="#" class="form-text text-dark">Forgot Password?</a></small>
+				  </div>
+					<div class="form-group mt-4 px-2">
+				  	<a href="" class="btn btn-dark bg-red border-0 w-100 font-weight-bold" @click.prevent="login()">Sign In</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row py-5 mx-auto text-center bg-white" id="social-links">
+			<div class="container">
+				<ul class="nav nav-fill">
+					<li class="nav-item">
+						<a class="nav-link active text-violet" href="#">
+							<i class="fa fa-briefcase fa-2x"></i><br/>
+							<h6 class="mt-2">Careers</h6>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active text-violet" href="#">
+							<i class="fa fa-blog fa-2x"></i><br/>
+							<h6 class="mt-2">Blog</h6>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active text-violet" href="#">
+							<i class="fab fa-facebook fa-2x"></i><br/>
+							<h6 class="mt-2">Facebook</h6>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active text-violet" href="#">
+							<i class="fab fa-twitter fa-2x"></i><br/>
+							<h6 class="mt-2">Twitter</h6>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active text-violet" href="#">
+							<i class="fab fa-linkedin fa-2x"></i><br/>
+							<h6 class="mt-2">LinkedIn</h6>
+						</a>
+					</li>
+				</ul>
+			</div>
+	</div>
     </div>
 </template>
 
@@ -41,6 +81,7 @@
             }
         },
         created() {
+			console.log("test");
             if(localStorage.getItem('userDetails')){ //If user is already logged in, it takes it to profile page
                 this.$router.push({
                             name: 'Profile', 
@@ -62,7 +103,8 @@
                 var formData = {
                     username: this.email,
                     password: this.password
-                }
+				}
+				console.log("test");
                 api().post('/auth/', formData).then(result => {
                         console.log(result.data.message);
                         localStorage.setItem('userDetails', JSON.stringify(result.data.userDetails)); // Store the user details in browser local storage

@@ -11,4 +11,13 @@ tournamentController.getUpcomingTours = function(callback){
     });
 };
 
+tournamentController.getTotalGames = function(tournamentId, callback){
+    var queryText = 'select count(*) as total_games from match_fixtures where match_fixture_tournament_id = $1 AND tournament_active = true';
+    var queryParams = [tournamentId];
+    pool.query(queryText, queryParams, (err, result) => {
+        
+        callback(err, result.rows[0]);
+    });
+}
+
 module.exports = tournamentController;
