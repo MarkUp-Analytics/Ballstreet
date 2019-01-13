@@ -51,4 +51,25 @@ router.post('/createLeague', (req, res, next) => { //Method to create new league
     
 });
 
+router.get('/findLeagueById', (req, res, next) => { //Method to search league based on short id
+    leagueController.getLeagueByShortId(req.query.leagueShortId, function(err, league){
+        if(err){
+            res.status(400).json({
+                message: "Unable to search league"
+            })
+        }
+        else if(league.length === 0){
+            res.status(400).json({
+                message: "No leagues found"
+            })
+        }
+        else{
+            res.status(200).json({
+                message: "League found",
+                league: league
+            })
+        }
+    })
+    });
+
 module.exports = router;

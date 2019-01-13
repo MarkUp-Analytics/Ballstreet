@@ -23,6 +23,34 @@ tournamentController.getTotalGames = function(tournamentId, callback){
         }
         
     });
-}
+};
+
+tournamentController.getTournamentByID = function(tournamentId, callback){
+    var queryText = 'select *  from tournament where tournament_id = $1 AND tournament_active = true';
+    var queryParams = [tournamentId];
+    pool.query(queryText, queryParams, (err, result) => {
+        if(err){
+            callback(err, null)
+        }
+        else{
+            callback(err, result.rows);
+        }
+        
+    });
+};
+
+tournamentController.getTournamentByNameAndSportId = function(tournamentName, sportId, callback){
+    var queryText = 'select * from tournament where tournament_sport_id = $1 AND LOWER(tournament_name) like LOWER($2) AND tournament_active = true';
+    var queryParams = [sportId, '%' + tournamentName + '%'];
+    pool.query(queryText, queryParams, (err, result) => {
+        if(err){
+            callback(err, null)
+        }
+        else{
+            callback(err, result.rows);
+        }
+        
+    });
+};
 
 module.exports = tournamentController;

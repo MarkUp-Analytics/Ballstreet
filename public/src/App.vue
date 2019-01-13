@@ -19,13 +19,13 @@
 						</ul>
 						<ul class="navbar-nav">
 							<li class="nav-item m-2">
-								<a class="text-red" href="#">Discover</a>
+								<a class="text-red" href="" @click.prevent="redirectPage('Discover')" :class="{'textBold': $route.name === 'Discover'}">Discover</a>
 							</li>
 							<li class="nav-item m-2">
-								<a class="text-red text-underline" href="" @click.prevent="redirectPage('Create')">Create</a>
+								<a class="text-red text-underline" href="" @click.prevent="redirectPage('Create')" :class="{'textBold': $route.name === 'Create'}">Create</a>
 							</li>
 							<li class="nav-item m-2">
-								<a class="text-red" href="#">Investments</a>
+								<a class="text-red" href="" :class="{'textBold': $route.name === 'Investments'}">Investments</a>
 							</li>
 							<li class="nav-item dropdown m-2">
 								<a class="text-red dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -40,7 +40,7 @@
 										<span class="text-red">Funds</span><br/> INR 739
 									</a>
 									<div class="dropdown-divider"></div>
-									<a class="dropdown-item text-red" href="" @click.prevent="logout(); redirectToHome();">Log Out</a>
+									<a class="dropdown-item text-red" href="" @click.prevent="logout(); redirectPage('Home');">Log Out</a>
 								</div>
 							</li>
 						</ul>
@@ -102,7 +102,11 @@
 	export default {
 		name: 'App',
 		created() {
-	
+			if(localStorage.getItem('userDetails')){ //If user is already logged in, it takes it to profile page
+                this.$router.push({
+                            name: 'Profile', 
+                        })
+            }
 		},
 		computed: {
 		

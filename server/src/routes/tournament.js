@@ -42,4 +42,25 @@ tournamentController.getTotalGames(req.query.tournamentID, function(err, totalGa
 })
 });
 
+router.get('/searchTournament', (req, res, next) => { //Method to search tournaments based on name and sport id
+    tournamentController.getTournamentByNameAndSportId(req.query.tournamentName, req.query.sportId, function(err, tournaments){
+        if(err){
+            res.status(400).json({
+                message: "Unable to search tournaments"
+            })
+        }
+        else if(tournaments.length === 0){
+            res.status(400).json({
+                message: "No tournaments found"
+            })
+        }
+        else{
+            res.status(200).json({
+                message: "Tours found",
+                tournaments: tournaments
+            })
+        }
+    })
+    });
+
 module.exports = router;

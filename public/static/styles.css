@@ -28,3 +28,7 @@
 .textCenter{
     text-align: center;
 }
+
+.textBold{
+    font-weight:bold;
+}

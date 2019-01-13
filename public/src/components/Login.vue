@@ -81,7 +81,6 @@
             }
         },
         created() {
-			console.log("test");
             if(localStorage.getItem('userDetails')){ //If user is already logged in, it takes it to profile page
                 this.$router.push({
                             name: 'Profile', 

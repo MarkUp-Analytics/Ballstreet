@@ -158,14 +158,17 @@ import api from '@/services/api';
                     }
                     api().post('/league/createLeague/', formData).then(result=>{
                         console.log("League created");
+                        this.$router.push({
+                            name: 'Profile', 
+                        })
                     },
                     err=>{
                         console.log(err);
                         if(err.response.data.message){
-                            self.errors.push(err.response.data.message);
+                            this.errors.push(err.response.data.message);
                         }
                         else{
-                            self.errors.push("Error creating new league");
+                            this.errors.push("Error creating new league");
                         }
                         
                     })
