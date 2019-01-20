@@ -1,42 +1,78 @@
 <template>
-    <div class="row pt-3 pr-5 pl-5 pb-5 mx-auto text-center bg-light">
-        <div class="container">
-        <h1 class="text-violet mt-1 mb-3">Sign Up</h1>
-        <div class="row">
-            <div v-if="errors.length" class="alert alert-danger alert-dismissible fade show w-100" role="alert">
-					<span v-for="error in errors">
-                    <strong>Error!</strong> {{error}}<br>
-					</span>
-					<button type="button" class="close" data-dismiss="alert" @click="errors = [];" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				</div>
-                <div class="col-sm-6 bg-index-sign-up"></div>
-                <div class="col-sm-6">
-                <div class="form-group px-2">
-                    <input type="text" class="form-control" v-model="firstname" placeholder="Firstname*">
-                </div>
-                <div class="form-group px-2">
-                    <input type="text" class="form-control" v-model="lastname" placeholder="Lastname*">
-                </div>
-                <div class="form-group px-2">
-                    <input type="email" class="form-control" v-model="email" placeholder="Email*">
-                </div>
-                <div class="form-group px-2">
-                    <input type="password" class="form-control" v-model="password" placeholder="Password*">
-                </div>
-                <div class="form-group px-2">
-                    <input type="password" class="form-control" v-model="repeatpassword" placeholder="Repeat Password*">
-                </div>
-                <div class="form-group mt-4 px-2">
-                    <div class="col-sm-12">
-                        <button class="btn btn-dark bg-red border-0 w-100 font-weight-bold" @click="checkForm()">Create User</button>
+    <div>
+        <div class="row p-5 mx-auto text-center bg-light">
+            <div class="container">
+                <h1 class="text-violet mt-1 mb-3">Sign Up</h1>
+                <div class="row my-5">
+                    <div v-if="errors.length" class="alert alert-danger alert-dismissible fade show w-100 mb-4" role="alert">
+                        <span v-for="error in errors">
+                            <strong>Error!</strong> {{error}}<br>
+                        </span>
+                        <button type="button" class="close" data-dismiss="alert" @click="errors = [];" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                </div>
+                    <div class="col-sm-6 bg-index-sign-up"></div>
+                    <div class="col-sm-6">
+                        <div class="form-group px-2 mt-4 mb-4">
+                            <input type="text" class="form-control" v-model="firstname" placeholder="Firstname*">
+                        </div>
+                        <div class="form-group px-2 mb-4">
+                            <input type="text" class="form-control" v-model="lastname" placeholder="Lastname*">
+                        </div>
+                        <div class="form-group px-2 mb-4">
+                            <input type="email" class="form-control" v-model="email" placeholder="Email*">
+                        </div>
+                        <div class="form-group px-2 mb-4">
+                            <input type="password" class="form-control" v-model="password" placeholder="Password*">
+                        </div>
+                        <div class="form-group px-2 mb-4">
+                            <input type="password" class="form-control" v-model="repeatpassword" placeholder="Repeat Password*">
+                        </div>
+                        <div class="form-group px-2 mt-5">
+                            <button class="btn btn-dark bg-red border-0 w-100 font-weight-bold" @click="checkForm()">Create User</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="row py-5 mx-auto text-center bg-white" id="social-links">
+            <div class="container">
+                <ul class="nav nav-fill">
+                    <li class="nav-item">
+                        <a class="nav-link active text-violet" href="#">
+                            <i class="fa fa-briefcase fa-1x"></i><br/>
+                            <h6 class="mt-2">Careers</h6>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-violet" href="#">
+                            <i class="fa fa-blog fa-1x"></i><br/>
+                            <h6 class="mt-2">Blog</h6>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-violet" href="#">
+                            <i class="fab fa-facebook fa-1x"></i><br/>
+                            <h6 class="mt-2">Facebook</h6>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-violet" href="#">
+                            <i class="fab fa-twitter fa-1x"></i><br/>
+                            <h6 class="mt-2">Twitter</h6>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-violet" href="#">
+                            <i class="fab fa-linkedin fa-1x"></i><br/>
+                            <h6 class="mt-2">LinkedIn</h6>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
+    </div>
 </template>
 
 <script>
