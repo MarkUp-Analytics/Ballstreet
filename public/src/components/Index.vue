@@ -115,39 +115,6 @@
 				</a>
 			</div>
 		</div>
-
-		<div class="row p-5 mx-auto text-center bg-light" id="sign-in">
-			<div class="container">
-				<h1 class="text-violet mt-1 mb-3">Sign In</h1>
-				<div class="row my-5">
-					<div v-if="errors.length" class="alert alert-danger alert-dismissible fade show w-100 mb-4" role="alert">
-						<span v-for="error in errors">
-							<strong>Error!</strong> {{error}}
-						</span>
-						<button type="button" class="close" data-dismiss="alert" @click="errors = [];" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="col-sm-6 bg-index-sign-in"></div>
-					<div class="col-sm-6">
-					<div class="form-group px-2 my-4">
-						<input type="email" class="form-control" id="exampleInputEmail1" v-model="email" aria-describedby="emailHelp" placeholder="Enter email">
-					</div>
-					<div class="form-group mt-3 px-2 mb-4">
-						<input type="password" class="form-control" id="exampleInputPassword1" v-model="password" placeholder="Password">
-							<small><a href="#" class="form-text text-dark">Forgot Password?</a></small>
-					</div>
-						<div class="form-group mt-4 px-2">
-						<a href="" class="btn btn-dark bg-red border-0 w-100 font-weight-bold" @click.prevent="login()">Sign In</a>
-						</div>
-					</div>
-				</div>
-				<a href="#" class="text-violet">
-					<h6 class="mt-1 mb-5">Not a member yet? <br/>Sign up for free and become one of the many others who have fallen in love with Ballstreet</h6>
-				</a>
-			</div>
-		</div>
-
 		<div class="row py-5 mx-auto text-center bg-white" id="social-links">
 			<div class="container">
 				<ul class="nav nav-fill">

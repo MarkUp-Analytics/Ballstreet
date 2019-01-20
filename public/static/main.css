@@ -140,35 +140,23 @@ a:hover, a:active {
 }
 
 /* not active */
-#v-about-ballstreet-tab:not(.active),
-#v-how-ballstreet-works-tab:not(.active),
-#v-games-of-skill-tab:not(.active),
-#v-features-tab:not(.active),
-#v-security-tab:not(.active),
-#v-downloads-tab:not(.active),
-#v-brand-center-tab:not(.active),
-#v-privacy-and-terms-tab:not(.active),
-#v-returns-and-refunds-tab:not(.active),
-#v-faqs-tab:not(.active),
-#v-get-in-touch-tab:not(.active) {
-  background-color: white;
-  color: #462446;
+.getStartedInactive {
+  background-color: white !important;
+  color: #462446 !important;
+  border-radius: 0.25rem;
+  padding: 5px;
 }
 
-/* active (faded) */
-#v-about-ballstreet-tab,
-#v-how-ballstreet-works-tab,
-#v-games-of-skill-tab,
-#v-features-tab,
-#v-security-tab,
-#v-downloads-tab,
-#v-brand-center-tab,
-#v-privacy-and-terms-tab,
-#v-returns-and-refunds-tab,
-#v-faqs-tab,
-#v-get-in-touch-tab {
-  background-color: #462446;
-  color: white;
+.removeTextDecoration.removeTextDecoration:hover{
+  text-decoration: none !important;
+
+}
+
+.getStartedActive {
+  background-color: #462446 !important;
+    color: white !important;
+    border-radius: 0.25rem;
+    padding: 5px;
 }
 
 .font-size-16 {

@@ -58,28 +58,28 @@
 					<div class="col-sm-4 mb-4 col-md">
 						<h6 class="text-yellow font-weight-bold">Company</h6>
 						<ul class="list-unstyled font-size-14pc">
-							<li><a class="text-white" id="footer-link-about-ballstreet" data-tab="#v-about-ballstreet" href="#/getstarted#v-about-ballstreet">About</a></li>
-							<li><a class="text-white" href="#">Careers</a></li>
-							<li><a class="text-white" id="footer-link-brand-center" data-tab="#v-brand-center" href="#/getstarted#v-brand-center">Brand Center</a></li>
-							<li><a class="text-white" href="#/getstarted#v-privacy-and-terms">Privacy & Terms</a></li>
-							<li><a class="text-white" href="#/getstarted#v-returns-and-refunds">Returns & Refunds</a></li>
-							<li><a class="text-white" href="#/getstarted#v-get-in-touch">Get In Touch</a></li>
+							<li><a class="text-white" @click="scrollToTop()" href="#/getstarted">About</a></li>
+							<li><a class="text-white" @click="scrollToTop()" href="#">Careers</a></li>
+							<li><a class="text-white" @click="scrollToTop()" href="#/getstarted/brandCenter">Brand Center</a></li>
+							<li><a class="text-white" @click="scrollToTop()" href="#/getstarted/privacy">Privacy & Terms</a></li>
+							<li><a class="text-white" @click="scrollToTop()" href="#/getstarted/refund">Returns & Refunds</a></li>
+							<li><a class="text-white" @click="scrollToTop()" href="#/getstarted/contact">Get In Touch</a></li>
 						</ul>
 					</div>
 					<div class="col-sm-4 mb-2 col-md">
 						<h6 class="text-yellow font-weight-bold">Ballstreet</h6>
 						<ul class="list-unstyled font-size-14pc">
-							<li><a class="text-white" href="#/getstarted">Features</a></li>
-							<li><a class="text-white" href="#/getstarted">Security</a></li>
-							<li><a class="text-white" href="#/getstarted">Downloads</a></li>
-							<li><a class="text-white" href="#/getstarted">Games of Skill</a></li>
-							<li><a class="text-white" href="#/getstarted">How it Works</a></li>
+							<li><a class="text-white" @click="scrollToTop()" href="#/getstarted/features">Features</a></li>
+							<li><a class="text-white" @click="scrollToTop()" href="#/getstarted/security">Security</a></li>
+							<li><a class="text-white" @click="scrollToTop()" href="#/getstarted/downloads">Downloads</a></li>
+							<li><a class="text-white" @click="scrollToTop()" href="#/getstarted/gamesOfSkill">Games of Skill</a></li>
+							<li><a class="text-white" @click="scrollToTop()" href="#/getstarted/howItWorks">How it Works</a></li>
 						</ul>
 					</div>
 					<div class="col-sm-4 mb-4 col-md">
 						<h6 class="text-yellow font-weight-bold">Help</h6>
 						<ul class="list-unstyled font-size-14pc">
-							<li><a class="text-white" href="#/getstarted">FAQs</a></li>
+							<li><a class="text-white" @click="scrollToTop()" href="#/getstarted/FAQS">FAQs</a></li>
 							<li><a class="text-white" href="#">Blog</a></li>
 							<li><a class="text-white" href="#">Facebook</a></li>
 							<li><a class="text-white" href="#">Twitter</a></li>
@@ -128,7 +128,10 @@
 				this.$router.push({
 					name: componentName,
 				})
-			}
+			},
+			scrollToTop() {
+                window.scrollTo(0,0);
+           }
 		}
 	}
 </script>
