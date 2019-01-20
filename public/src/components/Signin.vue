@@ -12,6 +12,7 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
+					<loading-spinner v-if="showLoadingIcon"></loading-spinner>
 					<div class="col-sm-6 bg-index-sign-in"></div>
 					<div class="col-sm-6">
 						<div class="form-group px-2 mt-4 mb-4">
@@ -70,13 +71,18 @@
 
 <script>
     import api from '@/services/api';
-    import commonServices from '@/services/commonServices';
+	import commonServices from '@/services/commonServices';
+	import LoadingSpinner from '@/components/LoadingSpinner';
     export default {
-        name: 'Signin',
+		name: 'Signin',
+		components: {
+        	LoadingSpinner
+    	},
         data: function() {
             return {
                 email: null,
-                password: null,
+				password: null,
+				showLoadingIcon: false,
                 errors: []
             }
         },
@@ -98,12 +104,14 @@
                     this.errors = [];
                     this.errors.push("Invalid email address");
                     return;
-                }
+				}
+				this.showLoadingIcon = true;
                 var formData = {
                     username: this.email,
                     password: this.password
 				}
                 api().post('/auth/', formData).then(result => {
+						this.showLoadingIcon = false;
                         console.log(result.data.message);
                         localStorage.setItem('userDetails', JSON.stringify(result.data.userDetails)); // Store the user details in browser local storage
                         this.$router.push({
@@ -111,7 +119,8 @@
                         })
                     },
                     err => {
-                        this.errors = [];
+						this.errors = [];
+						this.showLoadingIcon = false;
                         localStorage.removeItem('userDetails');
                         this.errors.push(err.response.data.message);
                     })

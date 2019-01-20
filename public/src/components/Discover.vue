@@ -11,6 +11,7 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 				</div>
+                <loading-spinner v-if="showLoadingIcon"></loading-spinner>
             <div class="col-lg-6">
                 <input class="form-control form-control-md mb-3" type="text" placeholder="Search for league or tournament" v-model="searchText" />
             </div>
@@ -35,8 +36,12 @@
 <script>
     import api from '@/services/api';
     import commonServices from '@/services/commonServices';
+    import LoadingSpinner from '@/components/LoadingSpinner';
     export default {
         name: 'Discover',
+        components: {
+        	LoadingSpinner
+    	},
         created() {
             this.getSportsList();
         },
@@ -46,6 +51,7 @@
                 sportsList : [],
                 selectedSport: null,
                 tournamentSearchResults: [],
+                showLoadingIcon: false,
                 errors: []
             }
         },
@@ -65,15 +71,18 @@
             },
 
             searchTournaments: function(){
+                this.showLoadingIcon = true;
                 api().get('/tournament/searchTournament', {
                     params: {
                             tournamentName: this.searchText,
                             sportId: this.selectedSport.sport_id
                         }
                 }).then(result => {
+                    this.showLoadingIcon = false;
                         this.tournamentSearchResults = result.data.tournaments;
                     },
                     err => {
+                        this.showLoadingIcon = false;
                         if(err.response.data.message){
                             this.errors.push(err.response.data.message);
                         }

@@ -12,6 +12,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                    <loading-spinner v-if="showLoadingIcon"></loading-spinner>
                     <div class="col-sm-6 bg-index-sign-up"></div>
                     <div class="col-sm-6">
                         <div class="form-group px-2 mt-4 mb-4">
@@ -78,8 +79,12 @@
 <script>
 import api from '@/services/api';
 import commonServices from '@/services/commonServices';
+import LoadingSpinner from '@/components/LoadingSpinner';
     export default {
         name: 'SignUp',
+        components: {
+        	LoadingSpinner
+    	},
         data: function() {
             return {
                 firstname: null,
@@ -87,6 +92,7 @@ import commonServices from '@/services/commonServices';
                 email: null,
                 password: null,
                 repeatpassword: null,
+                showLoadingIcon: false,
                 errors: []
             }
         },
@@ -112,8 +118,11 @@ import commonServices from '@/services/commonServices';
                     formData.sex = "Male";
                     formData.email = this.email;
                     formData.password = this.password;
+
+                    this.showLoadingIcon = true;
                     
                     api().post('/auth/signup', formData).then(result=>{
+                        this.showLoadingIcon = false;
 		                console.log(result.data.message);
                         localStorage.setItem('userDetails', JSON.stringify(result.data.userDetails)); // Store the user details in browser local storage
                         this.$router.push({
@@ -121,6 +130,7 @@ import commonServices from '@/services/commonServices';
                         })
                     },
                     err => {
+                        this.showLoadingIcon = false;
                         this.errors = [];
                         localStorage.removeItem('userDetails');
                         this.errors.push(err.response.data.message);
