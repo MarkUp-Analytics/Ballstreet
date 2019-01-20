@@ -6,6 +6,7 @@ import SignUp from '@/components/SignUp'
 import Profile from '@/components/Profile'
 import Create from '@/components/Create'
 import Discover from '@/components/Discover'
+import GetStarted from '@/components/GetStarted'
 import Page1 from '@/components/Page1'
 import Page2 from '@/components/Page2'
 import Page3 from '@/components/Page3'
@@ -44,6 +45,11 @@ export default new Router({
       path: '/discover',
       name: 'Discover',
       component: Discover
+    },
+    {
+      path: '/getstarted',
+      name: 'GetStarted',
+      component: GetStarted
     },
     {
       path: '/page1',

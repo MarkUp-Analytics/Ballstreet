@@ -3,7 +3,7 @@
 		<div v-if="!userDetails" class="d-flex flex-column flex-md-row align-items-center p-2 px-md-4 mb-1 bg-white container">
 			<div class="ballstreet-logo-full mr-md-auto font-weight-normal cursorPointer" @click="redirectPage('Index')"></div>
 			<div>
-				<a class="p-2 text-red" href="">Get Started</a>
+				<a class="p-2 text-red" href="#/getstarted">Get Started</a>
 				<a class="p-2 text-red" href="#/signin">Sign In</a>
 				<a class="mx-2 btn btn-dark bg-red border-0" href="#/signup">Sign Up</a>
 			</div>
@@ -48,7 +48,7 @@
 				</div>
 			</nav>
 		<router-view/>
-		<footer class="p-5 mx-auto text-center bg-violet">
+		<footer class="p-5 mx-auto text-center bg-violet" id="footer-links">
 			<div class="container">
 				<div class="row">
 					<div class="col-12 mb-4 col-md">
@@ -58,28 +58,28 @@
 					<div class="col-sm-4 mb-4 col-md">
 						<h6 class="text-yellow font-weight-bold">Company</h6>
 						<ul class="list-unstyled font-size-14pc">
-							<li><a class="text-white" href="">About</a></li>
-							<li><a class="text-white" href="">Careers</a></li>
-							<li><a class="text-white" href="">Brand Center</a></li>
-							<li><a class="text-white" href="">Privacy & Terms</a></li>
-							<li><a class="text-white" href="">Returns & Refunds</a></li>
-							<li><a class="text-white" href="">Get In Touch</a></li>
+							<li><a class="text-white" id="footer-link-about-ballstreet" data-tab="#v-about-ballstreet" href="#/getstarted#v-about-ballstreet">About</a></li>
+							<li><a class="text-white" href="#">Careers</a></li>
+							<li><a class="text-white" id="footer-link-brand-center" data-tab="#v-brand-center" href="#/getstarted#v-brand-center">Brand Center</a></li>
+							<li><a class="text-white" href="#/getstarted#v-privacy-and-terms">Privacy & Terms</a></li>
+							<li><a class="text-white" href="#/getstarted#v-returns-and-refunds">Returns & Refunds</a></li>
+							<li><a class="text-white" href="#/getstarted#v-get-in-touch">Get In Touch</a></li>
 						</ul>
 					</div>
 					<div class="col-sm-4 mb-2 col-md">
 						<h6 class="text-yellow font-weight-bold">Ballstreet</h6>
 						<ul class="list-unstyled font-size-14pc">
-							<li><a class="text-white" href="">Features</a></li>
-							<li><a class="text-white" href="">Security</a></li>
-							<li><a class="text-white" href="">Downloads</a></li>
-							<li><a class="text-white" href="">Games of Skill</a></li>
-							<li><a class="text-white" href="">How it Works</a></li>
+							<li><a class="text-white" href="#/getstarted">Features</a></li>
+							<li><a class="text-white" href="#/getstarted">Security</a></li>
+							<li><a class="text-white" href="#/getstarted">Downloads</a></li>
+							<li><a class="text-white" href="#/getstarted">Games of Skill</a></li>
+							<li><a class="text-white" href="#/getstarted">How it Works</a></li>
 						</ul>
 					</div>
 					<div class="col-sm-4 mb-4 col-md">
 						<h6 class="text-yellow font-weight-bold">Help</h6>
 						<ul class="list-unstyled font-size-14pc">
-							<li><a class="text-white" href="">FAQs</a></li>
+							<li><a class="text-white" href="#/getstarted">FAQs</a></li>
 							<li><a class="text-white" href="#">Blog</a></li>
 							<li><a class="text-white" href="#">Facebook</a></li>
 							<li><a class="text-white" href="#">Twitter</a></li>
