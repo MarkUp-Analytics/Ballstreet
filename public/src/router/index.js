@@ -1,11 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/Home'
-import Login from '@/components/Login'
-import NewUser from '@/components/NewUser'
+import Index from '@/components/Index'
+import Signin from '@/components/Signin'
+import SignUp from '@/components/SignUp'
 import Profile from '@/components/Profile'
 import Create from '@/components/Create'
 import Discover from '@/components/Discover'
+import Page1 from '@/components/Page1'
+import Page2 from '@/components/Page2'
+import Page3 from '@/components/Page3'
+import Page4 from '@/components/Page4'
 
 Vue.use(Router)
 
@@ -13,18 +17,18 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: Home
+      name: 'Index',
+      component: Index
     },
     {
-      path: '/login',
-      name: 'Login',
-      component: Login
+      path: '/signin',
+      name: 'Signin',
+      component: Signin
     },
     {
-      path: '/newuser',
-      name: 'NewUser',
-      component: NewUser
+      path: '/signup',
+      name: 'SignUp',
+      component: SignUp
     },
     {
       path: '/profile',
@@ -40,6 +44,26 @@ export default new Router({
       path: '/discover',
       name: 'Discover',
       component: Discover
+    },
+    {
+      path: '/page1',
+      name: 'Page1',
+      component: Page1
+    },
+    {
+      path: '/page2',
+      name: 'Page2',
+      component: Page2
+    },
+    {
+      path: '/page3',
+      name: 'Page3',
+      component: Page3
+    },
+    {
+      path: '/page4',
+      name: 'Page4',
+      component: Page4
     }
   ]
 })

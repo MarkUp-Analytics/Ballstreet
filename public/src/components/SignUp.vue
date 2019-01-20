@@ -43,7 +43,7 @@
 import api from '@/services/api';
 import commonServices from '@/services/commonServices';
     export default {
-        name: 'NewUser',
+        name: 'SignUp',
         data: function() {
             return {
                 firstname: null,

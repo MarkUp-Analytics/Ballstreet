@@ -69,7 +69,7 @@
                 this.getAssociatedLeagues(this.userDetails.shortid);
             } else {
                 this.$router.push({
-                    name: 'Login',
+                    name: 'Index',
                 })
             }
     

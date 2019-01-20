@@ -72,7 +72,7 @@
     import api from '@/services/api';
     import commonServices from '@/services/commonServices';
     export default {
-        name: 'Login',
+        name: 'Signin',
         data: function() {
             return {
                 email: null,
@@ -103,7 +103,6 @@
                     username: this.email,
                     password: this.password
 				}
-				console.log("test");
                 api().post('/auth/', formData).then(result => {
                         console.log(result.data.message);
                         localStorage.setItem('userDetails', JSON.stringify(result.data.userDetails)); // Store the user details in browser local storage

@@ -1,11 +1,11 @@
 <template>
 	<div id="app">
 		<div v-if="!userDetails" class="d-flex flex-column flex-md-row align-items-center p-2 px-md-4 mb-1 bg-white container">
-			<div class="ballstreet-logo-full mr-md-auto font-weight-normal cursorPointer" @click="redirectPage('Home')"></div>
+			<div class="ballstreet-logo-full mr-md-auto font-weight-normal cursorPointer" @click="redirectPage('Index')"></div>
 			<div>
 				<a class="p-2 text-red font-weight-bold" href="">Get Started</a>
-				<a class="p-2 text-red font-weight-bold" href="#/login">Sign In</a>
-				<a class="p-2 text-red font-weight-bold" href="#/newuser">Sign Up</a>
+				<a class="p-2 text-red font-weight-bold" href="#/signin">Sign In</a>
+				<a class="p-2 text-red font-weight-bold" href="#/signup">Sign Up</a>
 			</div>
 		</div>
 		<nav v-if="userDetails" class="navbar navbar-expand-lg navbar-light bg-white font-size-16">
@@ -40,7 +40,7 @@
 										<span class="text-red">Funds</span><br/> INR 739
 									</a>
 									<div class="dropdown-divider"></div>
-									<a class="dropdown-item text-red" href="" @click.prevent="logout(); redirectPage('Home');">Log Out</a>
+									<a class="dropdown-item text-red" href="" @click.prevent="logout(); redirectPage('Index');">Log Out</a>
 								</div>
 							</li>
 						</ul>
