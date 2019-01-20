@@ -3,17 +3,17 @@
 		<div v-if="!userDetails" class="d-flex flex-column flex-md-row align-items-center p-2 px-md-4 mb-1 bg-white container">
 			<div class="ballstreet-logo-full mr-md-auto font-weight-normal cursorPointer" @click="redirectPage('Index')"></div>
 			<div>
-				<a class="p-2 text-red font-weight-bold" href="">Get Started</a>
-				<a class="p-2 text-red font-weight-bold" href="#/signin">Sign In</a>
-				<a class="p-2 text-red font-weight-bold" href="#/signup">Sign Up</a>
+				<a class="p-2 text-red" href="">Get Started</a>
+				<a class="p-2 text-red" href="#/signin">Sign In</a>
+				<a class="mx-2 btn btn-dark bg-red border-0" href="#/signup">Sign Up</a>
 			</div>
 		</div>
 		<nav v-if="userDetails" class="navbar navbar-expand-lg navbar-light bg-white font-size-16">
 				<div class="container pr-2">
-					<div class="ballstreet-logo-small mr-md-auto cursorPointer" @click.prevent="redirectPage('Profile')"></div>
+					<div class="ballstreet-logo-full mr-md-auto cursorPointer" @click.prevent="redirectPage('Profile')"></div>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
-					<small><span class="navbar-toggler-icon text-violet"></span></small>
-				</button>
+						<small><span class="navbar-toggler-icon text-violet"></span></small>
+					</button>
 					<div v-if="userDetails" class="collapse navbar-collapse" id="navbarsExample09">
 						<ul class="navbar-nav mr-auto">
 						</ul>
@@ -57,7 +57,7 @@
 					</div>
 					<div class="col-sm-4 mb-4 col-md">
 						<h6 class="text-yellow font-weight-bold">Company</h6>
-						<ul class="list-unstyled font-size-12pc">
+						<ul class="list-unstyled font-size-14pc">
 							<li><a class="text-white" href="">About</a></li>
 							<li><a class="text-white" href="">Careers</a></li>
 							<li><a class="text-white" href="">Brand Center</a></li>
@@ -68,7 +68,7 @@
 					</div>
 					<div class="col-sm-4 mb-2 col-md">
 						<h6 class="text-yellow font-weight-bold">Ballstreet</h6>
-						<ul class="list-unstyled font-size-12pc">
+						<ul class="list-unstyled font-size-14pc">
 							<li><a class="text-white" href="">Features</a></li>
 							<li><a class="text-white" href="">Security</a></li>
 							<li><a class="text-white" href="">Downloads</a></li>
@@ -78,7 +78,7 @@
 					</div>
 					<div class="col-sm-4 mb-4 col-md">
 						<h6 class="text-yellow font-weight-bold">Help</h6>
-						<ul class="list-unstyled font-size-12pc">
+						<ul class="list-unstyled font-size-14pc">
 							<li><a class="text-white" href="">FAQs</a></li>
 							<li><a class="text-white" href="#">Blog</a></li>
 							<li><a class="text-white" href="#">Facebook</a></li>

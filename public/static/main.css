@@ -22,7 +22,7 @@ body {
 }
 
 .ballstreet-logo-full {
-  background: url(/static/assets/icons/ballstreet-low.png) center center;
+  background: url(assets/icons/ballstreet-low.png) center center;
   background-repeat: no-repeat;
   background-size: contain;
   height: 80px;
@@ -30,7 +30,7 @@ body {
 }
 
 .ballstreet-logo-small {
-  background: url(/static/assets/icons/ballstreet-low.png) center center;
+  background: url(assets/icons/ballstreet-low.png) center center;
   background-repeat: no-repeat;
   background-size: contain;
   height: 60px;
@@ -38,7 +38,7 @@ body {
 }
 
 .ballstreet-logo-only {
-  background: url(/static/assets/icons/ballstreet-logo-only-low.png) center center;
+  background: url(assets/icons/ballstreet-logo-only-low.png) center center;
   background-repeat: no-repeat;
   background-size: contain;
   height: 50px;
@@ -46,7 +46,7 @@ body {
 }
 
 .ballstreet-logo-only-violet {
-  background: url(/static/assets/icons/ballstreet-logo-only-violet-low.png) center center;
+  background: url(assets/icons/ballstreet-logo-only-violet-low.png) center center;
   background-repeat: no-repeat;
   background-size: contain;
   height: 70px;
@@ -115,21 +115,21 @@ a:hover, a:active {
 }
 
 .bg-game-of-skill {
-  background: url(/static/assets/images/bg-game-of-skill-low.png) center center;
+  background: url(assets/images/bg-game-of-skill-low.png) center center;
   background-repeat: no-repeat;
   background-size: contain;
   height: 300px;
 }
 
 .bg-index-sign-in {
-  background: url(/static/assets/images/bg-index-sign-in-low.png) center center;
+  background: url(assets/images/bg-index-sign-in-low.png) center center;
   background-repeat: no-repeat;
   background-size: contain;
   height: 250px;
 }
 
 .bg-index-sign-up {
-  background: url(/static/assets/images/bg-index-sign-up-low.png) center center;
+  background: url(assets/images/bg-index-sign-up-low.png) center center;
   background-repeat: no-repeat;
   background-size: contain;
   height: 250px;
@@ -173,4 +173,12 @@ a:hover, a:active {
 
 .font-size-16 {
   font-size: 16px;
+}
+
+.font-size-16pc {
+  font-size: 16px;
+}
+
+.font-size-14pc {
+  font-size: 14px;
 }

@@ -1,70 +1,70 @@
 <template>
     <div>
-        	<div class="row p-2 mx-auto text-center bg-light" id="sign-in">
-    	<div class="container">
-			<h1 class="text-violet mt-1 mb-3">Sign In</h1>
-			<div class="row my-5">
-                <div v-if="errors.length" class="alert alert-danger alert-dismissible fade show w-100" role="alert">
-					<span v-for="error in errors">
-                    <strong>Error!</strong> {{error}}
-					</span>
-					<button type="button" class="close" data-dismiss="alert" @click="errors = [];" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				</div>
-				<div class="col-sm-6 bg-index-sign-in"></div>
-				<div class="col-sm-6">
-				  <div class="form-group px-2">
-				    <input type="email" class="form-control" id="exampleInputEmail1" v-model="email" aria-describedby="emailHelp" placeholder="Enter email">
-				  </div>
-				  <div class="form-group mt-3 px-2">
-				    <input type="password" class="form-control" id="exampleInputPassword1" v-model="password" placeholder="Password">
-						<small><a href="#" class="form-text text-dark">Forgot Password?</a></small>
-				  </div>
-					<div class="form-group mt-4 px-2">
-				  	<a href="" class="btn btn-dark bg-red border-0 w-100 font-weight-bold" @click.prevent="login()">Sign In</a>
+		<div class="row p-5 mx-auto text-center bg-light" id="sign-in">
+			<div class="container">
+				<h1 class="text-violet mt-1 mb-3">Sign In</h1>
+				<div class="row my-5">
+					<div v-if="errors.length" class="alert alert-danger alert-dismissible fade show w-100 mb-4" role="alert">
+						<span v-for="error in errors">
+							<strong>Error!</strong> {{error}}
+						</span>
+						<button type="button" class="close" data-dismiss="alert" @click="errors = [];" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="col-sm-6 bg-index-sign-in"></div>
+					<div class="col-sm-6">
+						<div class="form-group px-2 mt-4 mb-4">
+							<input type="email" class="form-control" id="exampleInputEmail1" v-model="email" aria-describedby="emailHelp" placeholder="Enter email">
+						</div>
+						<div class="form-group mt-3 px-2 mb-4">
+							<input type="password" class="form-control" id="exampleInputPassword1" v-model="password" placeholder="Password">
+								<small><a href="#" class="form-text text-dark">Forgot Password?</a></small>
+						</div>
+						<div class="form-group mt-5 px-2">
+							<a href="" class="btn btn-dark bg-red border-0 w-100 font-weight-bold" @click.prevent="login()">Sign In</a>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="row py-5 mx-auto text-center bg-white" id="social-links">
+		<div class="row py-5 mx-auto text-center bg-white" id="social-links">
 			<div class="container">
 				<ul class="nav nav-fill">
 					<li class="nav-item">
 						<a class="nav-link active text-violet" href="#">
-							<i class="fa fa-briefcase fa-2x"></i><br/>
+							<i class="fa fa-briefcase fa-1x"></i><br/>
 							<h6 class="mt-2">Careers</h6>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link active text-violet" href="#">
-							<i class="fa fa-blog fa-2x"></i><br/>
+							<i class="fa fa-blog fa-1x"></i><br/>
 							<h6 class="mt-2">Blog</h6>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link active text-violet" href="#">
-							<i class="fab fa-facebook fa-2x"></i><br/>
+							<i class="fab fa-facebook fa-1x"></i><br/>
 							<h6 class="mt-2">Facebook</h6>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link active text-violet" href="#">
-							<i class="fab fa-twitter fa-2x"></i><br/>
+							<i class="fab fa-twitter fa-1x"></i><br/>
 							<h6 class="mt-2">Twitter</h6>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link active text-violet" href="#">
-							<i class="fab fa-linkedin fa-2x"></i><br/>
+							<i class="fab fa-linkedin fa-1x"></i><br/>
 							<h6 class="mt-2">LinkedIn</h6>
 						</a>
 					</li>
 				</ul>
 			</div>
-	</div>
+		</div>
     </div>
 </template>
 
@@ -121,11 +121,5 @@
 </script>
 
 <style scoped>
-    .loginInput {
-        max-width: 450px;
-        border: 0;
-        border-bottom: 1px solid #dddedf;
-        padding: 4px 8px;
-        margin: 4px;
-    }
+
 </style>
