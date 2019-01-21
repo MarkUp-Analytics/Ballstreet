@@ -1,19 +1,23 @@
 <template>
 	<div>
-		<div class="row p-3 pb-3 mx-auto text-center container">
-			<div class="col-lg p-5 bg-game-of-skill"></div>
-			<div class="col-lg text-center px-5 pb-5 d-none d-lg-block">
-				<br/><br/>
-				<h1 class="text-violet">A simple <span class="font-weight-bold">game of skill</span>, designed to engage</h1>
-				<a class="mt-3 mb-5 btn btn-dark bg-red border-0" href="#know-more">Know More</a>
-			</div>
-			<div class="col-lg text-center px-5 d-lg-none">
-				<h1 class="text-violet">A simple <span class="font-weight-bold">game of skill</span>, designed to engage</h1>
-				<a class="mt-3 mb-5 btn btn-dark bg-red border-0" href="#know-more">Know More</a>
+		<div class="p-5 mx-auto text-center bg-light">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg p-5 bg-game-of-skill"></div>
+					<div class="col-lg text-center px-5 pb-5 d-none d-lg-block">
+						<br/><br/>
+						<h1 class="text-violet">A simple <a class="font-weight-bold text-violet" href="#/getstarted/gamesOfSkill">game of skill</a>, designed to engage</h1>
+						<a class="mt-3 btn btn-dark bg-red border-0" href="#know-more">Know More</a>
+					</div>
+					<div class="col-lg text-center px-5 pb-5 d-lg-none">
+						<h1 class="text-violet">A simple <a class="font-weight-bold text-violet" href="#/getstarted/gamesOfSkill">game of skill</a>, designed to engage</h1>
+						<a class="mt-3 btn btn-dark bg-red border-0" href="#know-more">Know More</a>
+					</div>
+				</div>
 			</div>
 		</div>
 
-		<div class="row p-5 mx-auto text-center bg-light" id="know-more">
+		<div class="row p-5 mx-auto text-center bg-white" id="know-more">
 			<div class="container">
 				<a href="#know-more">
 					<div class="ballstreet-logo-only mr-md-auto font-weight-normal w-100"></div>
@@ -23,7 +27,7 @@
 				<br/>
 
 				<div class="card-columns mb-5">
-					<div class="card bg-white">
+					<div class="card bg-light">
 					<div class="card-body">
 						<h5 class="card-title text-yellow">
 								<i class="fas fa-hat-wizard fa-1x mb-2"></i><br/>
@@ -33,7 +37,7 @@
 					</div>
 					</div>
 
-					<div class="card bg-white">
+					<div class="card bg-light">
 						<div class="card-body">
 							<h5 class="card-title text-yellow">
 									<i class="fas fa-calendar-day fa-1x mb-2"></i><br/>
@@ -43,7 +47,7 @@
 						</div>
 					</div>
 
-					<div class="card bg-white">
+					<div class="card bg-light">
 						<div class="card-body">
 							<h5 class="card-title text-yellow">
 									<i class="fas fa-chart-pie fa-1x mb-2"></i><br/>
@@ -53,7 +57,7 @@
 						</div>
 					</div>
 
-					<div class="card bg-white">
+					<div class="card bg-light">
 						<div class="card-body">
 							<h5 class="card-title text-yellow">
 									<i class="fab fa-creative-commons-zero fa-1x mb-2"></i><br/>
@@ -63,7 +67,7 @@
 						</div>
 					</div>
 
-					<div class="card bg-white">
+					<div class="card bg-light">
 						<div class="card-body">
 							<h5 class="card-title text-yellow">
 									<i class="fas fa-globe-asia fa-1x mb-2"></i><br/>
@@ -73,7 +77,7 @@
 						</div>
 					</div>
 
-					<div class="card bg-white">
+					<div class="card bg-light">
 						<div class="card-body">
 							<h5 class="card-title text-yellow">
 									<i class="fas fa-clock fa-1x mb-2"></i><br/>
@@ -85,13 +89,13 @@
 				</div>
 			</div>
 			<div class="container">
-				<a href="#" class="text-violet">
+				<a href="#/getstarted/features" class="text-violet">
 					<h6 class="mt-1 mb-5">Click here to know more features</h6>
 				</a>
 			</div>
 		</div>
 
-		<div class="row py-5 mx-auto text-center bg-white" id="how-it-works">
+		<div class="row py-5 mx-auto text-center bg-light" id="how-it-works">
 			<div class="container">
 				<h1 class="text-violet mt-1 mb-5">How It Works</h1>
 				<ul class="list-group px-5 mb-5">
@@ -110,8 +114,8 @@
 				</ul>
 			</div>
 			<div class="container">
-				<a href="#" class="text-violet">
-					<h6 class="mt-1 mb-5 px-5">Click here to know more on how it works</h6>
+				<a href="#/getstarted/howBallstreetWorks" class="text-violet">
+					<h6 class="mt-1 mb-5 px-5">Click here to know more on how Ballstreet works</h6>
 				</a>
 			</div>
 		</div>
