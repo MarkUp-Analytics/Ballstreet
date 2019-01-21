@@ -30,6 +30,35 @@
         </div>
     
         <hr class="mb-5" />
+
+        <div v-if="tournamentSearchResults && tournamentSearchResults.length > 0">
+            <table class="table table-md sortable">
+                <thead>
+                    <tr>
+                        <th scope="col-2">Tournament Name</th>
+                        <th scope="col-2">Start Date</th>
+                        <th scope="col-2">End Date</th>
+                        <th scope="col-2">Link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(tournament, index) in tournamentSearchResults">
+                        <td>
+                            {{tournament.tournament_name}}
+                        </td>
+                        <td>
+                            {{tournament.tournament_start_date | formatDate}}
+                        </td>
+                        <td>
+                            {{tournament.tournament_end_date | formatDate}}
+                        </td>
+                        <td>
+                            <a href="" @click.prevent="gotoCreate(tournament)">Create League</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 
@@ -69,7 +98,15 @@
                         }
                     })
             },
-
+            gotoCreate: function(tournament){
+				this.$router.push({
+                    name: 'Create',
+                    params:{
+                        tournament_id: tournament.tournament_id
+                    }
+                    
+				})
+			},
             searchTournaments: function(){
                 this.showLoadingIcon = true;
                 api().get('/tournament/searchTournament', {

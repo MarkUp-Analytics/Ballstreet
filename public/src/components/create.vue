@@ -58,7 +58,13 @@ import api from '@/services/api';
     export default {
         name: 'Create',
         created() {
-            this.getTournamentList();
+            
+            if(this.$route.params != null){
+                this.getTournamentList(this.$route.params.tournament_id);
+            }
+            else{
+                this.getTournamentList(null);
+            }
         },
         watch: {
             selectedTour: {
@@ -103,10 +109,17 @@ import api from '@/services/api';
             }
         },
         methods: {
-            getTournamentList: function() {
+            getTournamentList: function(preselectedTour) {
+                var self = this;
                 api().get('/tournament/upcomingTournaments').then(result => {
-                        this.createAvailableSportsList(result.data.tours);
-                        this.upcomingTours = result.data.tours;
+                        self.createAvailableSportsList(result.data.tours);
+                        self.upcomingTours = result.data.tours;
+                        if(preselectedTour != null){
+                            self.selectedTour = self.upcomingTours.filter(function(tour){
+                                return tour.tournament_id === preselectedTour;
+                            })[0];
+                            self.sportFilter = self.selectedTour.sport_name;
+                        }
                     },
                     err => {
                         console.log(err)
