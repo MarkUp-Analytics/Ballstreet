@@ -73,7 +73,7 @@
 							<li><a class="text-white" @click="scrollToTop()" href="#/getstarted/security">Security</a></li>
 							<li><a class="text-white" @click="scrollToTop()" href="#/getstarted/downloads">Downloads</a></li>
 							<li><a class="text-white" @click="scrollToTop()" href="#/getstarted/gamesOfSkill">Games of Skill</a></li>
-							<li><a class="text-white" @click="scrollToTop()" href="#/getstarted/howItWorks">How it Works</a></li>
+							<li><a class="text-white" @click="scrollToTop()" href="#/getstarted/howBallstreetWorks">How it Works</a></li>
 						</ul>
 					</div>
 					<div class="col-sm-4 mb-4 col-md">

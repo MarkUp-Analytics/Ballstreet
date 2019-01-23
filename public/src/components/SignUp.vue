@@ -31,11 +31,16 @@
                             <input type="password" class="form-control" v-model="repeatpassword" placeholder="Repeat Password*">
                         </div>
                         <div class="form-group px-2 mt-5">
-                            <button class="btn btn-dark bg-red border-0 w-100 font-weight-bold" @click="checkForm()">Create User</button>
+                            <button class="btn btn-dark bg-red border-0 w-100" @click="checkForm()">Create User</button>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="container">
+				<a href="#/getstarted/features" class="text-violet">
+					<h6 class="mt-1 mb-5">Click here to know more features of Ballstreet</h6>
+				</a>
+			</div>
         </div>
         <div class="row py-5 mx-auto text-center bg-white" id="social-links">
             <div class="container">

@@ -23,10 +23,15 @@
 								<small><a href="#" class="form-text text-dark">Forgot Password?</a></small>
 						</div>
 						<div class="form-group mt-5 px-2">
-							<a href="" class="btn btn-dark bg-red border-0 w-100 font-weight-bold" @click.prevent="login()">Sign In</a>
+							<a href="" class="btn btn-dark bg-red border-0 w-100" @click.prevent="login()">Sign In</a>
 						</div>
 					</div>
 				</div>
+			</div>
+			<div class="container">
+				<a href="#/getstarted/howBallstreetWorks" class="text-violet">
+					<h6 class="mt-1 mb-5 px-5">Click here to know more on how Ballstreet works</h6>
+				</a>
 			</div>
 		</div>
 
