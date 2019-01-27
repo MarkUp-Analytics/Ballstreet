@@ -135,6 +135,20 @@ a:hover, a:active {
   height: 250px;
 }
 
+.bg-high-jump {
+  background: url(assets/images/bg-high-jump.png) center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100px;
+}
+
+.bg-tennis {
+  background: url(assets/images/bg-tennis.png) center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100px;
+}
+
 .font-size-12pc {
 	font-size: 12px;
 }
@@ -154,9 +168,9 @@ a:hover, a:active {
 
 .getStartedActive {
   background-color: #462446 !important;
-    color: white !important;
-    border-radius: 0.25rem;
-    padding: 5px;
+  color: white !important;
+  border-radius: 0.25rem;
+  padding: 5px;
 }
 
 .font-size-16 {
@@ -169,4 +183,16 @@ a:hover, a:active {
 
 .font-size-14pc {
   font-size: 14px;
+}
+
+.max-height-90vh {
+  max-height: 90vh;
+}
+
+table {
+  overflow: scroll;
+}
+
+.border-bottom {
+  border-bottom-width: 20px;
 }

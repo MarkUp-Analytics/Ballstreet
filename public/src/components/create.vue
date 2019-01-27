@@ -1,55 +1,55 @@
 <template>
-<div class="pt-3 pr-5 pl-5 text-center">
-		<h1 class="mb-4 text-center text-violet">Create League</h1>
-		<div class="row mx-auto">
-            <div v-if="errors.length" class="alert alert-danger alert-dismissible fade show w-100" role="alert">
-					<span v-for="error in errors">
+    <div class="p-5 text-center">
+        <h1 class="mb-4 text-center text-violet">Create League</h1>
+        <div class="row mx-auto mb-5">
+            <div v-if="errors.length" class="alert alert-danger alert-dismissible fade show w-100 mt-2" role="alert">
+                    <span v-for="error in errors">
                     <strong>Error!</strong> {{error}}
-					</span>
-					<button type="button" class="close" data-dismiss="alert" @click="errors = [];" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				</div>
-			<div class="col-md"></div>
-			<div class="col-md">
-				<form class="mb-5">
-					<div class="form-group mt-3">
-						<label>Sport</label>
+                    </span>
+                    <button type="button" class="close" data-dismiss="alert" @click="errors = [];" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="col-md"></div>
+            <div class="col-md">
+                <form>
+                    <div class="form-group mt-3">
+                        <label>Sport</label>
                         <select class="form-control" v-model="sportFilter">
                             <option v-for="sport in sportsList">
                                 {{ sport }}
                             </option>
                         </select>
-						
-					</div>
-					<div class="form-group mt-3">
-						<label>Tournament</label>
-						<select class="form-control" v-model="selectedTour" :disabled="!sportFilter">
+                        
+                    </div>
+                    <div class="form-group mt-3">
+                        <label>Tournament</label>
+                        <select class="form-control" v-model="selectedTour" :disabled="!sportFilter">
                             <option v-for="tour in filteredUpcomingTours" :value="tour">
                                 {{ tour.tournament_name }}
                             </option>
-						</select>
-						<small v-if="selectedTour">No. of Games: {{totalGames}}</small>
-					</div>
-					<div class="form-group mt-3">
-						<label>Enter Cash Per Game, INR</label>
-						<input class="form-control" type="text" placeholder="Example: INR 10" v-model="minimum_bet">
-						<small v-if="minimum_bet">Total Cash Required, {{'INR'}}: {{minimum_bet * totalGames}}</a></small>
-					</div>
+                        </select>
+                        <small v-if="selectedTour">No. of Games: {{totalGames}}</small>
+                    </div>
                     <div class="form-group mt-3">
-						<label>League Name</label>
-						<input class="form-control" type="text" placeholder="Enter League name" v-model="league_name">
-					</div>
-					<div class="row mt-4 text-right">
-						<div class="col-lg">
-							<a href="" class="btn btn-dark bg-red border-0 w-100" @click.prevent="saveLeague()">Create League</a>
-						</div>
-					</div>
-				</form>
-			</div>
-			<div class="col-md"></div>
-		</div>
-	</div>
+                        <label>Enter Cash Per Game, INR</label>
+                        <input class="form-control" type="text" placeholder="Example: INR 10" v-model="minimum_bet">
+                        <small v-if="minimum_bet">Total Cash Required, {{'INR'}}: {{minimum_bet * totalGames}}</a></small>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label>League Name</label>
+                        <input class="form-control" type="text" placeholder="Enter League name" v-model="league_name">
+                    </div>
+                    <div class="row mt-5 text-right">
+                        <div class="col-lg">
+                            <a href="" class="btn btn-dark bg-red border-0 w-100" @click.prevent="saveLeague()">Create League</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md"></div>
+        </div>
+    </div>
 </template>
 
 <script>

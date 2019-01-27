@@ -4,7 +4,7 @@
 			<div class="container">
 				<h1 class="text-violet mt-1 mb-3">Sign In</h1>
 				<div class="row my-5">
-					<div v-if="errors.length" class="alert alert-danger alert-dismissible fade show w-100 mb-4" role="alert">
+					<div v-if="errors.length" class="alert alert-danger alert-dismissible fade show w-100 mb-4 mx-4 px-5" role="alert">
 						<span v-for="error in errors">
 							<strong>Error!</strong> {{error}}
 						</span>
@@ -134,6 +134,6 @@
     }
 </script>
 
-<style scoped>
+<style>
 
 </style>

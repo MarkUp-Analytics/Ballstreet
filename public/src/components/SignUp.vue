@@ -4,7 +4,7 @@
             <div class="container">
                 <h1 class="text-violet mt-1 mb-3">Sign Up</h1>
                 <div class="row my-5">
-                    <div v-if="errors.length" class="alert alert-danger alert-dismissible fade show w-100 mb-4" role="alert">
+                    <div v-if="errors.length" class="alert alert-danger alert-dismissible fade show w-100 mx-4 px-5 mb-4" role="alert">
                         <span v-for="error in errors">
                             <strong>Error!</strong> {{error}}<br>
                         </span>
@@ -38,7 +38,7 @@
             </div>
             <div class="container">
 				<a href="#/getstarted/features" class="text-violet">
-					<h6 class="mt-1 mb-5">Click here to know more features of Ballstreet</h6>
+					<h6 class="mt-1 mb-5">Click here to know about the features of Ballstreet</h6>
 				</a>
 			</div>
         </div>
@@ -147,11 +147,5 @@ import LoadingSpinner from '@/components/LoadingSpinner';
     }
 </script>
 
-<style scoped>
-    .loginInput {
-        border: 0;
-        border-bottom: 1px solid #dddedf;
-        padding: 4px 8px;
-        margin: 4px;
-    }
+<style>
 </style>

@@ -25,7 +25,7 @@
 								<a class="text-red text-underline" href="" @click.prevent="redirectPage('Create')" :class="{'textBold': $route.name === 'Create'}">Create</a>
 							</li>
 							<li class="nav-item m-2">
-								<a class="text-red" href="" :class="{'textBold': $route.name === 'Investments'}">Investments</a>
+								<a class="text-red" href="" :class="{'textBold': $route.name === 'Investments'}">P&L</a>
 							</li>
 							<li class="nav-item dropdown m-2">
 								<a class="text-red dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

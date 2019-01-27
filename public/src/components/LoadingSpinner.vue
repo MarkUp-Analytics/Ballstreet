@@ -1,9 +1,7 @@
 <template>
     <div class="overlay">
         <div class="centerAligned">
-        <span>
-            <i class="fa fa-spinner fa-2x rotate text-yellow"></i>
-        </span>
+        <img src="../../static/assets/icons/ballstreet-logo-only-50x50-gif.gif"/>
         <h5 style="color:white">Loading....</h5>
         </div>
     </div>

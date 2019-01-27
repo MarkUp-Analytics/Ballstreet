@@ -27,7 +27,7 @@
 				<br/>
 
 				<div class="card-columns mb-5">
-					<div class="card bg-light">
+					<div class="card bg-none">
 					<div class="card-body">
 						<h5 class="card-title text-yellow">
 								<i class="fas fa-hat-wizard fa-1x mb-2"></i><br/>
@@ -37,7 +37,7 @@
 					</div>
 					</div>
 
-					<div class="card bg-light">
+					<div class="card bg-none">
 						<div class="card-body">
 							<h5 class="card-title text-yellow">
 									<i class="fas fa-calendar-day fa-1x mb-2"></i><br/>
@@ -47,7 +47,7 @@
 						</div>
 					</div>
 
-					<div class="card bg-light">
+					<div class="card bg-none">
 						<div class="card-body">
 							<h5 class="card-title text-yellow">
 									<i class="fas fa-chart-pie fa-1x mb-2"></i><br/>
@@ -57,7 +57,7 @@
 						</div>
 					</div>
 
-					<div class="card bg-light">
+					<div class="card bg-none">
 						<div class="card-body">
 							<h5 class="card-title text-yellow">
 									<i class="fab fa-creative-commons-zero fa-1x mb-2"></i><br/>
@@ -67,7 +67,7 @@
 						</div>
 					</div>
 
-					<div class="card bg-light">
+					<div class="card bg-none">
 						<div class="card-body">
 							<h5 class="card-title text-yellow">
 									<i class="fas fa-globe-asia fa-1x mb-2"></i><br/>
@@ -77,7 +77,7 @@
 						</div>
 					</div>
 
-					<div class="card bg-light">
+					<div class="card bg-none">
 						<div class="card-body">
 							<h5 class="card-title text-yellow">
 									<i class="fas fa-clock fa-1x mb-2"></i><br/>
@@ -90,7 +90,7 @@
 			</div>
 			<div class="container">
 				<a href="#/getstarted/features" class="text-violet">
-					<h6 class="mt-1 mb-5">Click here to know more features</h6>
+					<h6 class="mt-1 mb-5">Click here to know more on Ballstreet's features</h6>
 				</a>
 			</div>
 		</div>
@@ -99,16 +99,16 @@
 			<div class="container">
 				<h1 class="text-violet mt-1 mb-5">How It Works</h1>
 				<ul class="list-group px-5 mb-5">
-					<li class="list-group-item border-left-0 border-right-0">
+					<li class="list-group-item border-left-0 border-right-0 bg-light">
 						Ballstreet creates tournaments that comprises of games or events, mimicking real-life scenarios, for example: Indian Premier League, English Premier League and World Cup Men’s Cricket etc.
 					</li>
-					<li class="list-group-item border-left-0 border-right-0">
+					<li class="list-group-item border-left-0 border-right-0 bg-light">
 						Users can create groups for their friends to play (the creator of the group becomes the admin of the group), basis any created tournaments by Ballstreet
 					</li>
-					<li class="list-group-item border-left-0 border-right-0">
+					<li class="list-group-item border-left-0 border-right-0 bg-light">
 						Admin decides the amount to be played with for every game, and each of the players are required to deposit the money to play the tournament along with friends
 					</li>
-					<li class="list-group-item border-left-0 border-right-0">
+					<li class="list-group-item border-left-0 border-right-0 bg-light">
 						Basis real time results, players scores are calculated, and at the end of the tournament the final calculated money is paid out to the players
 					</li>
 				</ul>
