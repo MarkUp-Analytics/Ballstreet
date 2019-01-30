@@ -29,94 +29,51 @@
         <div class="p-5 mx-auto text-center bg-light">
             <div class="container">
                 <h1 class="text-violet mt-1 mb-5">Players</h1>
-                <input class="form-control form-control-md mt-4 mb-3" type="text" placeholder="Search for Names"/>
-                <div class="w-100 max-height-90vh table-responsive mt-2 mb-4">
-                    <table class="table sortable">
-                        <thead>
-                            <tr class="text-violet">
-                                <th scope="col"><b>Name</b></th>
-                                <th scope="col">Net INR</th>
-                                <th scope="col">INR Per Game</th>
-                                <th scope="col">P&L</th>
-                                <th scope="col">Winning Streak</th>
-                                <th scope="col">Losing Streak</th>
-                                <th scope="col">Risk Score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="align-middle">
-                                    2018/07/20 1730 Hrs
-                                </td>
-                                <td class="align-middle">
-                                    Chennai, India
-                                </td>
-                                <td class="align-middle">
-                                    Chennai Super Kings
-                                </td>
-                                <td class="align-middle">
-                                    Royal Challengers Bangalore
-                                </td>
-                                <td class="align-middle">
-                                    40
-                                </td>
-                                <td class="align-middle">
-                                    10903
-                                </td>
-                                <td class="align-middle">
-                                    Chennai Super Kings
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="align-middle">
-                                    2018/07/20 1730 Hrs
-                                </td>
-                                <td class="align-middle">
-                                    Chennai, India
-                                </td>
-                                <td class="align-middle">
-                                    Chennai Super Kings
-                                </td>
-                                <td class="align-middle">
-                                    Royal Challengers Bangalore
-                                </td>
-                                <td class="align-middle">
-                                    40
-                                </td>
-                                <td class="align-middle">
-                                    10903
-                                </td>
-                                <td class="align-middle">
-                                    Chennai Super Kings
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="align-middle">
-                                    2018/07/20 1730 Hrs
-                                </td>
-                                <td class="align-middle">
-                                    Chennai, India
-                                </td>
-                                <td class="align-middle">
-                                    Chennai Super Kings
-                                </td>
-                                <td class="align-middle">
-                                    Royal Challengers Bangalore
-                                </td>
-                                <td class="align-middle">
-                                    40
-                                </td>
-                                <td class="align-middle">
-                                    10903
-                                </td>
-                                <td class="align-middle">
-                                    Chennai Super Kings
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>                    
-                </div>    
+                <div class="row mx-auto mb-2">
+                    <div class="col-md"></div>
+                    <div class="col-md">
+                        <input class="form-control form-control-md mt-4 mb-3" type="text" placeholder="Search for Names"/>
+                        <div class="w-100 max-height-90vh table-responsive mt-2 mb-4">
+                            <table class="table sortable">
+                                <thead>
+                                    <tr class="text-violet">
+                                        <th scope="col"><b>Name</b></th>
+                                        <th scope="col">Net INR</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="align-middle">
+                                            AA
+                                        </td>
+                                        <td class="align-middle">
+                                            45
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle">
+                                            BB
+                                        </td>
+                                        <td class="align-middle">
+                                            12
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle">
+                                            CC
+                                        </td>
+                                        <td class="align-middle">
+                                            -57
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>                    
+                        </div> 
+                    </div>  
+                    <div class="col-md"></div>
+                </div>
             </div>
+        </div>
         </div>
     </div>
 </template>
