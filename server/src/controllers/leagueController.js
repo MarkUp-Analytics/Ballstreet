@@ -28,9 +28,9 @@ leagueController.checkDuplicateLeagueName = function(league_name, callback){
     });
 };
 
-leagueController.getLeagueByShortId = function(leagueShortId, callback){
-    var queryText = 'select *  from league where league_shortid = $1 AND league_active = true';
-    var queryParams = [leagueShortId];
+leagueController.getLeagueByShortId = function(leagueShortId, tournamentId, callback){
+    var queryText = 'select l.league_id, l.league_shortid, l.league_name, l.league_created_on, l.league_minimum_bet, concat(u.firstname,\' \', u.lastname) as league_created_by, u.userid, lm.league_total_members from league l inner join users u on u.userid = l.league_created_by inner join (select lm_league_id, count(*) as league_total_members from league_member where league_member_active = true group by lm_league_id) lm on lm.lm_league_id = l.league_id where l.league_shortid like $1 AND l.league_tournament_id = $2 AND l.league_active = true';
+    var queryParams = ['%' + leagueShortId + '%', tournamentId];
     pool.query(queryText, queryParams, (err, result) => {
         if(err){
             callback(err, null)

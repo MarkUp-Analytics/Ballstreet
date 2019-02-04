@@ -1,0 +1,13 @@
+//match results
+
+select mf.match_fixture_id, t1.team_name as team_a, t2.team_name as team_b, mf.match_fixture_start_date, mf.match_fixture_end_date, 
+mf.match_fixture_toss_time, t3.team_name as winning_team, mf.match_fixture_result_draw as result_draw, mf.match_fixture_no_result as no_result,
+s.stadium_name, s.stadium_city from match_fixtures mf
+inner join team t1 on mf.match_fixture_team_1 = t1.team_id
+inner join team t2 on mf.match_fixture_team_2 = t2.team_id
+inner join team t3 on mf.match_fixture_result_won = t3.team_id
+inner join stadium s on mf.match_fixture_venue_stadium_id = s.stadium_id
+where mf.match_fixture_tournament_id = 1 AND mf.match_fixture_active = true
+AND t1.team_active = true
+AND t2.team_active = true
+AND s.stadium_active = true

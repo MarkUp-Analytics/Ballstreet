@@ -55,7 +55,7 @@ authController.createUser = function(newUserDetails, callback){
 
 authController.comparePassword = function(userDetails, callback){
     authController.getUser(userDetails.username, function(err, user){
-        if(user && user.userID){
+        if(user && user.userid){
             bcrypt.compare(userDetails.password, user.password, function(err, res){
                 if(err){ //Issue checking the password.
                     callback(err, null);

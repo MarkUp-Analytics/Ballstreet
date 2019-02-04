@@ -32,7 +32,10 @@
         <hr class="mb-5" />
 
         <div v-if="tournamentSearchResults && tournamentSearchResults.length > 0">
-            <table class="table table-md sortable">
+            <div v-for="tournament in tournamentSearchResults">
+                <tour-details :details="tournament"></tour-details>
+            </div>
+            <!-- <table class="table table-md sortable">
                 <thead>
                     <tr>
                         <th scope="col-2">Tournament Name</th>
@@ -57,7 +60,7 @@
                         </td>
                     </tr>
                 </tbody>
-            </table>
+            </table> -->
         </div>
     </div>
 </template>
@@ -66,10 +69,12 @@
     import api from '@/services/api';
     import commonServices from '@/services/commonServices';
     import LoadingSpinner from '@/components/LoadingSpinner';
+    import TourDetails from '@/components/TourDetails';
     export default {
         name: 'Discover',
         components: {
-        	LoadingSpinner
+            LoadingSpinner,
+            TourDetails
     	},
         created() {
             this.getSportsList();

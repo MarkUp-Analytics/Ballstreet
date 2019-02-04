@@ -63,4 +63,25 @@ router.get('/searchTournament', (req, res, next) => { //Method to search tournam
     })
     });
 
+    router.get('/playingTeams', (req, res, next) => { //Method to get playing teams based on tournament id
+        tournamentController.getPlayingTeamsByTournamentId(req.query.tournamentId, function(err, teams){
+            if(err){
+                res.status(400).json({
+                    message: "Unable to find playing teams"
+                })
+            }
+            else if(teams.length === 0){
+                res.status(400).json({
+                    message: "No teams found"
+                })
+            }
+            else{
+                res.status(200).json({
+                    message: "Teams found",
+                    teams: teams
+                })
+            }
+        })
+        });
+
 module.exports = router;

@@ -1,5 +1,5 @@
 CREATE TABLE "users" (
-	"userID" serial NOT NULL,
+	"userid" serial NOT NULL,
 	"firstname" varchar NOT NULL,
 	"lastname" varchar NOT NULL,
 	"email" varchar NOT NULL UNIQUE,
@@ -9,7 +9,7 @@ CREATE TABLE "users" (
 	"password" varchar NOT NULL,
 	"active" BOOLEAN NOT NULL,
 	"deleted" BOOLEAN NOT NULL,
-	CONSTRAINT users_pk PRIMARY KEY ("userID")
+	CONSTRAINT users_pk PRIMARY KEY ("userid")
 ) WITH (
   OIDS=FALSE
 );
@@ -31,6 +31,7 @@ CREATE TABLE "tournament" (
 	"tournament_id" serial NOT NULL,
 	"tournament_sport_id" bigint NOT NULL,
 	"tournament_name" varchar NOT NULL,
+	"tournament_venue" varchar NOT NULL,
 	"tournament_start_date" DATE NOT NULL,
 	"tournament_end_date" DATE NOT NULL,
 	"tournament_active" BOOLEAN NOT NULL,
@@ -252,14 +253,14 @@ ALTER TABLE "match_fixtures" ADD CONSTRAINT "match_fixtures_fk3" FOREIGN KEY ("m
 ALTER TABLE "match_fixtures" ADD CONSTRAINT "match_fixtures_fk4" FOREIGN KEY ("match_fixture_result_won") REFERENCES "team"("team_id");
 
 ALTER TABLE "league" ADD CONSTRAINT "league_fk0" FOREIGN KEY ("league_tournament_id") REFERENCES "tournament"("tournament_id");
-ALTER TABLE "league" ADD CONSTRAINT "league_fk1" FOREIGN KEY ("league_created_by") REFERENCES "users"("userID");
+ALTER TABLE "league" ADD CONSTRAINT "league_fk1" FOREIGN KEY ("league_created_by") REFERENCES "users"("userid");
 
 ALTER TABLE "league_member" ADD CONSTRAINT "league_member_fk0" FOREIGN KEY ("lm_league_id") REFERENCES "league"("league_id");
-ALTER TABLE "league_member" ADD CONSTRAINT "league_member_fk1" FOREIGN KEY ("league_member_user_id") REFERENCES "users"("userID");
+ALTER TABLE "league_member" ADD CONSTRAINT "league_member_fk1" FOREIGN KEY ("league_member_user_id") REFERENCES "users"("userid");
 ALTER TABLE "league_member" ADD CONSTRAINT "league_member_fk2" FOREIGN KEY ("league_member_role_id") REFERENCES "roles"("role_id");
 
 
-ALTER TABLE "user_roles" ADD CONSTRAINT "user_roles_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("userID");
+ALTER TABLE "user_roles" ADD CONSTRAINT "user_roles_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("userid");
 ALTER TABLE "user_roles" ADD CONSTRAINT "user_roles_fk1" FOREIGN KEY ("role_id") REFERENCES "roles"("role_id");
 
 ALTER TABLE "member_team_selection" ADD CONSTRAINT "member_team_selection_fk0" FOREIGN KEY ("league_member_id") REFERENCES "league_member"("league_member_id");
@@ -269,7 +270,7 @@ ALTER TABLE "member_team_selection" ADD CONSTRAINT "member_team_selection_fk2" F
 ALTER TABLE "team_member_preference" ADD CONSTRAINT "team_member_preference_fk0" FOREIGN KEY ("league_member_id") REFERENCES "league_member"("league_member_id");
 ALTER TABLE "team_member_preference" ADD CONSTRAINT "team_member_preference_fk1" FOREIGN KEY ("team_id") REFERENCES "team"("team_id");
 
-ALTER TABLE "transactions" ADD CONSTRAINT "transactions_fk0" FOREIGN KEY ("transaction_money_from") REFERENCES "users"("userID");
-ALTER TABLE "transactions" ADD CONSTRAINT "transactions_fk1" FOREIGN KEY ("transaction_money_to") REFERENCES "users"("userID");
+ALTER TABLE "transactions" ADD CONSTRAINT "transactions_fk0" FOREIGN KEY ("transaction_money_from") REFERENCES "users"("userid");
+ALTER TABLE "transactions" ADD CONSTRAINT "transactions_fk1" FOREIGN KEY ("transaction_money_to") REFERENCES "users"("userid");
 ALTER TABLE "transactions" ADD CONSTRAINT "transactions_fk2" FOREIGN KEY ("transaction_money_league_id") REFERENCES "league"("league_id");
 
