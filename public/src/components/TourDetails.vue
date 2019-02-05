@@ -69,7 +69,7 @@
                                             {{league.league_minimum_bet}}
                                         </td>
                                         <td class="align-middle">
-                                            <a href="" class="text-violet">Click</a>
+                                            <a href="" @click.prevent="gotoLeagueDashboard(league)" class="text-violet">Click</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -88,8 +88,18 @@
             LoadingSpinner
         },
         props: ['details'],
+        watch:{
+            'details.tournament_id': {
+                handler(newVal, oldVal){
+                    this.errors = [];
+                    this.getPlayingTeams(this.details.tournament_id);
+                    this.getTotalGames(this.details.tournament_id);
+                }
+            }
+        },
         created() {
             if (this.details && this.details.tournament_id) {
+                this.errors = [];
                 this.getPlayingTeams(this.details.tournament_id);
                 this.getTotalGames(this.details.tournament_id);
             }
@@ -161,7 +171,19 @@
                             this.errors.push("Error searching");
                         }
                     })
-            }
+            },
+            gotoLeagueDashboard: function(league){
+				this.$router.push({
+                    name: 'LeagueDashboard',
+                    params:{
+                        details: this.details,
+                        teams: this.teams,
+                        totalGames: this.totalGames,
+                        league: league
+                    }
+                    
+				})
+			},
         }
     }
 </script>

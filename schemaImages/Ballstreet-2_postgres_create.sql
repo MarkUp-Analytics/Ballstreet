@@ -146,6 +146,7 @@ CREATE TABLE "match_fixtures" (
 CREATE TABLE "league" (
 	"league_id" serial NOT NULL,
 	"league_shortid" varchar NOT NULL,
+	"league_pin" varchar NOT NULL, 
 	"league_name" varchar NOT NULL,
 	"league_tournament_id" bigint NOT NULL,
 	"league_created_by" bigint NOT NULL,

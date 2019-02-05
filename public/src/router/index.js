@@ -6,6 +6,7 @@ import SignUp from '@/components/SignUp'
 import Profile from '@/components/Profile'
 import Create from '@/components/Create'
 import Discover from '@/components/Discover'
+import LeagueDashboard from '@/components/LeagueDashboard'
 import GetStarted from '@/components/GetStarted'
 import AboutBallstreet from '@/components/GetStartedComponents/AboutBallstreet'
 import HowBallstreetWorks from '@/components/GetStartedComponents/HowBallstreetWorks'
@@ -123,6 +124,11 @@ export default new Router({
           component: Contact
         }
       ]
+    },
+    {
+      path: '/dashboard',
+      name: 'LeagueDashboard',
+      component: LeagueDashboard
     },
     {
       path: '/page1',

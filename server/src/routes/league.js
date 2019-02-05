@@ -72,4 +72,19 @@ router.get('/findLeagueById', (req, res, next) => { //Method to search league ba
     })
     });
 
+    router.get('/memberInLeague', (req, res, next) => { //Method to search league based on short id
+        leagueMemberController.memberInLeague(req.query.userId, req.query.leagueId, function(err, memberBelongsToLeague){
+            if(err){
+                res.status(400).json({
+                    message: "Unable to check whether member belongs to league"
+                })
+            }
+            else{
+                res.status(200).json({
+                    memberBelongsToLeague: memberBelongsToLeague
+                })
+            }
+        })
+        });    
+
 module.exports = router;

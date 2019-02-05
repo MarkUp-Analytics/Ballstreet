@@ -13,4 +13,19 @@ leagueMemberController.createLeagueMember = function(leagueMemberDetails, callba
     });
 };
 
+leagueMemberController.memberInLeague = function(userId, leagueId, callback){
+    
+    var queryText = 'SELECT * from league_member WHERE league_member_user_id = $1 AND lm_league_id = $2 AND league_member_active = true AND league_member_deleted = false';
+    
+    var queryParams = [userId, leagueId, true, false];
+    pool.query(queryText, queryParams, (err, result) => {
+        
+        var memberBelongsToLeague = false;
+        if(result.rowCount == 1){
+            memberBelongsToLeague = true;
+        }
+        callback(err, memberBelongsToLeague);
+    });
+};
+
 module.exports = leagueMemberController;
