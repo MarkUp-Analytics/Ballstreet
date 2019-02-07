@@ -176,9 +176,6 @@
 				this.$router.push({
                     name: 'LeagueDashboard',
                     params:{
-                        details: this.details,
-                        teams: this.teams,
-                        totalGames: this.totalGames,
                         league: league
                     }
                     

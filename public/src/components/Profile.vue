@@ -42,7 +42,7 @@
                             {{league.league_minimum_bet}}
                         </td>
                         <td>
-                            <a href="#">Open</a>
+                            <a href="" @click.prevent="gotoLeagueDashboard(league)">Open</a>
                         </td>
                     </tr>
                 </tbody>
@@ -100,7 +100,19 @@
                             }
                         })
                 }
-            }
+            },
+            gotoLeagueDashboard: function(league){
+				this.$router.push({
+                    name: 'LeagueDashboard',
+                    params:{
+                        // details: this.details,
+                        // teams: this.teams,
+                        // totalGames: this.totalGames,
+                        league: league
+                    }
+                    
+				})
+			},
         }
     }
 </script>
