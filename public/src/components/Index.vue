@@ -17,29 +17,29 @@
 			</div>
 		</div>
 
-		<div class="row p-5 mx-auto text-center bg-white" id="know-more">
+		<div class="row p-5 mx-auto text-center bg-yellow" id="know-more">
 			<div class="container">
 				<a href="#know-more">
-					<div class="ballstreet-logo-only mr-md-auto font-weight-normal w-100"></div>
-					<i class="fas fa-arrow-down text-yellow"></i>
+					<div class="ballstreet-logo-only-violet mr-md-auto font-weight-normal w-100"></div>
+					<i class="fas fa-arrow-down text-violet"></i>
 				</a>
 				<br/>
 				<br/>
 
 				<div class="card-columns mb-5">
-					<div class="card bg-none">
-					<div class="card-body">
-						<h5 class="card-title text-yellow">
-								<i class="fas fa-hat-wizard fa-1x mb-2"></i><br/>
-								Simplified Fantasy Sporting
-							</h5>
-						<p class="card-text">Simpler and unique games of skill, aided by superior intuitive interface!</p>
-					</div>
+					<div class="card bg-light">
+						<div class="card-body">
+							<h5 class="card-title text-violet font-weight-bold">
+									<i class="fas fa-hat-wizard fa-1x mb-2"></i><br/>
+									Simplified Fantasy Sporting
+								</h5>
+							<p class="card-text">Simpler and unique games of skill, aided by superior intuitive interface!</p>
+						</div>
 					</div>
 
-					<div class="card bg-none">
+					<div class="card bg-light">
 						<div class="card-body">
-							<h5 class="card-title text-yellow">
+							<h5 class="card-title text-violet font-weight-bold">
 									<i class="fas fa-calendar-day fa-1x mb-2"></i><br/>
 									Play Alongside Live Events
 								</h5>
@@ -47,9 +47,9 @@
 						</div>
 					</div>
 
-					<div class="card bg-none">
+					<div class="card bg-light">
 						<div class="card-body">
-							<h5 class="card-title text-yellow">
+							<h5 class="card-title text-violet font-weight-bold">
 									<i class="fas fa-chart-pie fa-1x mb-2"></i><br/>
 									Powerful Statistics To Spice Up Conversations
 								</h5>
@@ -57,9 +57,9 @@
 						</div>
 					</div>
 
-					<div class="card bg-none">
+					<div class="card bg-light">
 						<div class="card-body">
-							<h5 class="card-title text-yellow">
+							<h5 class="card-title text-violet font-weight-bold">
 									<i class="fab fa-creative-commons-zero fa-1x mb-2"></i><br/>
 									Zero Sum Redistribution
 								</h5>
@@ -67,9 +67,9 @@
 						</div>
 					</div>
 
-					<div class="card bg-none">
+					<div class="card bg-light">
 						<div class="card-body">
-							<h5 class="card-title text-yellow">
+							<h5 class="card-title text-violet font-weight-bold">
 									<i class="fas fa-globe-asia fa-1x mb-2"></i><br/>
 									Wherever And Whenever
 								</h5>
@@ -77,9 +77,9 @@
 						</div>
 					</div>
 
-					<div class="card bg-none">
+					<div class="card bg-light">
 						<div class="card-body">
-							<h5 class="card-title text-yellow">
+							<h5 class="card-title text-violet font-weight-bold">
 									<i class="fas fa-clock fa-1x mb-2"></i><br/>
 									Real Time Results Updation
 								</h5>

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="bg-light">
         <div class="row p-5 mx-auto text-center container">
             <div class="col-md-3">
                 <div class="nav flex-column nav-pills mb-5" id="v-pills-tab" role="tablist" aria-orientation="vertical">

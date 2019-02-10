@@ -53,14 +53,14 @@
                     <table class="table sortable">
                         <thead>
                             <tr class="text-violet">
-                                <th scope="col-2">Tournament</th>
-                                <th scope="col-2">Id</th>
-                                <th scope="col-2">Created</th>
-                                <th scope="col-2">Players</th>
-                                <th scope="col-2">Contribution</th>
-                                <th scope="col-2">Current</th>
-                                <th scope="col-2">P&L</th>
-                                <th scope="col-2">Link</th>
+                                <th>Tournament</th>
+                                <th>Id</th>
+                                <th>Created</th>
+                                <th>Players</th>
+                                <th>Contribution</th>
+                                <th>Current</th>
+                                <th>P&L</th>
+                                <th>Link</th>
                             </tr>
                         </thead>
                         <tbody>
