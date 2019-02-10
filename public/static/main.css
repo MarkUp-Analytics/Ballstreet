@@ -155,7 +155,7 @@ a:hover, a:active {
 
 /* not active */
 .getStartedInactive {
-  background-color: white !important;
+  background-color: #fafafa !important;
   color: #462446 !important;
   border-radius: 0.25rem;
   padding: 5px;
@@ -195,4 +195,8 @@ table {
 
 .border-bottom {
   border-bottom-width: 20px;
+}
+
+.z-index-1 {
+  z-index: 1;
 }

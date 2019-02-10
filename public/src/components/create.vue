@@ -1,5 +1,5 @@
 <template>
-    <div class="p-5 text-center">
+    <div class="p-5 mx-auto text-center bg-light">
         <h1 class="mb-4 text-center text-violet">Create League</h1>
         <div class="row mx-auto mb-5">
             <div class="col-md"></div>
@@ -42,7 +42,7 @@
                     </div>
                     <div class="row mt-5 text-center">
                         <div class="col-lg">
-                            <a href="" class="btn btn-dark bg-red border-0 w-100" @click.prevent="saveLeague()">Create League</a>
+                            <a href="" class="btn btn-dark bg-violet border-0 w-100" @click.prevent="saveLeague()">Create League</a>
                             <small>All fields are required</small>
                         </div>
                     </div>

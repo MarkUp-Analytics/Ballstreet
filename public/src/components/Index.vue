@@ -7,11 +7,11 @@
 					<div class="col-lg text-center px-5 pb-5 d-none d-lg-block">
 						<br/><br/>
 						<h1 class="text-violet">A simple <a class="font-weight-bold text-violet" href="#/getstarted/gamesOfSkill">game of skill</a>, designed to engage</h1>
-						<a class="mt-3 btn btn-dark bg-red border-0" href="#know-more">Know More</a>
+						<a class="mt-3 btn btn-dark bg-violet border-0" href="#know-more">Know More</a>
 					</div>
 					<div class="col-lg text-center px-5 pb-5 d-lg-none">
 						<h1 class="text-violet">A simple <a class="font-weight-bold text-violet" href="#/getstarted/gamesOfSkill">game of skill</a>, designed to engage</h1>
-						<a class="mt-3 btn btn-dark bg-red border-0" href="#know-more">Know More</a>
+						<a class="mt-3 btn btn-dark bg-violet border-0" href="#know-more">Know More</a>
 					</div>
 				</div>
 			</div>

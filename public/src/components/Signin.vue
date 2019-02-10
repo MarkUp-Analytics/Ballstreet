@@ -23,7 +23,7 @@
 								<small><a href="#" class="form-text text-dark">Forgot Password?</a></small>
 						</div>
 						<div class="form-group mt-5 px-2">
-							<a href="" class="btn btn-dark bg-red border-0 w-100" @click.prevent="login()">Sign In</a>
+							<a href="" class="btn btn-dark bg-violet border-0 w-100" @click.prevent="login()">Sign In</a>
 						</div>
 					</div>
 				</div>

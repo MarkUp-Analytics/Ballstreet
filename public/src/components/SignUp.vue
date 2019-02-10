@@ -31,7 +31,7 @@
                             <input type="password" class="form-control" v-model="repeatpassword" placeholder="Repeat Password*">
                         </div>
                         <div class="form-group px-2 mt-5">
-                            <button class="btn btn-dark bg-red border-0 w-100" @click="checkForm()">Create User</button>
+                            <button class="btn btn-dark bg-violet border-0 w-100" @click="checkForm()">Create User</button>
                         </div>
                     </div>
                 </div>

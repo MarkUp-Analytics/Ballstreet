@@ -10,7 +10,7 @@
 		</div>
 		<nav v-if="userDetails" class="navbar navbar-expand-lg navbar-light bg-white font-size-16">
 				<div class="container pr-2">
-					<div class="ballstreet-logo-full mr-md-auto cursorPointer" @click.prevent="redirectPage('Profile')"></div>
+					<div class="ballstreet-logo-small mr-md-auto cursorPointer" @click.prevent="redirectPage('Profile')"></div>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
 						<small><span class="navbar-toggler-icon text-violet"></span></small>
 					</button>
@@ -22,17 +22,17 @@
 								<a class="text-red" href="" @click.prevent="redirectPage('Discover')" :class="{'textBold': $route.name === 'Discover'}">Discover</a>
 							</li>
 							<li class="nav-item m-2">
-								<a class="text-red text-underline" href="" @click.prevent="redirectPage('Create')" :class="{'textBold': $route.name === 'Create'}">Create</a>
+								<a class="text-red" href="" @click.prevent="redirectPage('Create')" :class="{'textBold': $route.name === 'Create'}">Create</a>
 							</li>
 							<li class="nav-item m-2">
-								<a class="text-red" href="" :class="{'textBold': $route.name === 'Investments'}">P&L</a>
+								<a class="text-red" href="" @click.prevent="redirectPage('Page3')" :class="{'textBold': $route.name === 'Page3'}">P&L</a>
 							</li>
 							<li class="nav-item dropdown m-2">
 								<a class="text-red dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								{{userDetails.firstname}}
 							</a>
 								<div class="dropdown-menu dropdown-menu-right text-center" aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="#">
+									<a class="dropdown-item" href="" @click.prevent="redirectPage('Page4')" :class="{'textBold': $route.name === 'Page4'}">
 										<span class="text-red">Ballstreet ID</span><br/> {{userDetails.shortid}}
 									</a>
 									<div class="dropdown-divider"></div>
