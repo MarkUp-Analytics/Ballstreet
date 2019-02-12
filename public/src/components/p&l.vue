@@ -216,9 +216,9 @@
 
 <script type="text/javascript">
     export default {
-        name: 'page3',
+        name: 'p&l',
         created() {
-            oTable = $('#1').DataTable( {
+            oTable = $('.table').DataTable( {
                 scrollY:'75vh',
                 "scrollX": true,
                 scrollCollapse: true,

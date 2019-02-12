@@ -3,7 +3,7 @@
         <nav class="navbar sticky-top navbar-light bg-light shadow-sm w-100 z-index-1" id="profile-navbar">
             <div class=" px-5 mx-auto">
                 <nav class="nav nav-secondary justify-content-center">
-                    <a class="nav-link text-secondary" href="#profile">
+                    <a class="nav-link text-secondary" href="#home">
                         <span class="d-sm-none" title="User-Info">User</span>
                         <span class="d-none d-sm-block">User Info</span>
                     </a>

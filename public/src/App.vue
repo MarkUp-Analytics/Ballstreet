@@ -4,13 +4,13 @@
 			<div class="ballstreet-logo-full mr-md-auto font-weight-normal cursorPointer" @click="redirectPage('Index')"></div>
 			<div>
 				<a class="p-2 text-red" href="#/getstarted">Get Started</a>
-				<a class="p-2 text-red" href="#/signin">Sign In</a>
+				<a class="p-2 text-red" href="" v-scroll-to="'#sign-in'">Sign In</a>
 				<a class="mx-2 btn btn-dark bg-red border-0" href="#/signup">Sign Up</a>
 			</div>
 		</div>
 		<nav v-if="userDetails" class="navbar navbar-expand-lg navbar-light bg-white font-size-16">
 				<div class="container pr-2">
-					<div class="ballstreet-logo-small mr-md-auto cursorPointer" @click.prevent="redirectPage('Profile')"></div>
+					<div class="ballstreet-logo-small mr-md-auto cursorPointer" @click.prevent="redirectPage('Home')"></div>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
 						<small><span class="navbar-toggler-icon text-violet"></span></small>
 					</button>
@@ -25,7 +25,7 @@
 								<a class="text-red" href="" @click.prevent="redirectPage('Create')" :class="{'textBold': $route.name === 'Create'}">Create</a>
 							</li>
 							<li class="nav-item m-2">
-								<a class="text-red" href="" @click.prevent="redirectPage('Page3')" :class="{'textBold': $route.name === 'Page3'}">P&L</a>
+								<a class="text-red" href="" @click.prevent="redirectPage('p&l')" :class="{'textBold': $route.name === 'p&l'}">P&L</a>
 							</li>
 							<li class="nav-item dropdown m-2">
 								<a class="text-red dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -102,9 +102,9 @@
 	export default {
 		name: 'App',
 		created() {
-			if(localStorage.getItem('userDetails')){ //If user is already logged in, it takes it to profile page
+			if(localStorage.getItem('userDetails')){ //If user is already logged in, it takes it to home page
                 this.$router.push({
-                            name: 'Profile', 
+                            name: 'Home', 
                         })
             }
 		},

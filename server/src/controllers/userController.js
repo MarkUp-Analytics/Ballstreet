@@ -10,7 +10,7 @@ userController.getUserIDFromShortID = function(shortid, callback){
             callback(err, null);
         }
         var userid = null;
-        if(result.rowCount == 1){
+        if(result && result.rowCount == 1){
             userid = result.rows[0].userid;
         }
         callback(err, userid);

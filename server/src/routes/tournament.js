@@ -26,6 +26,29 @@ tournamentController.getUpcomingTours(function(err, upcomingTours){
             })
 });
 
+router.get('/ongoingTournaments', (req, res, next) => { //Method to get ongoing tournaments based on today's date
+    
+tournamentController.getOngoingTours(function(err, ongoingTours){
+                if(err){
+                    res.status(400).json({
+                        message: "Unable to get ongoing tournaments"
+                    })
+                }
+                if(ongoingTours.length === 0){
+                    res.status(200).json({
+                        message: "No ongoing tours",
+                        tours: []
+                    })
+                }
+                else if(ongoingTours.length > 0){
+                    res.status(200).json({
+                        message: "There are " + ongoingTours.length + " tour(s)",
+                        tours: ongoingTours
+                    })
+                }
+            })
+});
+
 router.get('/totalGames', (req, res, next) => { //Method to get total games for a tournament
 tournamentController.getTotalGames(req.query.tournamentID, function(err, totalGames){
     if(err){

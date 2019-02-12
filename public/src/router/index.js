@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Index from '@/components/Index'
 import Signin from '@/components/Signin'
 import SignUp from '@/components/SignUp'
-import Profile from '@/components/Profile'
+import Home from '@/components/Home'
 import Create from '@/components/Create'
 import Discover from '@/components/Discover'
 import LeagueDashboard from '@/components/LeagueDashboard'
@@ -21,7 +21,7 @@ import FAQS from '@/components/GetStartedComponents/FAQS'
 import Contact from '@/components/GetStartedComponents/Contact'
 import Page1 from '@/components/Page1'
 import Page2 from '@/components/Page2'
-import Page3 from '@/components/Page3'
+import PandL from '@/components/p&l'
 import Page4 from '@/components/Page4'
 import Page5 from '@/components/Page5'
 import Page6 from '@/components/Page6'
@@ -51,9 +51,9 @@ export default new Router({
       component: SignUp
     },
     {
-      path: '/profile',
-      name: 'Profile',
-      component: Profile
+      path: '/home',
+      name: 'Home',
+      component: Home
     },
     {
       path: '/create',
@@ -143,9 +143,9 @@ export default new Router({
       component: Page2
     },
     {
-      path: '/page3',
-      name: 'Page3',
-      component: Page3
+      path: '/p&l',
+      name: 'p&l',
+      component: PandL
     },
     {
       path: '/page4',

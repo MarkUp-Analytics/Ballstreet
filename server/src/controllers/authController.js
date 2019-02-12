@@ -10,7 +10,10 @@ authController.userExist = function(email, callback){
     var queryParams = [email];
     pool.query(queryText, queryParams, (err, result) => {
         var userExist = false;
-        if(result.rowCount == 1){
+        if(err){
+            callback(err, userExist);
+        }
+        if(result && result.rowCount == 1){
             userExist = true;
         }
         callback(err, userExist);
@@ -21,6 +24,9 @@ authController.getUser = function(email, callback){
     var queryText = 'SELECT * FROM users WHERE email = $1 AND active = true';
     var queryParams = [email];
     pool.query(queryText, queryParams, (err, result) => {
+        if(err){
+            callback(err, null);
+        }
         var userDetails = {};
         if(result.rowCount == 1){
             userDetails = result.rows[0];

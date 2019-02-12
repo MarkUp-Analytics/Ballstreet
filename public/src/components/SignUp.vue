@@ -131,7 +131,7 @@ import LoadingSpinner from '@/components/LoadingSpinner';
 		                console.log(result.data.message);
                         localStorage.setItem('userDetails', JSON.stringify(result.data.userDetails)); // Store the user details in browser local storage
                         this.$router.push({
-                            name: 'Profile', 
+                            name: 'Home', 
                         })
                     },
                     err => {

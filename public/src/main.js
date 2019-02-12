@@ -4,7 +4,9 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import moment from 'moment'
+import vueScrollto from 'vue-scrollto'
 
+Vue.use(vueScrollto)
 
 Vue.config.productionTip = false
 

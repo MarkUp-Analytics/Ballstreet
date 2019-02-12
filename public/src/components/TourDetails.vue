@@ -118,6 +118,8 @@
         methods: {
             getPlayingTeams: function(tournament_id) {
                 this.showLoadingIcon = true;
+                this.teams = [];
+                this.teamString = null;
                 api().get('/tournament/playingTeams', {
                     params: {
                         tournamentId: tournament_id
@@ -140,6 +142,7 @@
             },
 
             getTotalGames: function(tournamentID){
+                this.totalGames = null;
                 api().get('/tournament/totalGames',{
                     params: {
                         tournamentID: tournamentID
@@ -148,7 +151,11 @@
                         this.totalGames = result.data.totalGames;
                     },
                     err => {
-                        console.log(err)
+                        if (err.response.data.message) {
+                            this.errors.push(err.response.data.message);
+                        } else {
+                            this.errors.push("Error getting total games");
+                        }
                     })
             },
             searchLeagues: function(){

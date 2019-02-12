@@ -173,7 +173,7 @@ import api from '@/services/api';
                     api().post('/league/createLeague/', formData).then(result=>{
                         console.log("League created");
                         this.$router.push({
-                            name: 'Profile', 
+                            name: 'Home', 
                         })
                     },
                     err=>{

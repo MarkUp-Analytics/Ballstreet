@@ -92,9 +92,9 @@
             }
         },
         created() {
-            if(localStorage.getItem('userDetails')){ //If user is already logged in, it takes it to profile page
+            if(localStorage.getItem('userDetails')){ //If user is already logged in, it takes it to home page
                 this.$router.push({
-                            name: 'Profile', 
+                            name: 'Home', 
                         })
             }
         },
@@ -120,7 +120,7 @@
                         console.log(result.data.message);
                         localStorage.setItem('userDetails', JSON.stringify(result.data.userDetails)); // Store the user details in browser local storage
                         this.$router.push({
-                            name: 'Profile', 
+                            name: 'Home', 
                         })
                     },
                     err => {

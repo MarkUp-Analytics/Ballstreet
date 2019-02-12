@@ -36,7 +36,7 @@
                         <div class="col-lg mb-3">
                             <span class="text-secondary">Contribution, INR</span><br/>
                             <h3>450.00</h3>
-                            <a href="#" class="btn-sm text-violet">Running Leagues: 3</a>
+                            <a href="" class="btn-sm text-violet">Running Leagues: 3</a>
                         </div>
                         <div class="col-lg mb-3">
                             <span class="text-secondary">Curr. Value, INR</span><br/>
@@ -87,10 +87,10 @@
                                         {{league.tournament_name}}
                                     </td>
                                     <td>
-                                        Admin Name
+                                        {{league.league_created_by}}
                                     </td>
                                     <td>
-                                        250
+                                        {{league.league_total_members}}
                                     </td>
                                     <td>
                                         {{league.league_minimum_bet}}
@@ -188,7 +188,13 @@
 <script>
     import api from '@/services/api';
     export default {
-        name: 'Profile',
+        name: 'Home',
+        mounted() {
+			this.$nextTick(function () {
+				this.$scrollTo('#app')
+  			})
+			
+		},
         created() {
             if (localStorage.getItem('userDetails')) {
                 this.userDetails = JSON.parse(localStorage.getItem('userDetails'));
