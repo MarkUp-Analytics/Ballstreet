@@ -68,6 +68,12 @@
             TourDetails
     	},
         created() {
+            var self = this;
+            window.addEventListener("keydown", function (e) {
+                if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
+                    self.searchTournaments();
+                }
+            });
             this.getSportsList();
             this.getTournamentsList();
         },
@@ -152,6 +158,12 @@
 				})
 			},
             searchTournaments: function(){
+                var self = this;
+                self.errors = [];
+                if(!this.selectedSport || !this.selectedtournament){
+                    self.errors.push("Required fields cannot be empty.");
+                    return;
+                }
                 this.showLoadingIcon = true;
                 api().get('/tournament/searchTournament', {
                     params: {

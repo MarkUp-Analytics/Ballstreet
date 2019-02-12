@@ -210,6 +210,12 @@
             }
         },
         created() {
+			var self = this;
+            window.addEventListener("keydown", function (e) {
+                if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
+                    self.login();
+                }
+            });
 			
             if(localStorage.getItem('userDetails')){ //If user is already logged in, it takes it to profile page
                 this.$router.push({
