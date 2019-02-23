@@ -16,18 +16,23 @@
                     <div class="col-sm-6 bg-index-sign-up"></div>
                     <div class="col-sm-6">
                         <div class="form-group px-2 mt-4 mb-4">
+                            <label>First Name</label>
                             <input type="text" class="form-control" v-model="firstname" placeholder="Firstname*">
                         </div>
                         <div class="form-group px-2 mb-4">
+                            <label>Last Name</label>
                             <input type="text" class="form-control" v-model="lastname" placeholder="Lastname*">
                         </div>
                         <div class="form-group px-2 mb-4">
+                            <label>Email Id</label>
                             <input type="email" class="form-control" v-model="email" placeholder="Email*">
                         </div>
                         <div class="form-group px-2 mb-4">
+                            <label>Password</label>
                             <input type="password" class="form-control" v-model="password" placeholder="Password*">
                         </div>
                         <div class="form-group px-2 mb-4">
+                            <label>Confirm Password</label>
                             <input type="password" class="form-control" v-model="repeatpassword" placeholder="Repeat Password*">
                         </div>
                         <div class="form-group px-2 mt-5">

@@ -134,7 +134,7 @@
 
 <script>
     export default {
-        name: 'Page4',
+        name: 'Profile',
     }
 </script>
 

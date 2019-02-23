@@ -16,11 +16,13 @@
 					<div class="col-sm-6 bg-index-sign-in"></div>
 					<div class="col-sm-6">
 						<div class="form-group px-2 mt-4 mb-4">
-							<input type="email" class="form-control" id="exampleInputEmail1" v-model="email" aria-describedby="emailHelp" placeholder="Enter email">
+							<label>Email address</label>
+							<input type="email" class="form-control" v-model="email" aria-describedby="emailHelp" placeholder="Enter email">
 						</div>
 						<div class="form-group mt-3 px-2 mb-4">
-							<input type="password" class="form-control" id="exampleInputPassword1" v-model="password" placeholder="Password">
-								<small><a href="#" class="form-text text-dark">Forgot Password?</a></small>
+							<label>Password</label>
+							<input type="password" class="form-control" v-model="password" placeholder="Password">
+							<small><a href="#" class="form-text text-dark">Forgot Password?</a></small>
 						</div>
 						<div class="form-group mt-5 px-2">
 							<a href="" class="btn btn-dark bg-violet border-0 w-100" @click.prevent="login()">Sign In</a>

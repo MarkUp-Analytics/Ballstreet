@@ -4,7 +4,7 @@
 			<div class="ballstreet-logo-full mr-md-auto font-weight-normal cursorPointer" @click="redirectPage('Index')"></div>
 			<div>
 				<a class="p-2 text-red" href="#/getstarted">Get Started</a>
-				<a class="p-2 text-red" href="" v-scroll-to="'#sign-in'">Sign In</a>
+				<a class="p-2 text-red" href="#/signin">Sign In</a>
 				<a class="mx-2 btn btn-dark bg-red border-0" href="#/signup">Sign Up</a>
 			</div>
 		</div>
@@ -27,20 +27,22 @@
 							<li class="nav-item m-2">
 								<a class="text-red" href="" @click.prevent="redirectPage('p&l')" :class="{'textBold': $route.name === 'p&l'}">P&L</a>
 							</li>
-							<li class="nav-item dropdown m-2">
-								<a class="text-red dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								{{userDetails.firstname}}
-							</a>
+							<li class="nav-item dropdown">
+								<a class="text-red text-center nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<span class="text-red">{{userDetails.firstname}}</span>
+								</a>
 								<div class="dropdown-menu dropdown-menu-right text-center" aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="" @click.prevent="redirectPage('Page4')" :class="{'textBold': $route.name === 'Page4'}">
-										<span class="text-red">Ballstreet ID</span><br/> {{userDetails.shortid}}
+									<a class="dropdown-item" href="" @click.prevent="redirectPage('Profile')" :class="{'textBold': $route.name === 'Profile'}">
+										<span class="text-red">Ballstreet ID</span><br/> <span class="text-dark">{{userDetails.shortid}}</span>
 									</a>
 									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" href="#">
-										<span class="text-red">Funds</span><br/> INR 739
+										<span class="text-red">Funds</span><br/> <span class="text-dark">INR 739</span>
 									</a>
 									<div class="dropdown-divider"></div>
-									<a class="dropdown-item text-red" href="" @click.prevent="logout(); redirectPage('Index');">Log Out</a>
+									<a class="dropdown-item" href="" @click.prevent="logout(); redirectPage('Index');">
+										<span class="text-red">Log Out</span>
+									</a>
 								</div>
 							</li>
 						</ul>

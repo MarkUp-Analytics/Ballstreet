@@ -12,200 +12,106 @@
                     </li>
                 </ul>
 
-                <div class="tab-content mt-3">
+                <div class="tab-content mt-4 mx-0 px-0">
                     <div class="tab-pane fade show active" id="current-investments-tab" role="tabpanel">                        
-                        <table class="table table-md mt-4 mb-4">
-                            <thead>
-                                <tr class="text-violet">
-                                    <th scope="col">Tournament</th>
-                                    <th scope="col">Id</th>
-                                    <th scope="col">Admin</th>
-                                    <th scope="col"># Players</th>
-                                    <th scope="col">Contr. INR</th>
-                                    <th scope="col">Curr. Value INR</th>
-                                    <th scope="col">P&L</th>
-                                    <th scope="col">Link</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        2018/07/20 1730 Hrs
-                                    </td>
-                                    <td>
-                                        Chennai, India
-                                    </td>
-                                    <td>
-                                        Chennai Super Kings
-                                    </td>
-                                    <td>
-                                        Royal Challengers Bangalore
-                                    </td>
-                                    <td>
-                                        34
-                                    </td>
-                                    <td>
-                                        10903
-                                    </td>
-                                    <td>
-                                        Chennai Super Kings
-                                    </td>
-                                    <td>
-                                        <a href="#" class="text-violet">Click</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        2018/07/20 1730 Hrs
-                                    </td>
-                                    <td>
-                                        Chennai, India
-                                    </td>
-                                    <td>
-                                        Chennai Super Kings
-                                    </td>
-                                    <td>
-                                        Royal Challengers Bangalore
-                                    </td>
-                                    <td>
-                                        34
-                                    </td>
-                                    <td>
-                                        10902
-                                    </td>
-                                    <td>
-                                        Chennai Super Kings
-                                    </td>
-                                    <td>
-                                        <a href="#" class="text-violet">Click</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        2018/07/20 1730 Hrs
-                                    </td>
-                                    <td>
-                                        Chennai, India
-                                    </td>
-                                    <td>
-                                        Chennai Super Kings
-                                    </td>
-                                    <td>
-                                        Royal Challengers Bangalore
-                                    </td>
-                                    <td>
-                                        34
-                                    </td>
-                                    <td>
-                                        10901
-                                    </td>
-                                    <td>
-                                        Chennai Super Kings
-                                    </td>
-                                    <td>
-                                        <a href="#" class="text-violet">Click</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <b-container fluid  class="p-0">
+                            <b-form-group class="my-4">
+                                <b-input-group>
+                                    <b-form-input v-model="filter" placeholder="Type to Search" />
+                                </b-input-group>
+                            </b-form-group>
+                            <b-form-group class="my-4 d-md-none">
+                                <b-input-group>
+                                    <b-col cols="8" class="p-0">
+                                        <b-form-select v-model="sortBy" :options="sortOptions">
+                                            <option slot="first" :value="null">Select field to sort by...</option>
+                                        </b-form-select>
+                                    </b-col>
+                                    <b-col class="p-0">
+                                        <b-form-select :disabled="!sortBy" v-model="sortDesc" slot="append">
+                                            <option :value="false">
+                                                Asc
+                                            </option>
+                                            <option :value="true">
+                                                Desc
+                                            </option>
+                                        </b-form-select>
+                                    </b-col>
+                                </b-input-group>
+                            </b-form-group>
+                            <div class="w-100 table-responsive max-height-75vh mt-4 mb-4 px-1">
+                                <b-table 
+                                    stacked="md"
+                                    :items="itemsCurrent"
+                                    :fields="fields"
+                                    :filter="filter"
+                                    :sort-by.sync="sortBy"
+                                    :sort-desc.sync="sortDesc"
+                                    :sort-direction="sortDirection"
+                                    @filtered="onFiltered"
+                                    show-empty
+                                    class="w-100"
+                                >
+                                    <template slot="empty" slot-scope="scope">
+                                        <h4>{{ scope.emptyText }}</h4>
+                                    </template>
+                                    <template slot="emptyfiltered" slot-scope="scope">
+                                        <h4>{{ scope.emptyFilteredText }}</h4>
+                                    </template>
+                                    <span slot="link" slot-scope="data" v-html="data.value" />
+                                </b-table>
+                            </div>
+                        </b-container>                        
                     </div>
                     <div class="tab-pane fade" id="past-investments-tab" role="tabpanel">
-                        <div class="w-100 max-height-90vh table-responsive-xl mt-4 mb-4">
-                            <table class="table table-md sortable">
-                                <thead>
-                                    <tr class="text-violet">
-                                        <th scope="col">Tournament</th>
-                                        <th scope="col">Id</th>
-                                        <th scope="col">Admin</th>
-                                        <th scope="col"># Players</th>
-                                        <th scope="col">Contr. INR</th>
-                                        <th scope="col">Curr. Value INR</th>
-                                        <th scope="col">P&L</th>
-                                        <th scope="col">Link</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            2018/07/20 1730 Hrs
-                                        </td>
-                                        <td>
-                                            Chennai, India
-                                        </td>
-                                        <td>
-                                            Chennai Super Kings
-                                        </td>
-                                        <td>
-                                            Royal Challengers Bangalore
-                                        </td>
-                                        <td>
-                                            34
-                                        </td>
-                                        <td>
-                                            1003
-                                        </td>
-                                        <td>
-                                            Chennai Super Kings
-                                        </td>
-                                        <td>
-                                            <a href="#" class="text-violet">Click</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            2018/07/20 1730 Hrs
-                                        </td>
-                                        <td>
-                                            Chennai, India
-                                        </td>
-                                        <td>
-                                            Chennai Super Kings
-                                        </td>
-                                        <td>
-                                            Royal Challengers Bangalore
-                                        </td>
-                                        <td>
-                                            34
-                                        </td>
-                                        <td>
-                                            1090
-                                        </td>
-                                        <td>
-                                            Chennai Super Kings
-                                        </td>
-                                        <td>
-                                            <a href="#" class="text-violet">Click</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            2018/07/20 1730 Hrs
-                                        </td>
-                                        <td>
-                                            Chennai, India
-                                        </td>
-                                        <td>
-                                            Chennai Super Kings
-                                        </td>
-                                        <td>
-                                            Royal Challengers Bangalore
-                                        </td>
-                                        <td>
-                                            34
-                                        </td>
-                                        <td>
-                                            10903
-                                        </td>
-                                        <td>
-                                            Chennai Super Kings
-                                        </td>
-                                        <td>
-                                            <a href="#" class="text-violet">Click</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <b-container fluid  class="p-0">
+                            <b-form-group class="my-4">
+                                <b-input-group>
+                                    <b-form-input v-model="filter" placeholder="Type to Search" />
+                                </b-input-group>
+                            </b-form-group>
+                            <b-form-group class="my-4 d-md-none">
+                                <b-input-group>
+                                    <b-col cols="8" class="p-0">
+                                        <b-form-select v-model="sortBy" :options="sortOptions">
+                                            <option slot="first" :value="null">Select field to sort by...</option>
+                                        </b-form-select>
+                                    </b-col>
+                                    <b-col class="p-0">
+                                        <b-form-select :disabled="!sortBy" v-model="sortDesc" slot="append">
+                                            <option :value="false">
+                                                Asc
+                                            </option>
+                                            <option :value="true">
+                                                Desc
+                                            </option>
+                                        </b-form-select>
+                                    </b-col>
+                                </b-input-group>
+                            </b-form-group>
+                            <div class="w-100 table-responsive max-height-75vh mt-4 mb-4 px-1">
+                                <b-table 
+                                    stacked="md"
+                                    :items="itemsPast"
+                                    :fields="fields"
+                                    :filter="filter"
+                                    :sort-by.sync="sortBy"
+                                    :sort-desc.sync="sortDesc"
+                                    :sort-direction="sortDirection"
+                                    @filtered="onFiltered"
+                                    show-empty
+                                    class="w-100"
+                                >
+                                    <template slot="empty" slot-scope="scope">
+                                        <h4>{{ scope.emptyText }}</h4>
+                                    </template>
+                                    <template slot="emptyfiltered" slot-scope="scope">
+                                        <h4>{{ scope.emptyFilteredText }}</h4>
+                                    </template>
+                                    <span slot="link" slot-scope="data" v-html="data.value" />
+                                </b-table>
+                            </div>
+                        </b-container>
                     </div>
                 </div>
 
@@ -214,20 +120,58 @@
     </div>
 </template>
 
-<script type="text/javascript">
+<script>
     export default {
         name: 'p&l',
-        created() {
-            oTable = $('.table').DataTable( {
-                scrollY:'75vh',
-                "scrollX": true,
-                scrollCollapse: true,
-                paging: false,
-                dom: '<<t><"small text-center"i>>',
-                fixedheader: true
-            });
+        data() {
+            return {
+                itemsCurrent: [
+                    { tournament: 'Indian Premier League 2019', league: 'Amigos Indian XX IPL', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Indian League 2019', league: 'Am IPL', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Premier League 2019', league: 'Amigos IPL', owner: 'mithunsivagurunathan', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'League 2019', league: 'Amigos', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: '2019', league: 'IPL', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" }
+                ],
+                itemsPast: [
+                    { tournament: 'Past Indian Premier League 2019', league: 'Amigos Indian XX IPL', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Past Indian League 2019', league: 'Am IPL', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Past Premier League 2019', league: 'Amigos IPL', owner: 'mithunsivagurunathan', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Past League 2019', league: 'Amigos', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Past 2019', league: 'IPL', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" }
+                ],
+                fields: [
+                    { key: 'tournament', label: 'Tournament', sortable: true },
+                    { key: 'league', label: 'League', sortable: true },
+                    { key: 'owner', label: 'Owner', sortable: true },
+                    { key: 'capital', label: 'Capital', sortable: true },
+                    { key: 'current', label: 'Current', sortable: true },
+                    { key: 'pl', label: 'P&L', sortable: true },
+                    { key: 'link', label: 'Link', sortable: true },
+                ],
+                sortBy: null,
+                sortDesc: false,
+                sortDirection: 'asc',
+                filter: null
+            }
+        },
+        computed: {
+            sortOptions() {
+                // Create an options list from our fields
+                return this.fields
+                .filter(f => f.sortable)
+                .map(f => {
+                    return { text: f.label, value: f.key }
+                })
+            }
+        },
+        methods: {
+            onFiltered(filteredItems) {
+                // Trigger pagination to update the number of buttons/pages due to filtering
+                this.totalRows = filteredItems.length
+                this.currentPage = 1
+            }
         }
-    };
+    }
 </script>
 
 <style>

@@ -7,19 +7,19 @@
 					<div class="col-lg text-center px-5 pb-5 d-none d-lg-block">
 						<br/><br/>
 						<h1 class="text-violet">A simple <a class="font-weight-bold text-violet" href="#/getstarted/gamesOfSkill">game of skill</a>, designed to engage</h1>
-						<a class="mt-3 btn btn-dark bg-violet border-0" href="#know-more">Know More</a>
+						<a class="mt-3 btn btn-dark bg-violet border-0" href="" v-scroll-to="'#know-more'">Know More</a>
 					</div>
 					<div class="col-lg text-center px-5 pb-5 d-lg-none">
 						<h1 class="text-violet">A simple <a class="font-weight-bold text-violet" href="#/getstarted/gamesOfSkill">game of skill</a>, designed to engage</h1>
-						<a class="mt-3 btn btn-dark bg-violet border-0" href="#know-more">Know More</a>
+						<a class="mt-3 btn btn-dark bg-violet border-0" href="" v-scroll-to="'#know-more'">Know More</a>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="row p-5 mx-auto text-center bg-yellow" id="know-more">
+		<div class="row pt-5 px-5 mx-auto text-center bg-white" id="know-more">
 			<div class="container">
-				<a href="#know-more">
+				<a href="" v-scroll-to="'#know-more'">
 					<div class="ballstreet-logo-only-violet mr-md-auto font-weight-normal w-100"></div>
 					<i class="fas fa-arrow-down text-violet"></i>
 				</a>
@@ -94,11 +94,11 @@
 				</a>
 			</div>
 		</div>
-
-		<div class="row py-5 mx-auto text-center bg-light" id="how-it-works">
+		<hr/>
+		<div class="row px-5 py-5 mx-auto text-center bg-white" id="how-it-works">
 			<div class="container">
-				<h1 class="text-violet mt-1 mb-5">How It Works</h1>
-				<ul class="list-group px-5 mb-5">
+				<h3 class="text-violet mb-5">How It Works</h3>
+				<ul class="list-group mb-5">
 					<li class="list-group-item border-left-0 border-right-0 bg-light">
 						Ballstreet creates tournaments that comprises of games or events, mimicking real-life scenarios, for example: Indian Premier League, English Premier League and World Cup Men’s Cricket etc.
 					</li>
@@ -115,7 +115,7 @@
 			</div>
 			<div class="container">
 				<a href="#/getstarted/howBallstreetWorks" class="text-violet">
-					<h6 class="mt-1 mb-5 px-5">Click here to know more on how Ballstreet works</h6>
+					<h6 class="mt-1 mb-5">Click here to know more on how Ballstreet works</h6>
 				</a>
 			</div>
 		</div>
@@ -132,25 +132,22 @@
 						</button>
 					</div>
 					<loading-spinner v-if="showLoadingIcon"></loading-spinner>
-					<div class="col-sm-6 bg-index-sign-in"></div>
-					<div class="col-sm-6">
-						<div class="form-group px-2 mt-4 mb-4">
-							<input type="email" class="form-control" id="exampleInputEmail1" v-model="email" aria-describedby="emailHelp" placeholder="Enter email">
-						</div>
-						<div class="form-group mt-3 px-2 mb-4">
-							<input type="password" class="form-control" id="exampleInputPassword1" v-model="password" placeholder="Password">
-								<small><a href="#" class="form-text text-dark">Forgot Password?</a></small>
-						</div>
-						<div class="form-group mt-5 px-2">
-							<a href="" class="btn btn-dark bg-violet border-0 w-100" @click.prevent="login()">Sign In</a>
-						</div>
+					<div class="form-group m-2 col-md">
+						<label>Email address</label>
+						<input type="email" class="form-control" v-model="email" aria-describedby="emailHelp" placeholder="Enter email">
+						<small></small>
+					</div>
+					<div class="form-group m-2 col-md">
+						<label>Password</label>
+						<input type="password" class="form-control" v-model="password" placeholder="Password">
+						<small><a href="#" class="form-text text-dark">Forgot Password?</a></small>
+					</div>
+					<div class="form-group m-2 col-md">
+						<label>&nbsp;</label>
+						<a href="" class="btn btn-dark bg-violet border-0 w-100" @click.prevent="login()">Sign In</a>
+						<small></small>
 					</div>
 				</div>
-			</div>
-			<div class="container">
-				<a href="#/getstarted/howBallstreetWorks" class="text-violet">
-					<h6 class="mt-1 mb-5 px-5">Click here to know more on how Ballstreet works</h6>
-				</a>
 			</div>
 		</div>
 		<div class="row py-5 mx-auto text-center bg-white" id="social-links">

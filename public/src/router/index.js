@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import BootstrapVue from 'bootstrap-vue'
 import Index from '@/components/Index'
 import Signin from '@/components/Signin'
 import SignUp from '@/components/SignUp'
@@ -21,6 +22,7 @@ import FAQS from '@/components/GetStartedComponents/FAQS'
 import Contact from '@/components/GetStartedComponents/Contact'
 import Page1 from '@/components/Page1'
 import Page2 from '@/components/Page2'
+import Page3 from '@/components/Page3'
 import PandL from '@/components/p&l'
 import Page4 from '@/components/Page4'
 import Page5 from '@/components/Page5'
@@ -30,8 +32,16 @@ import Page8 from '@/components/Page8'
 import Page9 from '@/components/Page9'
 import Page10 from '@/components/Page10'
 import Page11 from '@/components/Page11'
+import Profile from '@/components/Profile'
+import InputTeam from '@/components/InputTeam'
+import InputTournament from '@/components/InputTournament'
+import InputResult from '@/components/InputResult'
+import InputSchedule from '@/components/InputSchedule'
+import ReportTransaction from '@/components/ReportTransaction'
+import ReportAcquisition from '@/components/ReportAcquisition'
 
 Vue.use(Router)
+Vue.use(BootstrapVue)
 
 export default new Router({
   routes: [
@@ -143,6 +153,11 @@ export default new Router({
       component: Page2
     },
     {
+      path: '/page3',
+      name: 'page3',
+      component: Page3
+    },
+    {
       path: '/p&l',
       name: 'p&l',
       component: PandL
@@ -186,6 +201,41 @@ export default new Router({
       path: '/page11',
       name: 'Page11',
       component: Page11
+    },
+    {
+      path: '/profile',
+      name: 'Profile',
+      component: Profile
+    },
+    {
+      path: '/inputTeam',
+      name: 'Input Team',
+      component: InputTeam
+    },
+    {
+      path: '/inputTournament',
+      name: 'Input Tournament',
+      component: InputTournament
+    },
+    {
+      path: '/inputSchedule',
+      name: 'Input Schedule',
+      component: InputSchedule
+    },
+    {
+      path: '/inputResult',
+      name: 'Input Result',
+      component: InputResult
+    },
+    {
+      path: '/reportAcquisition',
+      name: 'Report Acquisition',
+      component: ReportAcquisition
+    },
+    {
+      path: '/reportTransaction',
+      name: 'Report Transaction',
+      component: ReportTransaction
     }
   ]
 })

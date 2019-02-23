@@ -47,10 +47,10 @@
                             <table class="table sortable">
                                 <thead>
                                     <tr class="text-violet">
-                                        <th scope="col-2">Game Id</th>
-                                        <th scope="col-2">Created</th>
+                                        <th scope="col-2">Id</th>
+                                        <th scope="col-2">Owner</th>
                                         <th scope="col-2"># Players</th>
-                                        <th scope="col-2">Cash Per Game, INR</th>
+                                        <th scope="col-2">Capital Req.</th>
                                         <th scope="col-2">Link</th>
                                     </tr>
                                 </thead>
@@ -66,7 +66,7 @@
                                             {{league.league_total_members}}
                                         </td>
                                         <td class="align-middle">
-                                            {{league.league_minimum_bet}}
+                                            {{league.league_minimum_bet*totalGames}}
                                         </td>
                                         <td class="align-middle">
                                             <a href="" @click.prevent="gotoLeagueDashboard(league)" class="text-violet">Click</a>
