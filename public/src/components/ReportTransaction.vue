@@ -73,9 +73,9 @@
                         </h6>
                         <input class="form-control form-control-md my-1" type="text" placeholder="Search for Names"/>
                         <div class="w-100 max-height-90vh table-responsive mt-3 mb-4">
-                            <table class="table table-md sortable">
+                            <table class="table table-md sortable align-middle">
                                 <thead>
-                                    <tr>
+                                    <tr class="align-middle">
                                         <th scope="col" class="align-middle">Date</th>
                                         <th scope="col" class="align-middle">Email</th>
                                         <th scope="col" class="align-middle">Name</th>
@@ -91,11 +91,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr class="align-middle">
                                         <td class="align-middle">
                                             03/Jan/1990 22:54Hrs
                                         </td>
-                                        <td class="align-middle">
+                                        <td>
                                             mithsi@ballstreet.com
                                         </td>
                                         <td class="align-middle">

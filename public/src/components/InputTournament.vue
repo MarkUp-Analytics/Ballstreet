@@ -4,28 +4,28 @@
             <nav class="navbar sticky-top navbar-light bg-light shadow-sm w-100 z-index-3">
                 <div class=" px-1 mx-auto">
                     <nav class="nav nav-secondary justify-content-center">
-                        <a class="nav-link text-secondary" href="#">
+                        <a class="nav-link text-secondary" href="#/inputteam">
                             <span class="d-sm-none" title="Team">Te</span>
                             <span class="d-none d-sm-block">Team</span>
                         </a>
-                        <a class="nav-link text-secondary" href="#">
+                        <a class="nav-link text-secondary" href="#/inputtournament">
                             <span class="d-sm-none" title="Tournament">To</span>
                             <span class="d-none d-sm-block">Tournament</span>
                         </a>
-                        <a class="nav-link text-secondary" href="#">
+                        <a class="nav-link text-secondary" href="#/inputschedule">
                             <span class="d-sm-none" title="Schedule">Sc</span>
                             <span class="d-none d-sm-block">Schedule</span>
                         </a>
-                        <a class="nav-link text-secondary" href="#">
+                        <a class="nav-link text-secondary" href="#/inputresult">
                             <span class="d-sm-none" title="Result">Re</span>
                             <span class="d-none d-sm-block">Result</span>
                         </a>
-                        <a class="nav-link text-secondary" href="#">
+                        <a class="nav-link text-secondary" href="#/reportacquisition">
                             <span class="d-sm-none" title="Acquisition">Ac</span>
                             <span class="d-none d-sm-block">Acquisition</span>
                         </a>
                         <a class="nav-link text-secondary" href="#">
-                            <span class="d-sm-none" title="Transaction">Tr</span>
+                            <span class="d-sm-none" title="reporttransaction">Tr</span>
                             <span class="d-none d-sm-block">Transaction</span>
                         </a>
                     </nav>
@@ -33,11 +33,11 @@
             </nav>          
             <div class="container-lg mx-auto">
                 <h1 class="text-violet mt-5 mx-auto">Input</h1>
-                <h4 class="text-violet mx-auto">Tournaments</h4>
+                <h4 class="text-violet mx-auto">Tournament</h4>
                 <div class="row m-0 p-0">
                     <div class="col-lg-3 m-0 p-0">
                         <form class="text-left py-3 mb-5 px-5" id="tournament-create">
-                            <h4 class="text-violet mt-4">Create Tournament</h4>
+                            <h5 class="text-violet mt-4">Create Tournament</h5>
                             <div class="form-group mt-4">
                                 <img src="../../static/assets/images/ipl.png" class="rounded border mb-2" width="50px" height="50px" /><br/>
                                 <label>Choose Image</label>
@@ -78,120 +78,76 @@
                     </div>
                     <div class="col-lg-9 mx-0 px-0">
                         <section class="text-left py-3 mb-5 px-5" id="tournament-created">
-                            <h4 class="text-violet mt-4">Created Tournament</h4>
-                            <input class="form-control form-control-md mt-4 mb-3" type="text" placeholder="Search for Teams/Players"/>
-                            <div class="w-100 table-responsive mt-2">
-                                <table class="table sortable">
-                                    <thead>
-                                        <tr class="text-violet">
-                                            <th scope="col"><b>Image</b></th>
-                                            <th scope="col">Team Name/Player Name</th>
-                                            <th scope="col">Links</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="align-middle">
-                                                <img src="../../static/assets/images/ipl.png" class="rounded border mb-2" width="50px" height="50px" />
-                                            </td>
-                                            <td class="align-middle">
-                                                Chennai Super Kings
-                                            </td>
-                                            <td class="align-middle">
-                                                <a href="#" class="text-violet">Edit</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="align-middle">
-                                                <img src="../../static/assets/images/ipl.png" class="rounded border mb-2" width="50px" height="50px" />
-                                            </td>
-                                            <td class="align-middle">
-                                                Chennai Super Kings
-                                            </td>
-                                            <td class="align-middle">
-                                                <a href="#" class="text-violet">Edit</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="align-middle">
-                                                <img src="../../static/assets/images/ipl.png" class="rounded border mb-2" width="50px" height="50px" />
-                                            </td>
-                                            <td class="align-middle">
-                                                Chennai Super Kings
-                                            </td>
-                                            <td class="align-middle">
-                                                <a href="#" class="text-violet">Edit</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="align-middle">
-                                                <img src="../../static/assets/images/ipl.png" class="rounded border mb-2" width="50px" height="50px" />
-                                            </td>
-                                            <td class="align-middle">
-                                                Chennai Super Kings
-                                            </td>
-                                            <td class="align-middle">
-                                                <a href="#" class="text-violet">Edit</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="align-middle">
-                                                <img src="../../static/assets/images/ipl.png" class="rounded border mb-2" width="50px" height="50px" />
-                                            </td>
-                                            <td class="align-middle">
-                                                Chennai Super Kings
-                                            </td>
-                                            <td class="align-middle">
-                                                <a href="#" class="text-violet">Edit</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="align-middle">
-                                                <img src="../../static/assets/images/ipl.png" class="rounded border mb-2" width="50px" height="50px" />
-                                            </td>
-                                            <td class="align-middle">
-                                                Chennai Super Kings
-                                            </td>
-                                            <td class="align-middle">
-                                                <a href="#" class="text-violet">Edit</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="align-middle">
-                                                <img src="../../static/assets/images/ipl.png" class="rounded border mb-2" width="50px" height="50px" />
-                                            </td>
-                                            <td class="align-middle">
-                                                Chennai Super Kings
-                                            </td>
-                                            <td class="align-middle">
-                                                <a href="#" class="text-violet">Edit</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="align-middle">
-                                                <img src="../../static/assets/images/ipl.png" class="rounded border mb-2" width="50px" height="50px" />
-                                            </td>
-                                            <td class="align-middle">
-                                                Chennai Super Kings
-                                            </td>
-                                            <td class="align-middle">
-                                                <a href="#" class="text-violet">Edit</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="align-middle">
-                                                <img src="../../static/assets/images/ipl.png" class="rounded border mb-2" width="50px" height="50px" />
-                                            </td>
-                                            <td class="align-middle">
-                                                Chennai Super Kings
-                                            </td>
-                                            <td class="align-middle">
-                                                <a href="#" class="text-violet">Edit</a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table> 
-                            </div>
+                            <h5 class="text-violet mt-4">Created Tournament</h5>
+                            <b-container fluid  class="p-0">
+                                <b-row class="my-0 py-0">
+                                    <b-col md="7">
+                                        <b-form-group class="my-2">
+                                            <b-input-group>
+                                                <b-form-input v-model="filter" placeholder="Type to Search" />
+                                            </b-input-group>
+                                        </b-form-group>
+                                    </b-col>
+                                    <b-col md="5">
+                                        <b-form-group label-cols="3" label="Per Pg" class="my-2">
+                                            <b-form-select :options="pageOptions" v-model="perPage" />
+                                        </b-form-group>
+                                    </b-col>
+                                </b-row>
+                                <b-form-group class="my-2 d-md-none">
+                                    <b-input-group>
+                                        <b-col cols="8" class="p-0">
+                                            <b-form-select v-model="sortBy" :options="sortOptions">
+                                                <option slot="first" :value="null">Select field to sort by...</option>
+                                            </b-form-select>
+                                        </b-col>
+                                        <b-col class="p-0">
+                                            <b-form-select :disabled="!sortBy" v-model="sortDesc" slot="append">
+                                                <option :value="false">
+                                                    Asc
+                                                </option>
+                                                <option :value="true">
+                                                    Desc
+                                                </option>
+                                            </b-form-select>
+                                        </b-col>
+                                    </b-input-group>
+                                </b-form-group>
+                                <div class="w-100 table-responsive mt-4 mb-4 px-1">
+                                    <b-table 
+                                        stacked="md"
+                                        :items="items"
+                                        :fields="fields"
+                                        :current-page="currentPage"
+                                        :per-page="perPage"
+                                        :filter="filter"
+                                        :sort-by.sync="sortBy"
+                                        :sort-desc.sync="sortDesc"
+                                        :sort-direction="sortDirection"
+                                        @filtered="onFiltered"
+                                        show-empty
+                                        class="w-100 align-middle"
+                                    >
+                                        <template slot="empty" slot-scope="scope">
+                                            <h4>{{ scope.emptyText }}</h4>
+                                        </template>
+                                        <template slot="emptyfiltered" slot-scope="scope">
+                                            <h4>{{ scope.emptyFilteredText }}</h4>
+                                        </template>
+                                        <span slot="link" slot-scope="data" v-html="data.value" />
+                                    </b-table>
+                                </div>
+                                <b-row class="mx-auto">
+                                    <b-col class="w-100 my-1 mx-auto text-center b-pagination">
+                                        <b-pagination
+                                            :total-rows="totalRows"
+                                            :per-page="perPage"
+                                            v-model="currentPage"
+                                            class="justify-content-center"
+                                        />
+                                    </b-col>
+                                </b-row>
+                            </b-container>   
                         </section>
                     </div>
                 </div>
@@ -203,6 +159,67 @@
 <script>
     export default {
         name: 'InputTournament',
+        data() {
+            return {
+                items: [
+                    { tournament: 'Indian Premier League 2019', league: 'Amigos Indian XX IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Indian League 2019', league: 'Am IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Premier League 2019', league: 'Amigos IPL', date: '20/Mar/2019', owner: 'mithunsivagurunathan', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'League 2019', league: 'Amigos', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: '2019', league: 'IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Indian Premier League 2019', league: 'Amigos Indian XX IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Indian League 2019', league: 'Am IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Premier League 2019', league: 'Amigos IPL', date: '20/Mar/2019', owner: 'mithunsivagurunathan', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'League 2019', league: 'Amigos', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: '2019', league: 'IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Indian Premier League 2019', date: '20/Mar/2019', league: 'Amigos Indian XX IPL', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Indian League 2019', league: 'Am IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Premier League 2019', league: 'Amigos IPL', date: '20/Mar/2019', owner: 'mithunsivagurunathan', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'League 2019', league: 'Amigos', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: '2019', league: 'IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Indian Premier League 2019', league: 'Amigos Indian XX IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Indian League 2019', league: 'Am IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Premier League 2019', league: 'Amigos IPL', date: '20/Mar/2019', owner: 'mithunsivagurunathan', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'League 2019', league: 'Amigos', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: '2019', league: 'IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" }
+                ],
+                fields: [
+                    { key: 'date', label: 'Date', sortable: true },
+                    { key: 'tournament', label: 'Tournament', sortable: true },
+                    { key: 'league', label: 'League', sortable: true },                    
+                    { key: 'owner', label: 'Owner', sortable: true },
+                    { key: 'capital', label: 'Capital', sortable: true },
+                    { key: 'current', label: 'Current', sortable: true },
+                    { key: 'pl', label: 'P&L', sortable: true },
+                    { key: 'link', label: 'Link', sortable: true },
+                ],
+                currentPage: 1,
+                perPage: 50,
+                totalRows: 20,
+                pageOptions: [25, 50, 75, 100, "Infinte Scroll"],
+                sortBy: 'date',
+                sortDesc: false,
+                sortDirection: 'asc',
+                filter: null
+            }
+        },
+        computed: {
+            sortOptions() {
+                // Create an options list from our fields
+                return this.fields
+                .filter(f => f.sortable)
+                .map(f => {
+                    return { text: f.label, value: f.key }
+                })
+            }
+        },
+        methods: {
+            onFiltered(filteredItems) {
+                // Trigger pagination to update the number of buttons/pages due to filtering
+                this.totalRows = filteredItems.length
+                this.currentPage = 1
+            }
+        }
     }
 </script>
 

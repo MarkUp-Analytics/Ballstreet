@@ -220,3 +220,19 @@ table {
 .z-index-3 {
   z-index: 3;
 }
+
+.b-pagination .pagination>li>a, .b-pagination .pagination>li>span, .b-pagination {
+  color:#462446;
+}
+
+.pagination>li>span:focus {
+  box-shadow: none;
+  border: none;
+}
+
+.b-pagination .pagination>li.active>a {
+  background: #462446;
+  color: #fff;
+  box-shadow: none;
+  border: #462446;
+}

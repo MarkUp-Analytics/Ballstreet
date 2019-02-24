@@ -15,12 +15,21 @@
                 <div class="tab-content mt-4 mx-0 px-0">
                     <div class="tab-pane fade show active" id="current-investments-tab" role="tabpanel">                        
                         <b-container fluid  class="p-0">
-                            <b-form-group class="my-4">
-                                <b-input-group>
-                                    <b-form-input v-model="filter" placeholder="Type to Search" />
-                                </b-input-group>
-                            </b-form-group>
-                            <b-form-group class="my-4 d-md-none">
+                            <b-row class="my-0 py-0">
+                                <b-col md="7">
+                                    <b-form-group class="my-2">
+                                        <b-input-group>
+                                            <b-form-input v-model="filter" placeholder="Type to Search" />
+                                        </b-input-group>
+                                    </b-form-group>
+                                </b-col>
+                                <b-col md="5">
+                                    <b-form-group label-cols="3" label="Per Pg" class="my-2">
+                                        <b-form-select :options="pageOptions" v-model="perPage" />
+                                    </b-form-group>
+                                </b-col>
+                            </b-row>
+                            <b-form-group class="my-2 d-md-none">
                                 <b-input-group>
                                     <b-col cols="8" class="p-0">
                                         <b-form-select v-model="sortBy" :options="sortOptions">
@@ -39,18 +48,20 @@
                                     </b-col>
                                 </b-input-group>
                             </b-form-group>
-                            <div class="w-100 table-responsive max-height-75vh mt-4 mb-4 px-1">
+                            <div class="w-100 table-responsive mt-4 mb-4 px-1">
                                 <b-table 
                                     stacked="md"
                                     :items="itemsCurrent"
                                     :fields="fields"
+                                    :current-page="currentPage"
+                                    :per-page="perPage"
                                     :filter="filter"
                                     :sort-by.sync="sortBy"
                                     :sort-desc.sync="sortDesc"
                                     :sort-direction="sortDirection"
                                     @filtered="onFiltered"
                                     show-empty
-                                    class="w-100"
+                                    class="w-100 align-middle"
                                 >
                                     <template slot="empty" slot-scope="scope">
                                         <h4>{{ scope.emptyText }}</h4>
@@ -61,16 +72,35 @@
                                     <span slot="link" slot-scope="data" v-html="data.value" />
                                 </b-table>
                             </div>
+                            <b-row class="mx-auto">
+                                <b-col class="w-100 my-1 mx-auto text-center b-pagination">
+                                    <b-pagination
+                                        :total-rows="totalRowsCurrent"
+                                        :per-page="perPage"
+                                        v-model="currentPage"
+                                        class="justify-content-center"
+                                    />
+                                </b-col>
+                            </b-row>
                         </b-container>                        
                     </div>
                     <div class="tab-pane fade" id="past-investments-tab" role="tabpanel">
                         <b-container fluid  class="p-0">
-                            <b-form-group class="my-4">
-                                <b-input-group>
-                                    <b-form-input v-model="filter" placeholder="Type to Search" />
-                                </b-input-group>
-                            </b-form-group>
-                            <b-form-group class="my-4 d-md-none">
+                            <b-row class="my-0 py-0">
+                                <b-col md="7">
+                                    <b-form-group class="my-2">
+                                        <b-input-group>
+                                            <b-form-input v-model="filter" placeholder="Type to Search" />
+                                        </b-input-group>
+                                    </b-form-group>
+                                </b-col>
+                                <b-col md="5">
+                                    <b-form-group label-cols="3" label="Per Pg" class="my-2">
+                                        <b-form-select :options="pageOptions" v-model="perPage" />
+                                    </b-form-group>
+                                </b-col>
+                            </b-row>
+                            <b-form-group class="my-2 d-md-none">
                                 <b-input-group>
                                     <b-col cols="8" class="p-0">
                                         <b-form-select v-model="sortBy" :options="sortOptions">
@@ -89,18 +119,20 @@
                                     </b-col>
                                 </b-input-group>
                             </b-form-group>
-                            <div class="w-100 table-responsive max-height-75vh mt-4 mb-4 px-1">
+                            <div class="w-100 table-responsive mt-4 mb-4 px-1">
                                 <b-table 
                                     stacked="md"
                                     :items="itemsPast"
                                     :fields="fields"
+                                    :current-page="currentPage"
+                                    :per-page="perPage"
                                     :filter="filter"
                                     :sort-by.sync="sortBy"
                                     :sort-desc.sync="sortDesc"
                                     :sort-direction="sortDirection"
                                     @filtered="onFiltered"
                                     show-empty
-                                    class="w-100"
+                                    class="w-100 align-middle"
                                 >
                                     <template slot="empty" slot-scope="scope">
                                         <h4>{{ scope.emptyText }}</h4>
@@ -111,6 +143,16 @@
                                     <span slot="link" slot-scope="data" v-html="data.value" />
                                 </b-table>
                             </div>
+                            <b-row class="mx-auto">
+                                <b-col class="w-100 my-1 mx-auto text-center b-pagination">
+                                    <b-pagination
+                                        :total-rows="totalRowsPast"
+                                        :per-page="perPage"
+                                        v-model="currentPage"
+                                        class="justify-content-center"
+                                    />
+                                </b-col>
+                            </b-row>
                         </b-container>
                     </div>
                 </div>
@@ -126,29 +168,50 @@
         data() {
             return {
                 itemsCurrent: [
-                    { tournament: 'Indian Premier League 2019', league: 'Amigos Indian XX IPL', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Indian League 2019', league: 'Am IPL', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Premier League 2019', league: 'Amigos IPL', owner: 'mithunsivagurunathan', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'League 2019', league: 'Amigos', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: '2019', league: 'IPL', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" }
+                    { tournament: 'Indian Premier League 2019', league: 'Amigos Indian XX IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Indian League 2019', league: 'Am IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Premier League 2019', league: 'Amigos IPL', date: '20/Mar/2019', owner: 'mithunsivagurunathan', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'League 2019', league: 'Amigos', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: '2019', league: 'IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Indian Premier League 2019', league: 'Amigos Indian XX IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Indian League 2019', league: 'Am IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Premier League 2019', league: 'Amigos IPL', date: '20/Mar/2019', owner: 'mithunsivagurunathan', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'League 2019', league: 'Amigos', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: '2019', league: 'IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Indian Premier League 2019', date: '20/Mar/2019', league: 'Amigos Indian XX IPL', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Indian League 2019', league: 'Am IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Premier League 2019', league: 'Amigos IPL', date: '20/Mar/2019', owner: 'mithunsivagurunathan', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'League 2019', league: 'Amigos', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: '2019', league: 'IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Indian Premier League 2019', league: 'Amigos Indian XX IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Indian League 2019', league: 'Am IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Premier League 2019', league: 'Amigos IPL', date: '20/Mar/2019', owner: 'mithunsivagurunathan', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'League 2019', league: 'Amigos', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: '2019', league: 'IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" }
                 ],
                 itemsPast: [
-                    { tournament: 'Past Indian Premier League 2019', league: 'Amigos Indian XX IPL', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Past Indian League 2019', league: 'Am IPL', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Past Premier League 2019', league: 'Amigos IPL', owner: 'mithunsivagurunathan', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Past League 2019', league: 'Amigos', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Past 2019', league: 'IPL', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" }
+                    { tournament: 'Past Indian Premier League 2019', league: 'Amigos Indian XX IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Past Indian League 2019', league: 'Am IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Past Premier League 2019', league: 'Amigos IPL', date: '20/Mar/2019', owner: 'mithunsivagurunathan', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Past League 2019', league: 'Amigos', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
+                    { tournament: 'Past 2019', league: 'IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" }
                 ],
                 fields: [
+                    { key: 'date', label: 'Date', sortable: true },
                     { key: 'tournament', label: 'Tournament', sortable: true },
-                    { key: 'league', label: 'League', sortable: true },
+                    { key: 'league', label: 'League', sortable: true },                    
                     { key: 'owner', label: 'Owner', sortable: true },
                     { key: 'capital', label: 'Capital', sortable: true },
                     { key: 'current', label: 'Current', sortable: true },
                     { key: 'pl', label: 'P&L', sortable: true },
                     { key: 'link', label: 'Link', sortable: true },
                 ],
-                sortBy: null,
+                currentPage: 1,
+                perPage: 20,
+                totalRowsCurrent: 40,
+                totalRowsPast: 20,
+                pageOptions: [10, 20, 30, 40, 50, "Infinte Scroll"],
+                sortBy: 'date',
                 sortDesc: false,
                 sortDirection: 'asc',
                 filter: null
