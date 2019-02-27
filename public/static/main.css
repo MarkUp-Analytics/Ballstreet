@@ -221,6 +221,14 @@ table {
   z-index: 3;
 }
 
+.z-index-4 {
+  z-index: 4;
+}
+
+.z-index-5 {
+  z-index: 5;
+}
+
 .b-pagination .pagination>li>a, .b-pagination .pagination>li>span, .b-pagination {
   color:#462446;
 }

@@ -39,6 +39,7 @@ import InputResult from '@/components/InputResult'
 import InputSchedule from '@/components/InputSchedule'
 import ReportTransaction from '@/components/ReportTransaction'
 import ReportAcquisition from '@/components/ReportAcquisition'
+import ReportHealth from '@/components/ReportHealth'
 
 Vue.use(Router)
 Vue.use(BootstrapVue)
@@ -236,6 +237,11 @@ export default new Router({
       path: '/reportTransaction',
       name: 'Report Transaction',
       component: ReportTransaction
+    },
+    {
+      path: '/reportHealth',
+      name: 'Report Health',
+      component: ReportHealth
     }
   ]
 })

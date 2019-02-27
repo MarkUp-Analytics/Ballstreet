@@ -34,10 +34,10 @@
                         </a>
                     </nav>
                 </div>
-            </nav>   
+            </nav>    
             <div class="container mx-auto bg-light p-5">
                 <h1 class="text-violet mx-auto">Report</h1>
-                <h4 class="text-violet mx-auto mb-5">Acquisition</h4>
+                <h4 class="text-violet mx-auto mb-5">Health</h4>
                 
                 <form>
                     <div class="form-row mt-5 mb-3">
@@ -163,21 +163,30 @@
 
 <script>
     export default {
-        name: 'ReportAcquisition',
+        name: 'ReportHealth',
         data() {
             return {
                 items: [
-                    { date: "05/Mar/2019 10:30 Hrs", email: "mithsi@ballstreet.com",  name: "Mithun Sivagurunathan", source: "Google Search", campaignCode: "HXHS190202", campaignName: "20/Mar/2019 25/Apr/2019 - Diwali - Festival Lights", promoCode: "DIWALI50"
+                    { email: "mithsi@ballstreet.com", twoMoAvgGames: "23", sixMoAvgGames: "23", twelveMoAvgGames: "23", twentyFourMoAvgGames: "23", twoMoAvgINR: "23", sixMoAvgINR: "23", twelveMoAvgINR: "23", twentyFourMoAvgINR: "23", twoMoPlPc: "10%", sixMoPlPc: "20%", twelveMoPlPc: "23%", twentyFourMoPlPc: "23%", hashAdmins: '23', avgOverallPlayers: '24', avgAdminPlayers: '45'
                     },
                 ],
                 fields: [
-                    { key: 'date', label: 'Date', sortable: true },
                     { key: 'email', label: 'Email', sortable: true },
-                    { key: 'name', label: 'Name', sortable: true },
-                    { key: 'source', label: 'Source', sortable: true },
-                    { key: 'campaignCode', label: 'Campaign Code', sortable: true },
-                    { key: 'campaignName', label: 'Campaign Name', sortable: true },
-                    { key: 'promoCode', label: 'Promo Code', sortable: true }
+                    { key: 'twoMoAvgGames', label: '2 Mo Avg Games', sortable: true },
+                    { key: 'sixMoAvgGames', label: '6 Mo Avg Games', sortable: true },
+                    { key: 'twelveMoAvgGames', label: '12 Mo Avg Games', sortable: true },
+                    { key: 'twentyFourMoAvgGames', label: '24 Mo Avg Games', sortable: true },
+                    { key: 'twoMoAvgINR', label: '2 Mo Avg INR', sortable: true },
+                    { key: 'sixMoAvgINR', label: '6 Mo Avg INR', sortable: true },
+                    { key: 'twelveMoAvgINR', label: '12 Mo Avg INR', sortable: true },
+                    { key: 'twentyFourMoAvgINR', label: '24 Mo Avg INR', sortable: true },
+                    { key: 'twoMoPlPc', label: '2 Mo Pl %', sortable: true },
+                    { key: 'sixMoPlPc', label: '6 Mo Pl %', sortable: true },
+                    { key: 'twelveMoPlPc', label: '12 Mo Pl %', sortable: true },
+                    { key: 'twentyFourMoPlPc', label: '24 Mo Pl %', sortable: true },
+                    { key: 'hashAdmins', label: '# Admins', sortable: true },
+                    { key: 'avgOverallPlayers', label: 'Avg Overall Players', sortable: true },
+                    { key: 'avgAdminPlayers', label: 'Avg Admin Players', sortable: true }
                 ],
                 currentPage: 1,
                 perPage: 2,
