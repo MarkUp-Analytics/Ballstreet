@@ -4,158 +4,142 @@
             <nav class="navbar sticky-top navbar-light bg-white shadow-sm w-100 z-index-3 border-top">
                 <div class=" px-1 mx-auto">
                     <nav class="nav nav-secondary justify-content-center">
-                        <a class="nav-link text-secondary" href="#/inputteam">
+                        <a class="nav-link text-secondary b-0" href="#/inputteam">
                             <span class="d-sm-none" title="Team">Te</span>
                             <span class="d-none d-sm-block">Team</span>
                         </a>
-                        <a class="nav-link text-secondary" href="#/inputtournament">
+                        <a class="nav-link text-secondary b-0" href="#/inputtournament">
                             <span class="d-sm-none" title="Tournament">To</span>
                             <span class="d-none d-sm-block">Tournament</span>
                         </a>
-                        <a class="nav-link text-secondary" href="#/inputschedule">
+                        <a class="nav-link text-secondary b-0" href="#/inputschedule">
                             <span class="d-sm-none" title="Schedule">Sc</span>
                             <span class="d-none d-sm-block">Schedule</span>
                         </a>
-                        <a class="nav-link text-secondary" href="#/inputresult">
+                        <a class="nav-link text-secondary b-0" href="#/inputresult">
                             <span class="d-sm-none" title="Live">Re</span>
                             <span class="d-none d-sm-block">Result</span>
                         </a>
-                        <a class="nav-link text-secondary" href="#/reportacquisition">
+                        <a class="nav-link text-secondary b-0" href="#/reportacquisition">
                             <span class="d-sm-none" title="Acquisition">Ac</span>
                             <span class="d-none d-sm-block">Acquisition</span>
                         </a>
-                        <a class="nav-link text-secondary" href="#/reporthealth">
+                        <a class="nav-link text-secondary b-0" href="#/reporthealth">
                             <span class="d-sm-none" title="Health">He</span>
                             <span class="d-none d-sm-block">Health</span>
                         </a>
-                        <a class="nav-link text-secondary" href="#/reporttransaction">
+                        <a class="nav-link text-secondary b-0" href="#/reporttransaction">
                             <span class="d-sm-none" title="reporttransaction">Tr</span>
                             <span class="d-none d-sm-block">Transaction</span>
                         </a>
                     </nav>
                 </div>
-            </nav>    
+            </nav>     
             <div class="container mx-auto bg-light p-5">
                 <h1 class="text-violet mx-auto">Report</h1>
                 <h4 class="text-violet mx-auto mb-5">Health</h4>
-                
-                <form>
-                    <div class="form-row mt-5 mb-3">
-                        <div class="col-sm">
-                            <input type="text" class="form-control" placeholder="From: DD/MM/YY">
-                        </div>
-                        <div class="col-sm">
-                            <input type="text" class="form-control" placeholder="To: DD/MM/YY">
-                        </div>
-                        <div class="col-sm">
-                            <button class="btn btn-dark bg-violet w-100">Download</button>
-                        </div>
+
+                <form class="form-row mt-5 mb-3">
+                    <div class="col-sm">
+                        <select class="form-control my-2">
+                            <option>Minute</option>
+                            <option>Hour</option>
+                            <option>Day</option>
+                            <option selected>Week</option>
+                            <option>Month</option>
+                            <option>Year</option>
+                        </select>
+                    </div>
+                    <div class="col-sm">
+                        <input type="text" class="form-control my-2" placeholder="Ex: 1" value="1">
+                    </div>
+                    <div class="col-sm">
+                        <input type="text" class="form-control my-2" placeholder="Ex: 3" value="3">
+                    </div>
+                    <div class="col-sm">
+                        <input type="text" class="form-control my-2" placeholder="Ex: 6" value="6">
+                    </div>
+                    <div class="col-sm">
+                        <input type="text" class="form-control my-2" placeholder="Ex: 12" value="12">
+                    </div>
+                    <div class="col-sm">
+                        <button class="btn btn-dark bg-violet w-100 my-2">Update</button>
                     </div>
                 </form>
-                <hr class="my-2 d-sm-none"/>
-                <h6 class="mt-4 row">
-                    <a href="#" class="text-violet col-sm px-1">
-                        1D
-                        <h4 class="text-dark">23</h4>
-                    </a>
-                    <a href="#" class="text-violet col-sm px-1">
-                        3D
-                        <h4 class="text-dark">123</h4>
-                    </a>
-                    <a href="#" class="text-violet col-sm px-1">
-                        1W
-                        <h4 class="text-dark">223</h4>
-                    </a>
-                    <a href="#" class="text-violet col-sm px-1">
-                        2W
-                        <h4 class="text-dark">323</h4>
-                    </a>
-                    <a href="#" class="text-violet col-sm px-1">
-                        1M
-                        <h4 class="text-dark">423</h4>
-                    </a>
-                    <a href="#" class="text-violet col-sm px-1">
-                        3M
-                        <h4 class="text-dark">523</h4>
-                    </a>
-                    <a href="#" class="text-violet col-sm px-1">
-                        6M
-                        <h4 class="text-dark">623</h4>
-                    </a>
-                </h6>
+                <hr class="my-3" />
+                <div class="w-100 table-responsive mt-4 px-0">
+                    <b-table 
+                        stacked="md"
+                        :items="items"
+                        :fields="fields"
+                        show-empty
+                        class="w-100 align-middle"
+                    >
+                        <template slot="empty" slot-scope="scope">
+                            <h4>{{ scope.emptyText }}</h4>
+                        </template>
+                        <template slot="emptyfiltered" slot-scope="scope">
+                            <h4>{{ scope.emptyFilteredText }}</h4>
+                        </template>
+                    </b-table>
+                </div>
             </div>
             <hr />
-            <div class="container-lg mx-auto bg-light p-5">
-                <b-container fluid  class="pb-5 px-0 pt-0 m-0">
-                    <b-row class="my-0 py-0">
-                        <b-col md="7">
-                            <b-form-group class="my-2">
-                                <b-input-group>
-                                    <b-form-input v-model="filter" placeholder="Type to Search" />
-                                </b-input-group>
-                            </b-form-group>
-                        </b-col>
-                        <b-col md="5">
-                            <b-form-group label-cols="3" label="Per Pg" class="my-2">
-                                <b-form-select :options="pageOptions" v-model="perPage" />
-                            </b-form-group>
-                        </b-col>
-                    </b-row>
-                    <b-form-group class="my-2 d-md-none">
-                        <b-input-group>
-                            <b-col cols="8" class="p-0">
-                                <b-form-select v-model="sortBy" :options="sortOptions">
-                                    <option slot="first" :value="null">Select field to sort by...</option>
-                                </b-form-select>
-                            </b-col>
-                            <b-col class="p-0">
-                                <b-form-select :disabled="!sortBy" v-model="sortDesc" slot="append">
-                                    <option :value="false">
-                                        Asc
-                                    </option>
-                                    <option :value="true">
-                                        Desc
-                                    </option>
-                                </b-form-select>
-                            </b-col>
-                        </b-input-group>
-                    </b-form-group>
-                    <div class="w-100 table-responsive mt-4 mb-4 px-1">
-                        <b-table 
-                            stacked="md"
-                            :items="items"
-                            :fields="fields"
-                            :current-page="currentPage"
-                            :per-page="perPage"
-                            :filter="filter"
-                            :sort-by.sync="sortBy"
-                            :sort-desc.sync="sortDesc"
-                            :sort-direction="sortDirection"
-                            @filtered="onFiltered"
-                            show-empty
-                            class="w-100 align-middle"
-                        >
-                            <template slot="empty" slot-scope="scope">
-                                <h4>{{ scope.emptyText }}</h4>
-                            </template>
-                            <template slot="emptyfiltered" slot-scope="scope">
-                                <h4>{{ scope.emptyFilteredText }}</h4>
-                            </template>
-                            <span slot="link" slot-scope="data" v-html="data.value" />
-                            <span slot="image" slot-scope="data" v-html="data.value" />
-                        </b-table>
-                    </div>
-                    <b-row class="mx-auto">
-                        <b-col class="w-100 mx-auto text-center b-pagination">
-                            <b-pagination
-                                :total-rows="totalRows"
-                                :per-page="perPage"
-                                v-model="currentPage"
-                                class="justify-content-center"
-                            />
-                        </b-col>
-                    </b-row>
-                </b-container>
+            <div class="container mx-auto bg-light p-5">
+                <h4 class="text-violet mx-auto mb-5">Health Dump Download</h4>
+                <section class="pb-5">
+                    <form class="text-left">
+                        <div class="form-group row my-2">
+                            <div class="col-sm">
+                                <input type="text" class="form-control my-2" placeholder="From: DD/MM/YYYY">
+                            </div>
+                        </div>
+                        <div class="form-group row my-2">
+                            <div class="col-sm">
+                                <input type="text" class="form-control my-2" placeholder="To: DD/MM/YYYY">
+                            </div>
+                        </div>                            
+                        <div class="form-group row my-3">
+                            <div class="col-sm">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="Metric1">
+                                    <label class="form-check-label" for="Metric1">
+                                        Metric 1
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="Metric2">
+                                    <label class="form-check-label" for="Metric2">
+                                        Metric 2
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="Metric3">
+                                    <label class="form-check-label" for="Metric3">
+                                        Metric 3
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="Metric4">
+                                    <label class="form-check-label" for="Metric4">
+                                        Metric 4
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="Metric5">
+                                    <label class="form-check-label" for="Metric5">
+                                        Metric 5
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-5">
+                            <div class="col-sm">
+                                <button type="submit" class="btn btn-dark bg-violet w-100">Download</button>
+                            </div>
+                        </div>
+                    </form>
+                </section>
             </div>
         </div>
     </div>            
@@ -167,52 +151,21 @@
         data() {
             return {
                 items: [
-                    { email: "mithsi@ballstreet.com", twoMoAvgGames: "23", sixMoAvgGames: "23", twelveMoAvgGames: "23", twentyFourMoAvgGames: "23", twoMoAvgINR: "23", sixMoAvgINR: "23", twelveMoAvgINR: "23", twentyFourMoAvgINR: "23", twoMoPlPc: "10%", sixMoPlPc: "20%", twelveMoPlPc: "23%", twentyFourMoPlPc: "23%", hashAdmins: '23', avgOverallPlayers: '24', avgAdminPlayers: '45'
-                    },
+                    { fieldName: "Players", one: "12", two: "10", three: "6", four: "2" },
+                    { fieldName: "Unique Players", one: "12", two: "10", three: "6", four: "2" },
+                    { fieldName: "Tournaments", one: "12", two: "10", three: "6", four: "2" },
+                    { fieldName: "Games", one: "12", two: "10", three: "6", four: "2" },
+                    { fieldName: "Admins", one: "12", two: "10", three: "6", four: "2" },
+                    { fieldName: "Value", one: "12", two: "10", three: "6", four: "2" },
+                    { fieldName: "Discount", one: "12", two: "10", three: "6", four: "2" }
                 ],
                 fields: [
-                    { key: 'email', label: 'Email', sortable: true },
-                    { key: 'twoMoAvgGames', label: '2 Mo Avg Games', sortable: true },
-                    { key: 'sixMoAvgGames', label: '6 Mo Avg Games', sortable: true },
-                    { key: 'twelveMoAvgGames', label: '12 Mo Avg Games', sortable: true },
-                    { key: 'twentyFourMoAvgGames', label: '24 Mo Avg Games', sortable: true },
-                    { key: 'twoMoAvgINR', label: '2 Mo Avg INR', sortable: true },
-                    { key: 'sixMoAvgINR', label: '6 Mo Avg INR', sortable: true },
-                    { key: 'twelveMoAvgINR', label: '12 Mo Avg INR', sortable: true },
-                    { key: 'twentyFourMoAvgINR', label: '24 Mo Avg INR', sortable: true },
-                    { key: 'twoMoPlPc', label: '2 Mo Pl %', sortable: true },
-                    { key: 'sixMoPlPc', label: '6 Mo Pl %', sortable: true },
-                    { key: 'twelveMoPlPc', label: '12 Mo Pl %', sortable: true },
-                    { key: 'twentyFourMoPlPc', label: '24 Mo Pl %', sortable: true },
-                    { key: 'hashAdmins', label: '# Admins', sortable: true },
-                    { key: 'avgOverallPlayers', label: 'Avg Overall Players', sortable: true },
-                    { key: 'avgAdminPlayers', label: 'Avg Admin Players', sortable: true }
-                ],
-                currentPage: 1,
-                perPage: 2,
-                totalRows: 4,
-                pageOptions: [25, 50, 75, 100, "Infinte Scroll"],
-                sortBy: 'date',
-                sortDesc: false,
-                sortDirection: 'asc',
-                filter: null
-            }
-        },
-        computed: {
-            sortOptions() {
-                // Create an options list from our fields
-                return this.fields
-                .filter(f => f.sortable)
-                .map(f => {
-                    return { text: f.label, value: f.key }
-                })
-            }
-        },
-        methods: {
-            onFiltered(filteredItems) {
-                // Trigger pagination to update the number of buttons/pages due to filtering
-                this.totalRows = filteredItems.length
-                this.currentPage = 1
+                    { key: 'fieldName', label: 'Field', isRowHeader: 'true' },
+                    { key: 'one', label: '1 Week Avg' },
+                    { key: 'two', label: '3 Week Avg' },
+                    { key: 'three', label: '6 Week Avg' },
+                    { key: 'four', label: '12 Week Avg' }
+                ]
             }
         }
     }

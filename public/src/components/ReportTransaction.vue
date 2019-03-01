@@ -42,17 +42,17 @@
                 <form>
                     <div class="form-row mt-5 mb-3">
                         <div class="col-sm">
-                            <input type="text" class="form-control" placeholder="From: DD/MM/YY">
+                            <input type="text" class="form-control my-2" placeholder="From: DD/MM/YY">
                         </div>
                         <div class="col-sm">
-                            <input type="text" class="form-control" placeholder="To: DD/MM/YY">
+                            <input type="text" class="form-control my-2" placeholder="To: DD/MM/YY">
                         </div>
                         <div class="col-sm">
-                            <button class="btn btn-dark bg-violet w-100">Download</button>
+                            <button class="btn btn-dark bg-violet w-100 my-2">Download</button>
                         </div>
                     </div>
                 </form>
-                <hr class="my-2 d-sm-none"/>
+                <hr />
                 <h6 class="mt-4 row">
                     <a href="#" class="text-violet col-sm px-1">
                         1D
@@ -167,8 +167,8 @@
         data() {
             return {
                 items: [
-                    { email: "mithsi@ballstreet.com", name: "Mithun Sivagurunathan", tournament: "Indian Premier League 2019", groupId: "23XJSJS", groupName: "Mithun", entryFee: "23", valPerGame: "23", totalVal: "230", type: "Debit", date: "20/Mar/2019 12:30 Hrs", lockIn: "75", earnings: "23*75*.005"},
-                    { email: "mithsi@ballstreet.com", name: "Mithun Sivagurunathan", tournament: "Indian Premier League 2019", groupId: "23XJSJS", groupName: "Mithun", entryFee: "23", valPerGame: "23", totalVal: "230", type: "Credit",  date: "30/Mar/2019 12:30 Hrs", lockIn: "75", earnings: "23*75*.005"},
+                    { email: "mithsi@ballstreet.com", name: "Mithun Sivagurunathan", tournament: "Indian Premier League 2019", groupId: "23XJSJS", groupName: "Mithun", entryFee: "23", val: "230", type: "Debit", date: "20/Mar/2019 12:30 Hrs", earnings: "230*75*.005"},
+                    { email: "mithsi@ballstreet.com", name: "Mithun Sivagurunathan", tournament: "Indian Premier League 2019", groupId: "23XJSJS", groupName: "Mithun", entryFee: "23", val: "-230", type: "Credit",  date: "30/Mar/2019 12:30 Hrs", earnings: "230*75*.005"},
                 ],
                 fields: [
                     { key: 'email', label: 'Email', sortable: true },
@@ -177,11 +177,9 @@
                     { key: 'groupId', label: 'Group Id', sortable: true },
                     { key: 'groupName', label: 'Group Name', sortable: true },
                     { key: 'entryFee', label: 'Entry Fee', sortable: true },
-                    { key: 'valPerGame', label: 'Value Per Game', sortable: true },
-                    { key: 'totalVal', label: 'Total Value', sortable: true },
+                    { key: 'val', label: 'Value', sortable: true },
                     { key: 'type', label: 'Type', sortable: true },
                     { key: 'date', label: 'date', sortable: true },
-                    { key: 'lockIn', label: 'Lock-In D', sortable: true },
                     { key: 'earnings', label: 'Earnings', sortable: true },
                 ],
                 currentPage: 1,

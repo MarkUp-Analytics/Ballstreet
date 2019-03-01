@@ -4,37 +4,37 @@
             <nav class="navbar sticky-top navbar-light bg-white shadow-sm w-100 z-index-3 border-top">
                 <div class=" px-1 mx-auto">
                     <nav class="nav nav-secondary justify-content-center">
-                        <a class="nav-link text-secondary" href="#/inputteam">
+                        <a class="nav-link text-secondary b-0" href="#/inputteam">
                             <span class="d-sm-none" title="Team">Te</span>
                             <span class="d-none d-sm-block">Team</span>
                         </a>
-                        <a class="nav-link text-secondary" href="#/inputtournament">
+                        <a class="nav-link text-secondary b-0" href="#/inputtournament">
                             <span class="d-sm-none" title="Tournament">To</span>
                             <span class="d-none d-sm-block">Tournament</span>
                         </a>
-                        <a class="nav-link text-secondary" href="#/inputschedule">
+                        <a class="nav-link text-secondary b-0" href="#/inputschedule">
                             <span class="d-sm-none" title="Schedule">Sc</span>
                             <span class="d-none d-sm-block">Schedule</span>
                         </a>
-                        <a class="nav-link text-secondary" href="#/inputresult">
+                        <a class="nav-link text-secondary b-0" href="#/inputresult">
                             <span class="d-sm-none" title="Live">Re</span>
                             <span class="d-none d-sm-block">Result</span>
                         </a>
-                        <a class="nav-link text-secondary" href="#/reportacquisition">
+                        <a class="nav-link text-secondary b-0" href="#/reportacquisition">
                             <span class="d-sm-none" title="Acquisition">Ac</span>
                             <span class="d-none d-sm-block">Acquisition</span>
                         </a>
-                        <a class="nav-link text-secondary" href="#/reporthealth">
+                        <a class="nav-link text-secondary b-0" href="#/reporthealth">
                             <span class="d-sm-none" title="Health">He</span>
                             <span class="d-none d-sm-block">Health</span>
                         </a>
-                        <a class="nav-link text-secondary" href="#/reporttransaction">
+                        <a class="nav-link text-secondary b-0" href="#/reporttransaction">
                             <span class="d-sm-none" title="reporttransaction">Tr</span>
                             <span class="d-none d-sm-block">Transaction</span>
                         </a>
                     </nav>
                 </div>
-            </nav>
+            </nav> 
             <div class="container-lg mx-auto">
                 <h1 class="text-violet mt-5 mx-auto">Input</h1>
                 <h4 class="text-violet mx-auto">Tournament</h4>
@@ -43,8 +43,8 @@
                         <form class="text-left py-3 mb-5 px-5" id="tournament-create">
                             <h5 class="text-violet mt-4">Create Tournament</h5>
                             <div class="form-group mt-4">
-                                <img src="../../static/assets/images/IPL.png" class="rounded border mb-2" width="50px" height="50px" /><br/>
-                                <label>Choose Image</label>
+                                <img src="../../static/assets/images/IPL.png" /><br/>
+                                <label class="mt-2">Choose Image</label>
                                 <input type="file" class="form-control-file">
                             </div>
                             <div class="form-group mt-4">
@@ -167,12 +167,13 @@
         data() {
             return {
                 items: [
-                    { image: "<img src='../../static/assets/images/IPL.png' class='rounded border mb-2' width='25px' height='25px' />", tournament: 'Indian Premier League 2019', link: "<a href='' class='text-violet'>Click</a>" },
-                    { image: "<img src='../../static/assets/images/IPL.png' class='rounded border mb-2' width='25px' height='25px' />", tournament: 'IPL 2019', link: "<a href='' class='text-violet'>Click</a>" },
-                    { image: "<img src='../../static/assets/images/IPL.png' class='rounded border mb-2' width='25px' height='25px' />", tournament: 'Premier League 2019', link: "<a href='' class='text-violet'>Click</a>" },
-                    { image: "<img src='../../static/assets/images/IPL.png' class='rounded border mb-2' width='25px' height='25px' />", tournament: 'League 2019', link: "<a href='' class='text-violet'>Click</a>" }
+                    { date: "18/Mar/1990 11:30 Hrs", image: "<img src='../../static/assets/images/IPL.png' />", tournament: 'Indian Premier League 2019', link: "<a href='' class='text-violet'>Click</a>" },
+                    { date: "18/Mar/1990 12:30 Hrs", image: "<img src='../../static/assets/images/IPL.png' />", tournament: 'IPL 2019', link: "<a href='' class='text-violet'>Click</a>" },
+                    { date: "18/Mar/1990 13:30 Hrs", image: "<img src='../../static/assets/images/IPL.png' />", tournament: 'Premier League 2019', link: "<a href='' class='text-violet'>Click</a>" },
+                    { date: "18/Mar/1990 01:30 Hrs", image: "<img src='../../static/assets/images/IPL.png' />", tournament: 'League 2019', link: "<a href='' class='text-violet'>Click</a>" }
                 ],
                 fields: [
+                    { key: 'date', label: 'Date Created', sortable: true },
                     { key: 'image', label: 'Image', sortable: true },
                     { key: 'tournament', label: 'Tournament', sortable: true },
                     { key: 'link', label: 'Link', sortable: true },
@@ -183,7 +184,7 @@
                 pageOptions: [25, 50, 75, 100, "Infinte Scroll"],
                 sortBy: 'date',
                 sortDesc: false,
-                sortDirection: 'asc',
+                sortDirection: 'desc',
                 filter: null
             }
         },
@@ -208,4 +209,11 @@
 </script>
 
 <style>
+    img {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 2;
+        border-radius: 2px;
+        border: 1px solid #dadada;
+    }
 </style>

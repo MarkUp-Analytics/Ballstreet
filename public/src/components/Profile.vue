@@ -3,11 +3,11 @@
         <nav class="navbar sticky-top navbar-light bg-white shadow-sm w-100 z-index-1 border-top" id="profile-navbar">
             <div class=" px-5 mx-auto">
                 <nav class="nav nav-secondary justify-content-center">
-                    <a class="nav-link text-secondary" href="" v-scroll-to="'#user'">
+                    <a class="nav-link text-secondary b-0" href="" v-scroll-to="'#user'">
                         <span class="d-sm-none" title="User-Info">User</span>
                         <span class="d-none d-sm-block">User Info</span>
                     </a>
-                    <a class="nav-link text-secondary" href="" v-scroll-to="'#password'">
+                    <a class="nav-link text-secondary b-0" href="" v-scroll-to="'#password'">
                         <span class="d-sm-none" title="Password">Pass</span>
                         <span class="d-none d-sm-block">Password</span>
                     </a>

@@ -26,7 +26,7 @@
                 </nav>
             </div>
         </nav>
-        <div class="p-5 mx-auto text-center bg-light">
+        <div class="p-5 mx-auto text-center bg-light" id="update-preferences">
             <div class="container">
                 <h1 class="text-violet mt-1 mb-5">Preferences</h1>
                 <div class="row mt-4">   
@@ -83,108 +83,117 @@
                 <h6 class="mt-1 mb-5">
                     <a href="#" class="text-violet mx-2">3 Games</a> <a href="#" class="text-violet mx-2">5 Games</a> <a href="#" class="text-violet mx-2">7 Games</a> <a href="#" class="text-violet mx-2">14 Games</a> <span class="mx-2">|</span> <a href="#" class="text-violet mx-2">3 Days</a> <a href="#" class="text-violet mx-2">5 Days</a> <a href="#" class="text-violet mx-2">7 Days</a> <a href="#" class="text-violet mx-2">14 Days</a>
                 </h6>
-                <div class="w-100 table-responsive-xl">
-                    <table class="table sortable mb-0 pb-0">
-                        <thead>
-                            <tr class="text-violet">
-                                <th scope="col-2">Date</th>
-                                <th scope="col-2">Venue</th>
-                                <th scope="col-2">Team A</th>
-                                <th scope="col-2">Team B</th>
-                                <th scope="col-2">Preference</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="align-middle">
-                                    2018/07/20 1730 Hrs
-                                </td>
-                                <td class="align-middle">
-                                    Chennai, India
-                                </td>
-                                <td class="align-middle">
-                                    Chennai Super Kings
-                                </td>
-                                <td class="align-middle">
-                                    Royal Challengers Bangalore
-                                </td>
-                                <td class="align-middle">
-                                    <div class="form-group mb-0 pb-0">
-                                        <select class="form-control form-control-sm" id="exampleFormControlSelect1">
-                                            <option>Chennai Super Kings</option>
-                                            <option>Royal Challengers Bangalore</option>
-                                        </select>
-                                        <small>Override preference for this game</small>
+                
+                <div class="card-columns">
+					<div class="card bg-white">
+						<div class="card-body">
+							<form class="text-left p-1">
+                                <div class="form-group">
+                                    <label>Indian Premier League 2019</label>                                    
+                                </div>
+                                <div class="form-group mt-2">
+                                    <label>29/Mar/2019 01:20 Hrs</label>                                    
+                                </div>
+                                <div class="form-group mt-2">
+                                    <label>Stadium, Chennai</label>                                    
+                                </div>
+                                <div class="form-group mt-2">
+                                    <label>Preference:</label>
+                                    <select class="form-control">
+                                        <option>Chennai Super Kings</option>
+                                        <option>Royal Challengers Namgalore</option>
+                                        <option>Tie</option>
+                                    </select>
+                                </div>
+                                <div class="form-group mt-2">
+                                    <small><a href="" v-scroll-to="'#update-preferences'" class="text-violet">Override is applicable only for this game. To update preferences for all games, click here.</a></small>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg mt-4">
+                                        <a href="" class="btn btn-dark bg-violet border-0 w-100">Save</a><br/>
                                     </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="align-middle">
-                                    2018/07/20 1730 Hrs
-                                </td>
-                                <td class="align-middle">
-                                    Bhennai, India
-                                </td>
-                                <td class="align-middle">
-                                    Chennai Super Kings
-                                </td>
-                                <td class="align-middle">
-                                    Royal Challengers Bangalore
-                                </td>
-                                <td class="align-middle">
-                                    <div class="form-group mb-0 pb-0">
-                                        <select class="form-control form-control-sm" id="exampleFormControlSelect1">
-                                            <option>Chennai Super Kings</option>
-                                            <option>Royal Challengers Bangalore</option>
-                                        </select>
-                                        <small>Override preference for this game</small>
+                                </div>
+                                <div class="row text-center">
+                                    <div class="col-lg mt-2">
+                                        <a href="" class="text-violet mt-5">Cancel</a>
                                     </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="align-middle">
-                                    2018/07/20 1730 Hrs
-                                </td>
-                                <td class="align-middle">
-                                    Ahennai, India
-                                </td>
-                                <td class="align-middle">
-                                    Chennai Super Kings
-                                </td>
-                                <td class="align-middle">
-                                    Royal Challengers Bangalore
-                                </td>
-                                <td class="align-middle">
-                                    <div class="form-group mb-0 pb-0">
-                                        <select class="form-control form-control-sm" id="exampleFormControlSelect1">
-                                            <option>Chennai Super Kings</option>
-                                            <option>Royal Challengers Bangalore</option>
-                                        </select>
-                                        <small>Override preference for this game</small>
+                                </div>
+                            </form>
+						</div>
+					</div>
+                    <div class="card bg-white">
+						<div class="card-body">
+							<form class="text-left p-1">
+                                <div class="form-group">
+                                    <label>Indian Premier League 2019</label>                                    
+                                </div>
+                                <div class="form-group mt-2">
+                                    <label>29/Mar/2019 01:20 Hrs</label>                                    
+                                </div>
+                                <div class="form-group mt-2">
+                                    <label>Stadium, Chennai</label>                                    
+                                </div>
+                                <div class="form-group mt-2">
+                                    <label>Preference:</label>
+                                    <select class="form-control">
+                                        <option>Chennai Super Kings</option>
+                                        <option>Royal Challengers Namgalore</option>
+                                        <option>Tie</option>
+                                    </select>
+                                </div>
+                                <div class="form-group mt-2">
+                                    <small><a href="" v-scroll-to="'#update-preferences'" class="text-violet">Override is applicable only for this game. To update preferences for all games, click here.</a></small>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg mt-4">
+                                        <a href="" class="btn btn-dark bg-violet border-0 w-100">Save</a><br/>
                                     </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>                    
-                </div>      
-                <div class="row mt-5">
-                    <div class="col-lg">
-                    </div>
-                    <div class="col-lg">
-                    </div>
-                    <div class="col-lg">
-                        <div class="row">
-                            <div class="col-lg">
-                                <a href="" class="btn btn-dark bg-violet border-0 w-100">Save Changes</a><br/>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg mt-2">
-                                <a href="" class="text-violet mt-5">Cancel</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>       
+                                </div>
+                                <div class="row text-center">
+                                    <div class="col-lg mt-2">
+                                        <a href="" class="text-violet mt-5">Cancel</a>
+                                    </div>
+                                </div>
+                            </form>
+						</div>
+					</div>
+                    <div class="card bg-white">
+						<div class="card-body">
+							<form class="text-left p-1">
+                                <div class="form-group">
+                                    <label>Indian Premier League 2019</label>                                    
+                                </div>
+                                <div class="form-group mt-2">
+                                    <label>29/Mar/2019 01:20 Hrs</label>                                    
+                                </div>
+                                <div class="form-group mt-2">
+                                    <label>Stadium, Chennai</label>                                    
+                                </div>
+                                <div class="form-group mt-2">
+                                    <label>Preference:</label>
+                                    <select class="form-control">
+                                        <option>Chennai Super Kings</option>
+                                        <option>Royal Challengers Namgalore</option>
+                                        <option>Tie</option>
+                                    </select>
+                                </div>
+                                <div class="form-group mt-2">
+                                    <small><a href="" v-scroll-to="'#update-preferences'" class="text-violet">Override is applicable only for this game. To update preferences for all games, click here.</a></small>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg mt-4">
+                                        <a href="" class="btn btn-dark bg-violet border-0 w-100">Save</a><br/>
+                                    </div>
+                                </div>
+                                <div class="row text-center">
+                                    <div class="col-lg mt-2">
+                                        <a href="" class="text-violet mt-5">Cancel</a>
+                                    </div>
+                                </div>
+                            </form>
+						</div>
+					</div>
+				</div>  
             </div>
         </div>
     </div>

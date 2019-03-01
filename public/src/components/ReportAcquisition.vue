@@ -4,37 +4,37 @@
             <nav class="navbar sticky-top navbar-light bg-white shadow-sm w-100 z-index-3 border-top">
                 <div class=" px-1 mx-auto">
                     <nav class="nav nav-secondary justify-content-center">
-                        <a class="nav-link text-secondary" href="#/inputteam">
+                        <a class="nav-link text-secondary b-0" href="#/inputteam">
                             <span class="d-sm-none" title="Team">Te</span>
                             <span class="d-none d-sm-block">Team</span>
                         </a>
-                        <a class="nav-link text-secondary" href="#/inputtournament">
+                        <a class="nav-link text-secondary b-0" href="#/inputtournament">
                             <span class="d-sm-none" title="Tournament">To</span>
                             <span class="d-none d-sm-block">Tournament</span>
                         </a>
-                        <a class="nav-link text-secondary" href="#/inputschedule">
+                        <a class="nav-link text-secondary b-0" href="#/inputschedule">
                             <span class="d-sm-none" title="Schedule">Sc</span>
                             <span class="d-none d-sm-block">Schedule</span>
                         </a>
-                        <a class="nav-link text-secondary" href="#/inputresult">
+                        <a class="nav-link text-secondary b-0" href="#/inputresult">
                             <span class="d-sm-none" title="Live">Re</span>
                             <span class="d-none d-sm-block">Result</span>
                         </a>
-                        <a class="nav-link text-secondary" href="#/reportacquisition">
+                        <a class="nav-link text-secondary b-0" href="#/reportacquisition">
                             <span class="d-sm-none" title="Acquisition">Ac</span>
                             <span class="d-none d-sm-block">Acquisition</span>
                         </a>
-                        <a class="nav-link text-secondary" href="#/reporthealth">
+                        <a class="nav-link text-secondary b-0" href="#/reporthealth">
                             <span class="d-sm-none" title="Health">He</span>
                             <span class="d-none d-sm-block">Health</span>
                         </a>
-                        <a class="nav-link text-secondary" href="#/reporttransaction">
+                        <a class="nav-link text-secondary b-0" href="#/reporttransaction">
                             <span class="d-sm-none" title="reporttransaction">Tr</span>
                             <span class="d-none d-sm-block">Transaction</span>
                         </a>
                     </nav>
                 </div>
-            </nav>   
+            </nav> 
             <div class="container mx-auto bg-light p-5">
                 <h1 class="text-violet mx-auto">Report</h1>
                 <h4 class="text-violet mx-auto mb-5">Acquisition</h4>
@@ -42,17 +42,17 @@
                 <form>
                     <div class="form-row mt-5 mb-3">
                         <div class="col-sm">
-                            <input type="text" class="form-control" placeholder="From: DD/MM/YY">
+                            <input type="text" class="form-control my-2" placeholder="From: DD/MM/YY">
                         </div>
                         <div class="col-sm">
-                            <input type="text" class="form-control" placeholder="To: DD/MM/YY">
+                            <input type="text" class="form-control my-2" placeholder="To: DD/MM/YY">
                         </div>
                         <div class="col-sm">
-                            <button class="btn btn-dark bg-violet w-100">Download</button>
+                            <button class="btn btn-dark bg-violet w-100 my-2">Download</button>
                         </div>
                     </div>
                 </form>
-                <hr class="my-2 d-sm-none"/>
+                <hr />
                 <h6 class="mt-4 row">
                     <a href="#" class="text-violet col-sm px-1">
                         1D
