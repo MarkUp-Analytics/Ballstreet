@@ -9,7 +9,9 @@ leagueController.createLeague = function(userid, leagueDetails, callback){
 
     var queryParams = [leagueDetails.league_name, shortid.generate(), shortid.generate(), leagueDetails.tournament_id, userid, new Date(), leagueDetails.minimum_bet, true, false];
     pool.query(queryText, queryParams, (err, result) => {
-        
+        if(err){
+            callback(err, null);
+        }
         callback(err, result.rows[0]);
     });
 };
@@ -19,7 +21,9 @@ leagueController.checkDuplicateLeagueName = function(league_name, callback){
     
     var queryParams = [league_name];
     pool.query(queryText, queryParams, (err, result) => {
-        
+        if(err){
+            callback(err, null);
+        }
         var leagueExist = false;
         if(result.rowCount == 1){
             leagueExist = true;
