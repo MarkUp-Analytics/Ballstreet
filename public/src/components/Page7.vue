@@ -29,229 +29,58 @@
         <div class="p-5 mx-auto text-center bg-light">
             <div class="container">
                 <h1 class="text-violet mt-1 mb-5">Results</h1>
-                <input class="form-control form-control-md mt-4 mb-3" type="text" placeholder="Search for Games"/>
-                <div class="w-100 max-height-90vh table-responsive mt-2 mb-4">
-                    <table class="table sortable">
-                        <thead>
-                            <tr class="text-violet">
-                                <th scope="col">Date & Time</th>
-                                <th scope="col">Venue</th>
-                                <th scope="col">Team A</th>
-                                <th scope="col">Team B</th>
-                                <th scope="col">A Supp.</th>
-                                <th scope="col">B Supp.</th>
-                                <th scope="col">Result</th>
-                                <th scope="col">Pick</th>
-                                <th scope="col">Net P&L</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="align-middle">
-                                    2018/07/20 1730 Hrs
-                                </td>
-                                <td class="align-middle">
-                                    Chennai, India
-                                </td>
-                                <td class="align-middle">
-                                    Chennai Super Kings
-                                </td>
-                                <td class="align-middle">
-                                    Royal Challengers Bangalore
-                                </td>
-                                <td class="align-middle">
-                                    40
-                                </td>
-                                <td class="align-middle">
-                                    10903
-                                </td>
-                                <td class="align-middle">
-                                    Chennai Super Kings
-                                </td>
-                                <td class="align-middle">
-                                    C
-                                </td>
-                                <td class="align-middle">
-                                    C
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="align-middle">
-                                    2018/07/20 1730 Hrs
-                                </td>
-                                <td class="align-middle">
-                                    Chennai, India
-                                </td>
-                                <td class="align-middle">
-                                    Chennai Super Kings
-                                </td>
-                                <td class="align-middle">
-                                    Royal Challengers Bangalore
-                                </td>
-                                <td class="align-middle">
-                                    40
-                                </td>
-                                <td class="align-middle">
-                                    10903
-                                </td>
-                                <td class="align-middle">
-                                    Chennai Super Kings
-                                </td>
-                                <td class="align-middle">
-                                    B
-                                </td>
-                                <td class="align-middle">
-                                    C
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="align-middle">
-                                    2018/07/20 1730 Hrs
-                                </td>
-                                <td class="align-middle">
-                                    Chennai, India
-                                </td>
-                                <td class="align-middle">
-                                    Chennai Super Kings
-                                </td>
-                                <td class="align-middle">
-                                    Royal Challengers Bangalore
-                                </td>
-                                <td class="align-middle">
-                                    40
-                                </td>
-                                <td class="align-middle">
-                                    10903
-                                </td>
-                                <td class="align-middle">
-                                    Chennai Super Kings
-                                </td>
-                                <td class="align-middle">
-                                    A
-                                </td>
-                                <td class="align-middle">
-                                    C
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="align-middle">
-                                    2018/07/20 1730 Hrs
-                                </td>
-                                <td class="align-middle">
-                                    Chennai, India
-                                </td>
-                                <td class="align-middle">
-                                    Chennai Super Kings
-                                </td>
-                                <td class="align-middle">
-                                    Royal Challengers Bangalore
-                                </td>
-                                <td class="align-middle">
-                                    40
-                                </td>
-                                <td class="align-middle">
-                                    10903
-                                </td>
-                                <td class="align-middle">
-                                    Chennai Super Kings
-                                </td>
-                                <td class="align-middle">
-                                    B
-                                </td>
-                                <td class="align-middle">
-                                    C
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="align-middle">
-                                    2018/07/20 1730 Hrs
-                                </td>
-                                <td class="align-middle">
-                                    Chennai, India
-                                </td>
-                                <td class="align-middle">
-                                    Chennai Super Kings
-                                </td>
-                                <td class="align-middle">
-                                    Royal Challengers Bangalore
-                                </td>
-                                <td class="align-middle">
-                                    40
-                                </td>
-                                <td class="align-middle">
-                                    10903
-                                </td>
-                                <td class="align-middle">
-                                    Chennai Super Kings
-                                </td>
-                                <td class="align-middle">
-                                    B
-                                </td>
-                                <td class="align-middle">
-                                    C
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="align-middle">
-                                    2018/07/20 1730 Hrs
-                                </td>
-                                <td class="align-middle">
-                                    Chennai, India
-                                </td>
-                                <td class="align-middle">
-                                    Chennai Super Kings
-                                </td>
-                                <td class="align-middle">
-                                    Royal Challengers Bangalore
-                                </td>
-                                <td class="align-middle">
-                                    40
-                                </td>
-                                <td class="align-middle">
-                                    10903
-                                </td>
-                                <td class="align-middle">
-                                    Chennai Super Kings
-                                </td>
-                                <td class="align-middle">
-                                    B
-                                </td>
-                                <td class="align-middle">
-                                    C
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="align-middle">
-                                    2018/07/20 1730 Hrs
-                                </td>
-                                <td class="align-middle">
-                                    Chennai, India
-                                </td>
-                                <td class="align-middle">
-                                    Chennai Super Kings
-                                </td>
-                                <td class="align-middle">
-                                    Royal Challengers Bangalore
-                                </td>
-                                <td class="align-middle">
-                                    40
-                                </td>
-                                <td class="align-middle">
-                                    10903
-                                </td>
-                                <td class="align-middle">
-                                    Chennai Super Kings
-                                </td>
-                                <td class="align-middle">
-                                    B
-                                </td>
-                                <td class="align-middle">
-                                    C
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>                    
-                </div>    
+                
+                <b-container fluid class="my-4 px-0">
+                    <b-row class="my-0 py-0">
+                        <b-col>
+                            <b-form-group class="my-2">
+                                <b-input-group>
+                                    <b-form-input v-model="filter" placeholder="Type to Search" />
+                                </b-input-group>
+                            </b-form-group>
+                        </b-col>
+                    </b-row>
+                    <b-form-group class="my-2 d-md-none">
+                        <b-input-group>
+                            <b-col cols="8" class="p-0">
+                                <b-form-select v-model="sortBy" :options="sortOptions">
+                                    <option slot="first" :value="null">Select field to sort by...</option>
+                                </b-form-select>
+                            </b-col>
+                            <b-col class="p-0">
+                                <b-form-select :disabled="!sortBy" v-model="sortDesc" slot="append">
+                                    <option :value="false">
+                                        Asc
+                                    </option>
+                                    <option :value="true">
+                                        Desc
+                                    </option>
+                                </b-form-select>
+                            </b-col>
+                        </b-input-group>
+                    </b-form-group>
+                    <div class="w-100 table-responsive mt-4 mb-4 px-1">
+                        <b-table 
+                            stacked="md"
+                            :items="items"
+                            :fields="fields"
+                            :filter="filter"
+                            :sort-by.sync="sortBy"
+                            :sort-desc.sync="sortDesc"
+                            :sort-direction="sortDirection"
+                            @filtered="onFiltered"
+                            show-empty
+                            class="w-100 align-middle"
+                        >
+                            <template slot="empty" slot-scope="scope">
+                                <h4>{{ scope.emptyText }}</h4>
+                            </template>
+                            <template slot="emptyfiltered" slot-scope="scope">
+                                <h4>{{ scope.emptyFilteredText }}</h4>
+                            </template>
+                        </b-table>
+                    </div>
+                </b-container>
             </div>
         </div>
     </div>
@@ -260,6 +89,39 @@
 <script>
     export default {
         name: 'Page7',
+        data() {
+            return {
+                items: [
+                    { date: "20/Mar/2019 12:30 Hrs", venue: "Chinnaswamy Stadium, Chennai", A: "Chennai Super Kings", B: "Royal Challengers Bangalore", aSupporters: "43", bSupporters: "55", result: "Chennai Super Kings", pick: "Chennai Super Kings", pl: "-43%" },
+                    { date: "20/Mar/2019 12:30 Hrs", venue: "Chinnaswamy Stadium, Chennai", A: "Chennai Super Kings", B: "Mumbai Indians", aSupporters: "43", bSupporters: "55", result: "Chennai Super Kings", pick: "Chennai Super Kings", pl: "-43%" },
+                ],
+                fields: [
+                    { key: 'date', label: 'Date', sortable: true },
+                    { key: 'venue', label: 'Venue', sortable: true },
+                    { key: 'A', label: 'A', sortable: true },
+                    { key: 'B', label: 'B', sortable: true },
+                    { key: 'aSupporters', label: 'A Supporters', sortable: true },
+                    { key: 'bSupporters', label: 'B Supporters', sortable: true },
+                    { key: 'result', label: 'Result', sortable: true },
+                    { key: 'pick', label: 'Your Pick', sortable: true },
+                    { key: 'pl', label: 'P&L', sortable: true },
+                ],
+                sortBy: 'date',
+                sortDesc: false,
+                sortDirection: 'asc',
+                filter: null
+            }
+        },
+        computed: {
+            sortOptions() {
+                // Create an options list from our fields
+                return this.fields
+                .filter(f => f.sortable)
+                .map(f => {
+                    return { text: f.label, value: f.key }
+                })
+            }
+        }
     }
 </script>
 

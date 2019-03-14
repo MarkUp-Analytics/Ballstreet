@@ -45,14 +45,14 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                <div v-if="showSuccessMsg" class="alert alert-success alert-dismissible fade show w-100 mx-4 px-5 mb-4" role="alert">
-                    <span>
-                            <strong>Successfully created a team!</strong><br>
-                        </span>
-                        <button type="button" class="close" data-dismiss="alert" @click="showSuccessMsg = false;" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                </div>
+                    <div v-if="showSuccessMsg" class="alert alert-success alert-dismissible fade show w-100 mx-4 px-5 mb-4" role="alert">
+                        <span>
+                                <strong>Successfully created a team!</strong><br>
+                            </span>
+                            <button type="button" class="close" data-dismiss="alert" @click="showSuccessMsg = false;" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>
                     <form class="text-left pt-5 px-5">
                         <h4 class="text-violet mt-4">Create Players / Teams</h4>
                         <div class="form-group mt-4">
@@ -95,9 +95,9 @@
                     </section>
                 </div>
             </div>
-                   
         </div>
     </div>
+              
 </template>
 
 <script>
@@ -200,4 +200,11 @@ import LoadingSpinner from '@/components/LoadingSpinner';
 </script>
 
 <style>
+    img {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 2;
+        border-radius: 2px;
+        border: 1px solid #dadada;
+    }
 </style>

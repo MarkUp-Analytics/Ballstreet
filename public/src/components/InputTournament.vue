@@ -1,36 +1,40 @@
 <template>
     <div>
         <div class="text-center bg-light">
-            <nav class="navbar sticky-top navbar-light bg-light shadow-sm w-100 z-index-3">
+            <nav class="navbar sticky-top navbar-light bg-white shadow-sm w-100 z-index-3 border-top">
                 <div class=" px-1 mx-auto">
                     <nav class="nav nav-secondary justify-content-center">
-                        <a class="nav-link text-secondary" href="#/inputteam">
+                        <a class="nav-link text-secondary b-0" href="#/inputteam">
                             <span class="d-sm-none" title="Team">Te</span>
                             <span class="d-none d-sm-block">Team</span>
                         </a>
-                        <a class="nav-link text-secondary" href="#/inputtournament">
+                        <a class="nav-link text-secondary b-0" href="#/inputtournament">
                             <span class="d-sm-none" title="Tournament">To</span>
                             <span class="d-none d-sm-block">Tournament</span>
                         </a>
-                        <a class="nav-link text-secondary" href="#/inputschedule">
+                        <a class="nav-link text-secondary b-0" href="#/inputschedule">
                             <span class="d-sm-none" title="Schedule">Sc</span>
                             <span class="d-none d-sm-block">Schedule</span>
                         </a>
-                        <a class="nav-link text-secondary" href="#/inputresult">
-                            <span class="d-sm-none" title="Result">Re</span>
+                        <a class="nav-link text-secondary b-0" href="#/inputresult">
+                            <span class="d-sm-none" title="Live">Re</span>
                             <span class="d-none d-sm-block">Result</span>
                         </a>
-                        <a class="nav-link text-secondary" href="#/reportacquisition">
+                        <a class="nav-link text-secondary b-0" href="#/reportacquisition">
                             <span class="d-sm-none" title="Acquisition">Ac</span>
                             <span class="d-none d-sm-block">Acquisition</span>
                         </a>
-                        <a class="nav-link text-secondary" href="#">
+                        <a class="nav-link text-secondary b-0" href="#/reporthealth">
+                            <span class="d-sm-none" title="Health">He</span>
+                            <span class="d-none d-sm-block">Health</span>
+                        </a>
+                        <a class="nav-link text-secondary b-0" href="#/reporttransaction">
                             <span class="d-sm-none" title="reporttransaction">Tr</span>
                             <span class="d-none d-sm-block">Transaction</span>
                         </a>
                     </nav>
                 </div>
-            </nav>          
+            </nav> 
             <div class="container-lg mx-auto">
                 <h1 class="text-violet mt-5 mx-auto">Input</h1>
                 <h4 class="text-violet mx-auto">Tournament</h4>
@@ -160,6 +164,7 @@
                                             <h4>{{ scope.emptyFilteredText }}</h4>
                                         </template>
                                         <span slot="link" slot-scope="data" v-html="data.value" />
+                                        <span slot="image" slot-scope="data" v-html="data.value" />
                                     </b-table>
                                 </div>
                                 <b-row class="mx-auto">
@@ -219,44 +224,24 @@ import Datepicker from 'vuejs-datepicker';
                 userid : null,
                 totalGames : null,
                 items: [
-                    { tournament: 'Indian Premier League 2019', league: 'Amigos Indian XX IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Indian League 2019', league: 'Am IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Premier League 2019', league: 'Amigos IPL', date: '20/Mar/2019', owner: 'mithunsivagurunathan', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'League 2019', league: 'Amigos', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: '2019', league: 'IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Indian Premier League 2019', league: 'Amigos Indian XX IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Indian League 2019', league: 'Am IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Premier League 2019', league: 'Amigos IPL', date: '20/Mar/2019', owner: 'mithunsivagurunathan', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'League 2019', league: 'Amigos', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: '2019', league: 'IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Indian Premier League 2019', date: '20/Mar/2019', league: 'Amigos Indian XX IPL', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Indian League 2019', league: 'Am IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Premier League 2019', league: 'Amigos IPL', date: '20/Mar/2019', owner: 'mithunsivagurunathan', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'League 2019', league: 'Amigos', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: '2019', league: 'IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Indian Premier League 2019', league: 'Amigos Indian XX IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Indian League 2019', league: 'Am IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Premier League 2019', league: 'Amigos IPL', date: '20/Mar/2019', owner: 'mithunsivagurunathan', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'League 2019', league: 'Amigos', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: '2019', league: 'IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" }
+                    { date: "18/Mar/1990 11:30 Hrs", image: "<img src='../../static/assets/images/IPL.png' />", tournament: 'Indian Premier League 2019', link: "<a href='' class='text-violet'>Click</a>" },
+                    { date: "18/Mar/1990 12:30 Hrs", image: "<img src='../../static/assets/images/IPL.png' />", tournament: 'IPL 2019', link: "<a href='' class='text-violet'>Click</a>" },
+                    { date: "18/Mar/1990 13:30 Hrs", image: "<img src='../../static/assets/images/IPL.png' />", tournament: 'Premier League 2019', link: "<a href='' class='text-violet'>Click</a>" },
+                    { date: "18/Mar/1990 01:30 Hrs", image: "<img src='../../static/assets/images/IPL.png' />", tournament: 'League 2019', link: "<a href='' class='text-violet'>Click</a>" }
                 ],
                 fields: [
-                    { key: 'date', label: 'Date', sortable: true },
+                    { key: 'date', label: 'Date Created', sortable: true },
+                    { key: 'image', label: 'Image', sortable: true },
                     { key: 'tournament', label: 'Tournament', sortable: true },
-                    { key: 'league', label: 'League', sortable: true },                    
-                    { key: 'owner', label: 'Owner', sortable: true },
-                    { key: 'capital', label: 'Capital', sortable: true },
-                    { key: 'current', label: 'Current', sortable: true },
-                    { key: 'pl', label: 'P&L', sortable: true },
                     { key: 'link', label: 'Link', sortable: true },
                 ],
                 currentPage: 1,
-                perPage: 50,
-                totalRows: 20,
+                perPage: 2,
+                totalRows: 4,
                 pageOptions: [25, 50, 75, 100, "Infinte Scroll"],
                 sortBy: 'date',
                 sortDesc: false,
-                sortDirection: 'asc',
+                sortDirection: 'desc',
                 filter: null
             }
         },
@@ -337,4 +322,11 @@ import Datepicker from 'vuejs-datepicker';
 </script>
 
 <style>
+    img {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 2;
+        border-radius: 2px;
+        border: 1px solid #dadada;
+    }
 </style>

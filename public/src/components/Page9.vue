@@ -29,49 +29,60 @@
         <div class="p-5 mx-auto text-center bg-light">
             <div class="container">
                 <h1 class="text-violet mt-1 mb-5">Players</h1>
-                <div class="row mx-auto mb-2">
-                    <div class="col-md"></div>
-                    <div class="col-md">
-                        <input class="form-control form-control-md mt-4 mb-3" type="text" placeholder="Search for Names"/>
-                        <div class="w-100 max-height-90vh table-responsive mt-2 mb-4">
-                            <table class="table sortable">
-                                <thead>
-                                    <tr class="text-violet">
-                                        <th scope="col"><b>Name</b></th>
-                                        <th scope="col">Net INR</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="align-middle">
-                                            AA
-                                        </td>
-                                        <td class="align-middle">
-                                            45
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle">
-                                            BB
-                                        </td>
-                                        <td class="align-middle">
-                                            12
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="align-middle">
-                                            CC
-                                        </td>
-                                        <td class="align-middle">
-                                            -57
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>                    
-                        </div> 
-                    </div>  
-                    <div class="col-md"></div>
-                </div>
+
+                <b-container fluid class="my-4 px-0">
+                    <b-row class="my-0 py-0">
+                        <b-col>
+                            <b-form-group class="my-2">
+                                <b-input-group>
+                                    <b-form-input v-model="filter" placeholder="Type to Search" />
+                                </b-input-group>
+                            </b-form-group>
+                        </b-col>
+                    </b-row>
+                    <b-form-group class="my-2 d-md-none">
+                        <b-input-group>
+                            <b-col cols="8" class="p-0">
+                                <b-form-select v-model="sortBy" :options="sortOptions">
+                                    <option slot="first" :value="null">Select field to sort by...</option>
+                                </b-form-select>
+                            </b-col>
+                            <b-col class="p-0">
+                                <b-form-select :disabled="!sortBy" v-model="sortDesc" slot="append">
+                                    <option :value="false">
+                                        Asc
+                                    </option>
+                                    <option :value="true">
+                                        Desc
+                                    </option>
+                                </b-form-select>
+                            </b-col>
+                        </b-input-group>
+                    </b-form-group>
+                    <div class="w-100 table-responsive mt-4 mb-4 px-1">
+                        <b-table 
+                            stacked="md"
+                            :items="items"
+                            :fields="fields"
+                            :current-page="currentPage"
+                            :per-page="perPage"
+                            :filter="filter"
+                            :sort-by.sync="sortBy"
+                            :sort-desc.sync="sortDesc"
+                            :sort-direction="sortDirection"
+                            @filtered="onFiltered"
+                            show-empty
+                            class="w-100 align-middle"
+                        >
+                            <template slot="empty" slot-scope="scope">
+                                <h4>{{ scope.emptyText }}</h4>
+                            </template>
+                            <template slot="emptyfiltered" slot-scope="scope">
+                                <h4>{{ scope.emptyFilteredText }}</h4>
+                            </template>
+                        </b-table>
+                    </div>
+                </b-container>
             </div>
         </div>
         </div>
@@ -80,7 +91,40 @@
 
 <script>
     export default {
-        name: 'Page9',
+        name: 'Page9',data() {
+            return {
+                items: [
+                    { date: "29/Mar/2019 13:30 Hrs", name: "Mithun Sivagurunathan", email: "mithsi@gmail.com" },
+                    { date: "29/Mar/2019 02:30 Hrs", name: "Ithun MM", email: "nithsi@gmail.com" },
+                ],
+                fields: [
+                    { key: 'date', label: 'date', sortable: true },
+                    { key: 'name', label: 'Name', sortable: true },
+                    { key: 'email', label: 'Email', sortable: true },
+                ],
+                sortBy: 'date',
+                sortDesc: false,
+                sortDirection: 'asc',
+                filter: null
+            }
+        },
+        computed: {
+            sortOptions() {
+                // Create an options list from our fields
+                return this.fields
+                .filter(f => f.sortable)
+                .map(f => {
+                    return { text: f.label, value: f.key }
+                })
+            }
+        },
+        methods: {
+            onFiltered(filteredItems) {
+                // Trigger pagination to update the number of buttons/pages due to filtering
+                this.totalRows = filteredItems.length
+                this.currentPage = 1
+            }
+        }
     }
 </script>
 
