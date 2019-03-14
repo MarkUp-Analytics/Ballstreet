@@ -15,6 +15,23 @@ userController.getUserIDFromShortID = function(shortid, callback){
         }
         callback(err, userid);
     });
-}
+};
+
+userController.checkUserIsAdmin = function(userid, callback){
+    var queryText = 'SELECT * FROM user_roles WHERE user_id = $1 AND role_id in (3, 4) AND active = true';
+    var queryParams = [userid];
+    pool.query(queryText, queryParams, (err, result) => {
+        if(err){
+            callback(err, null);
+        }
+        
+        if(result && result.rowCount > 0){
+            callback(err, true);
+        }
+        else{
+            callback(err, false);
+        }
+    });
+};
 
 module.exports = userController;

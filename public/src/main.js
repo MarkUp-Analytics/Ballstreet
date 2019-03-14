@@ -6,7 +6,9 @@ import router from './router'
 import moment from 'moment'
 import vueScrollto from 'vue-scrollto'
 
-Vue.use(vueScrollto)
+Vue.use(vueScrollto);
+
+Vue.component('v-select', VueSelect.VueSelect)
 
 Vue.config.productionTip = false
 

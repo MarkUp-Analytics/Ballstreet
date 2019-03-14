@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const tournamentController = require('../controllers/tournamentController');
+const userController = require('../controllers/userController');
 
 router.get('/upcomingTournaments', (req, res, next) => { //Method to get upcoming tournaments based on today's date
     
@@ -127,5 +128,58 @@ router.get('/searchTournament', (req, res, next) => { //Method to search tournam
             }
         })
         });
+
+        router.post('/createTournament', (req, res, next) => { //Method to create a new tournament
+            userController.checkUserIsAdmin(req.body.userid, function(err, userIsAdmin){
+                if(err){
+                    res.status(400).json({
+                        message: "Unable to check user has permission"
+                    })
+                }
+                else if(!userIsAdmin){
+                    res.status(400).json({
+                        message: "User does not have permission to create tournament"
+                    })
+                }
+                else if(userIsAdmin){
+                    tournamentController.checkDuplicateTournamentName(req.body.tournamentName, function(err, tournamentNameExist){
+                        if(err){
+                            res.status(400).json({
+                                message: "Unable to check tournament name exist"
+                            })
+                        }
+                        else if(tournamentNameExist){
+                            res.status(400).json({
+                                message: "Tournament name already exist"
+                            })
+                        }
+                        else{
+                            tournamentController.createTournament(req.body, function(err, tour){
+                                if(err){
+                                    res.status(400).json({
+                                        message: "Unable to create tournament"
+                                    })
+                                }
+                                else{
+                                        tournamentController.createTourTeamRelation(req.body.teams, tour.tournament_id, function(err){
+                                            if(err){
+                                                res.status(400).json({
+                                                    message: "Unable to create tournament-team relation"
+                                                })
+                                            }
+                                        })
+                                    
+                                    res.status(200).json({
+                                        message: "Tournament created successfully",
+                                        tour: tour
+                                    })
+                                }
+                            })
+                        }
+                    })
+                }
+            });
+            
+            });
 
 module.exports = router;

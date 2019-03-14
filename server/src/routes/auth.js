@@ -51,10 +51,21 @@ router.post('/signup', (req, res, next) => { // Method to create new user
                     })
                 }
                 else {
-                    res.status(200).json({
-                        message: "User successfully created.",
-                        userDetails: createdUser
+                    authController.createUserRole(createdUser.userid, function(err, userRole){
+                        if(err){
+                            res.status(400).json({
+                                message: "Error creating user role",
+                            })
+                        }
+                        else{
+                            userDetails.userRole = userRole;
+                            res.status(200).json({
+                                message: "User successfully created.",
+                                userDetails: createdUser
+                            })
+                        }
                     })
+                    
                 }
             })
         }

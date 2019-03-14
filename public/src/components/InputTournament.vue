@@ -35,37 +35,62 @@
                 <h1 class="text-violet mt-5 mx-auto">Input</h1>
                 <h4 class="text-violet mx-auto">Tournament</h4>
                 <div class="row m-0 p-0">
+                    
+                    <loading-spinner v-if="showLoadingIcon"></loading-spinner>
                     <div class="col-lg-3 m-0 p-0">
+                        <div v-if="errors.length" class="alert alert-danger alert-dismissible fade show w-100 mx-4 px-5 mb-4" role="alert">
+                        <span v-for="error in errors">
+                            <strong>Error!</strong> {{error}}<br>
+                        </span>
+                        <button type="button" class="close" data-dismiss="alert" @click="errors = [];" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div v-if="showSuccessMsg" class="alert alert-success alert-dismissible fade show w-100 mx-4 px-5 mb-4" role="alert">
+                    <span>
+                            <strong>Successfully created a tour!</strong><br>
+                        </span>
+                        <button type="button" class="close" data-dismiss="alert" @click="showSuccessMsg = false;" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
                         <form class="text-left py-3 mb-5 px-5" id="tournament-create">
                             <h5 class="text-violet mt-4">Create Tournament</h5>
                             <div class="form-group mt-4">
-                                <img src="../../static/assets/images/ipl.png" class="rounded border mb-2" width="50px" height="50px" /><br/>
-                                <label>Choose Image</label>
-                                <input type="file" class="form-control-file">
+                                <label>Sport</label>
+                                <select class="form-control" v-model="selectedSport">
+                                    <option v-for="sport in sportsList" :value="sport">
+                                        {{ sport.sport_name }}
+                                    </option>
+                                </select>
                             </div>
                             <div class="form-group mt-4">
                                 <label>Tournament Name</label>
-                                <input class="form-control" type="email" placeholder="Ex: IPL 2018" value="IPL 2018" />
+                                <input class="form-control" type="text" placeholder="Ex: IPL 2018" v-model="tournamentName" />
                             </div>
                             <div class="form-group mt-4">
-                                <label>From Dates</label>
-                                <input class="form-control" type="email" placeholder="DD/MMM/YYYY: 29/Apr/2018" value="29/Apr/2018" />
+                                <label>From Date</label>
+                                <datepicker v-model="startDate"></datepicker>
                             </div>
                             <div class="form-group mt-4">
-                                <label>To Dates</label>
-                                <input class="form-control" type="email" placeholder="DD/MMM/YYYY: 29/Apr/2018" value="29/Apr/2018" />
+                                <label>To Date</label>
+                                <datepicker v-model="endDate"></datepicker>
+                            </div>
+                            <div class="form-group mt-4">
+                                <label>Tournament Venue</label>
+                                <input class="form-control" type="text" placeholder="Ex: India" v-model="venue" />
                             </div>
                             <div class="form-group mt-4">
                                 <label># Games</label>
-                                <input class="form-control" type="email" placeholder="No. of Games" value="32" />
+                                <input class="form-control" type="number" placeholder="No. of Games" v-model="totalGames" />
                             </div>
                             <div class="form-group mt-4">
                                 <label>Teams</label>
-                                <input class="form-control" type="email" placeholder="Multi-select Teams" value="A, B, C" />
+                                <v-select v-if="teamList && teamList.length > 0" multiple v-model="selectedTeams" :options="teamList" label="team_abbreviation"></v-select>
                             </div>
                             <div class="row">
                                 <div class="col-lg mt-4">
-                                    <a href="" class="btn btn-dark bg-violet border-0 w-100">Save</a><br/>
+                                    <a href="" class="btn btn-dark bg-violet border-0 w-100" @click.prevent="createTournament()">Save</a><br/>
                                 </div>
                             </div>
                             <div class="row text-center">
@@ -157,10 +182,42 @@
 </template>
 
 <script>
+import api from '@/services/api';
+import commonServices from '@/services/commonServices';
+import LoadingSpinner from '@/components/LoadingSpinner';
+import Datepicker from 'vuejs-datepicker';
+
     export default {
         name: 'InputTournament',
+        components: {
+            LoadingSpinner,
+            Datepicker,
+        },
+        created() {
+            this.getAllTeam();
+            this.getSportList();
+            if (localStorage.getItem('userDetails')) {
+                this.userDetails = JSON.parse(localStorage.getItem('userDetails'));
+            }
+    
+        },
         data() {
             return {
+                errors: [],
+                userDetails: null,
+                teamList: null,
+                selectedTeams: [],
+                selectedSport: null,
+                sportsList: [],
+                showSuccessMsg: false,
+                showLoadingIcon: false,
+                tournamentName: null,
+                sportId : null,
+                startDate : null,
+                endDate : null,
+                venue : null,
+                userid : null,
+                totalGames : null,
                 items: [
                     { tournament: 'Indian Premier League 2019', league: 'Amigos Indian XX IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
                     { tournament: 'Indian League 2019', league: 'Am IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
@@ -218,7 +275,63 @@
                 // Trigger pagination to update the number of buttons/pages due to filtering
                 this.totalRows = filteredItems.length
                 this.currentPage = 1
-            }
+            },
+
+            createTournament: function(){
+                if(!this.tournamentName || !this.selectedSport || ! this.startDate || !this.endDate || !this.venue || !this.totalGames || !this.selectedTeams){
+                    this.errors.push("Required fields are missing");
+                    return;
+                }
+                this.showLoadingIcon = true;
+
+                var formData = {};
+                formData.tournamentName = this.tournamentName;
+                formData.sportId = this.selectedSport.sport_id;
+                formData.startDate = this.startDate;
+                formData.endDate = this.endDate;
+                formData.venue = this.venue;
+                formData.userid = this.userDetails.userid;
+                formData.totalGames = this.totalGames;
+                formData.teams = this.selectedTeams.map(team=>{ return team.team_id;});
+                
+
+                api().post('/tournament/createTournament', formData)
+                .then(result=>{
+                        this.showLoadingIcon = false;
+                        this.showSuccessMsg = true;
+		                console.log(result.data.message);
+                        
+                    },
+                    err => {
+                        this.showLoadingIcon = false;
+                        this.errors = [];
+                        this.errors.push(err.response.data.message);
+                    })
+            },
+
+            getAllTeam: function(){
+                this.showLoadingIcon = true;
+
+                api().get('/team/getTeamsList')
+                    .then(result=>{
+                        this.showLoadingIcon = false;
+                        this.teamList = result.data.teamList;
+                    },
+                    err => {
+                        this.showLoadingIcon = false;
+                        this.errors = [];
+                        this.errors.push(err.response.data.message);
+                    })
+            },
+            getSportList: function() {
+                var self = this;
+                api().get('/sport/getSportsList').then(result => {
+                        self.sportsList = result.data.sports;
+                    },
+                    err => {
+                        console.log(err)
+                    })
+            },
         }
     }
 </script>

@@ -104,11 +104,11 @@
 	export default {
 		name: 'App',
 		created() {
-			if(localStorage.getItem('userDetails')){ //If user is already logged in, it takes it to home page
-                this.$router.push({
-                            name: 'Home', 
-                        })
-            }
+			// if(localStorage.getItem('userDetails')){ //If user is already logged in, it takes it to home page
+            //     this.$router.push({
+            //                 name: 'Home', 
+            //             })
+            // }
 		},
 		computed: {
 		

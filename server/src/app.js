@@ -4,11 +4,16 @@ const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
 
+
+
+
 const app = express();
 
 app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(cors());
+app.use('/uploads', express.static('uploads'));
+
 // app.use(cors({origin: 'http://ballstreet-dev.s3-website-us-east-1.amazonaws.com'}));
 
 

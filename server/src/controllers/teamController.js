@@ -10,15 +10,16 @@ teamController.getTeamsList = function(callback){
         if(err){
             callback(err, null);
         }
-        callback(err, result);
+        
+        callback(err, result.rows);
     });
 };
 
-teamController.createTeam = function(userid, teamDetails, callback){
+teamController.createTeam = function(teamDetails, callback){
     
-    var queryText = 'INSERT INTO team (team_name, team_abbreviation, team_image,  team_active, team_deleted) VALUES ($1, $2, $3, $4, $5) RETURNING *;';
+    var queryText = 'INSERT INTO team (team_name, team_abbreviation, team_image, team_created_by, team_created_on, team_active, team_deleted) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;';
 
-    var queryParams = [teamDetails.team_name, teamDetails.team_abbreviation, teamDetails.team_image, true, false];
+    var queryParams = [teamDetails.team_name, teamDetails.team_abbreviation, teamDetails.team_image, teamDetails.userid, new Date(), true, false];
     pool.query(queryText, queryParams, (err, result) => {
         if(err){
             callback(err, null);

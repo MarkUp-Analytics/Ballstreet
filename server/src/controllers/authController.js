@@ -70,7 +70,7 @@ authController.comparePassword = function(userDetails, callback){
                     var userInfo = {
                         firstname: user.firstname,
                         lastname: user.lastname,
-                        userid: user.userID,
+                        userid: user.userid,
                         email: user.email,
                         age: user.age,
                         sex: user.sex,
@@ -94,5 +94,33 @@ authController.comparePassword = function(userDetails, callback){
             callback(error, null);
         }
     })
+};
+
+authController.getUserRole = function(role_id, callback){
+    var queryText = 'SELECT role_name from roles WHERE role_id = $1';
+    var queryParams = [role_id];
+    pool.query(queryText, queryParams, (err, result) => {
+        if(err){
+            callback(err, null);
+        }
+        callback(err, result.rows[0]);
+    });
+};
+
+authController.createUserRole = function(userid, callback){
+    var queryText = 'INSERT INTO user_roles (user_id, role_id, active, deleted) VALUES ($1, 1, true, false)  RETURNING *;';
+    var queryParams = [userid];
+    pool.query(queryText, queryParams, (err, result) => {
+        if(err){
+            callback(err, null);
+        }
+        authController.getUserRole(result.rows[0].userid, function(err, userRole){
+            if(err){
+                callback(err, null);
+            }
+            callback(err, userRole);
+        });
+        
+    });
 };
 module.exports = authController;

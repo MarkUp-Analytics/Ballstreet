@@ -1,4 +1,5 @@
 const pool = require('../db');
+const format = require('pg-format');
 
 var tournamentController = {};
 
@@ -77,5 +78,61 @@ tournamentController.getPlayingTeamsByTournamentId = function(tournamentId, call
         
     });
 };
+
+tournamentController.checkDuplicateTournamentName = function(tournamentName, callback){
+    var queryText = 'select * from tournament WHERE tournament_name = $1 AND tournament_active = true AND tournament_deleted = false';
+    var queryParams = [tournamentName];
+    pool.query(queryText, queryParams, (err, result) => {
+        if(err){
+            callback(err, null)
+        }
+        var tourExist = false;
+        if(result && result.rowCount == 1){
+            tourExist = true;
+        }
+        callback(err, tourExist);
+        
+    });
+};
+
+tournamentController.createTournament = function(tourDetails, callback){
+    
+    var queryText = 'INSERT INTO tournament (tournament_name, tournament_sport_id, tournament_start_date, tournament_end_date, tournament_venue, tournament_created_by, tournament_created_on, tournament_total_games,  tournament_active, tournament_deleted) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *;';
+
+    var queryParams = [tourDetails.tournamentName, tourDetails.sportId, tourDetails.startDate, tourDetails.endDate, tourDetails.venue, tourDetails.userid, new Date(), tourDetails.totalGames, true, false];
+    pool.query(queryText, queryParams, (err, result) => {
+        if(err){
+            callback(err, null);
+        }
+        else{
+            callback(err, result.rows[0]);
+        }
+        
+    });
+};
+
+tournamentController.createTourTeamRelation = function(teams, tour_id, callback){
+    var teamList = [];
+    for(var i=0; i< teams.length; i++){
+        teamList.push([
+            tour_id, teams[i], true, false
+        ]);
+    }
+    //New method to insert multiple rows
+    
+        var queryText = format('INSERT INTO tournament_team (tournament_name_tour_id, tournament_name_team_id, tournament_name_active, tournament_name_deleted) VALUES %L returning *', teamList);
+        
+        var queryParams = [];
+        pool.query(queryText, queryParams, (err, result) => {
+            if(err){
+                callback(err);
+            }
+            else{
+                callback(null);
+            }
+        });
+    
+};
+
 
 module.exports = tournamentController;

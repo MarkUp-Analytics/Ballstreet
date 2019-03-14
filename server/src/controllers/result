@@ -11,3 +11,23 @@ where mf.match_fixture_tournament_id = 1 AND mf.match_fixture_active = true
 AND t1.team_active = true
 AND t2.team_active = true
 AND s.stadium_active = true
+
+//new columns to add for Mithun - Mar 8, 2019
+
+ALTER TABLE tournament ADD COLUMN tournament_created_by BIGINT, ADD COLUMN tournament_created_on date, ADD COLUMN tournament_total_games int
+
+ALTER TABLE user_roles add column user_role_id serial not null, add column active boolean, add column deleted boolean
+
+ALTER TABLE user_roles add primary key (user_role_id)
+
+ALTER TABLE team add column team_created_by bigint, add column team_created_on date
+
+INSERT INTO user_roles(user_id, role_id, active, deleted) VALUES (20, 3, true, false)
+
+CREATE TABLE tournament_team(
+	tournament_name_id Serial PRIMARY KEY     NOT NULL,
+   tournament_name_tour_id bigint REFERENCES tournament(tournament_id),
+   tournament_name_team_id bigint REFERENCES team(team_id),
+   tournament_name_active boolean,
+   tournament_name_deleted boolean
+)

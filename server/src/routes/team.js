@@ -1,7 +1,19 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+var storage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, './uploads')
+    },
+    filename: function (req, file, callback) {
+        callback(null, Date.now() + file.originalname)
+    }
+  })
+  
+var upload = multer({ storage: storage });
 
-const sportController = require('../controllers/teamController');
+const teamController = require('../controllers/teamController');
+const userController = require('../controllers/userController');
 
 router.get('/getTeamsList', (req, res, next) => { //Method to get available team list
     teamController.getTeamsList(function(err, teamsList){
@@ -11,43 +23,67 @@ router.get('/getTeamsList', (req, res, next) => { //Method to get available team
             })
         }
         else{
+            for(var i=0; i<teamsList.length; i++){
+                if(teamsList[i].team_image){
+                    teamsList[i].team_image = req.protocol + "://" + req.headers.host + '/' + teamsList[i].team_image;
+                }
+            }
             res.status(200).json({
-                teams: teamsList
+                teamList: teamsList
             })
         }
     })
     
 });
 
-router.post('/createTeam', (req, res, next) => { //Method to create new team
-    teamController.checkDuplicateTeamName(req.body.newTeam.team_name, function(err, teamNameExist){
-        if(teamNameExist){
+router.post('/createTeam', upload.single('file'), (req, res, next) => { //Method to create new team
+    var teamDetails = JSON.parse(req.body.teamDetails);
+    userController.checkUserIsAdmin(teamDetails.userid, function(err, userIsAdmin){
+        if(err){
             res.status(400).json({
-                message: "Team name already exist."
+                message: "Unable to check user has permission"
             })
         }
-        else if(err){
+        else if(!userIsAdmin){
             res.status(400).json({
-                message: "Failed to check duplicate team name."
+                message: "User does not have permission to create team"
             })
         }
-        else{
-            teamController.createTeam(req.body.newTeam, function(err, team){
-                if(err){
+        else if(userIsAdmin){
+            teamController.checkDuplicateTeamName(teamDetails.team_name, function(err, teamNameExist){
+                if(teamNameExist){
                     res.status(400).json({
-                        message: "Unable to create new team"
+                        message: "Team name already exist."
+                    })
+                }
+                else if(err){
+                    res.status(400).json({
+                        message: "Failed to check duplicate team name."
                     })
                 }
                 else{
-                    res.status(200).json({
-                        message: "Successfully created team",
-                        team: team
+                    teamDetails.team_image = req.file.path;
+                    teamController.createTeam(teamDetails, function(err, team){
+                        if(err){
+                            res.status(400).json({
+                                message: "Unable to create new team"
+                            })
+                        }
+                        else{
+                            team.team_image = req.protocol + "://" + req.headers.host + '/' + team.team_image;
+                            res.status(200).json({
+                                message: "Successfully created team",
+                                team: team
+                            })
+                        }
+                       
                     })
+        
                 }
-               
-            })
+            });
         }
-    })
+    });
+    
     
 });
 
