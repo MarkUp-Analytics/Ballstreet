@@ -69,6 +69,11 @@
                                 </select>
                             </div>
                             <div class="form-group mt-4">
+                            <img src="../../static/assets/images/ipl.png" class="rounded border mb-2" width="50px" height="50px" /><br/>
+                            <label>Choose Image</label>
+                            <input type="file" class="form-control-file" @change="processFile($event)">
+                        </div>
+                            <div class="form-group mt-4">
                                 <label>Tournament Name</label>
                                 <input class="form-control" type="text" placeholder="Ex: IPL 2018" v-model="tournamentName" />
                             </div>
@@ -145,7 +150,7 @@
                                 <div class="w-100 table-responsive mt-4 mb-4 px-1">
                                     <b-table 
                                         stacked="md"
-                                        :items="items"
+                                        :items="tournamentList"
                                         :fields="fields"
                                         :current-page="currentPage"
                                         :per-page="perPage"
@@ -163,8 +168,12 @@
                                         <template slot="emptyfiltered" slot-scope="scope">
                                             <h4>{{ scope.emptyFilteredText }}</h4>
                                         </template>
-                                        <span slot="link" slot-scope="data" v-html="data.value" />
-                                        <span slot="image" slot-scope="data" v-html="data.value" />
+                                        <template slot="Link" slot-scope="scope">
+                                            <a href="">Link</a>
+                                        </template>
+                                        <template slot="tourImage" slot-scope="data">
+                                    <img :src="data.item.tourImage" class="rounded border mb-2" width="50px" height="50px" />
+                                </template>
                                     </b-table>
                                 </div>
                                 <b-row class="mx-auto">
@@ -201,6 +210,7 @@ import Datepicker from 'vuejs-datepicker';
         created() {
             this.getAllTeam();
             this.getSportList();
+            this.getTourList();
             if (localStorage.getItem('userDetails')) {
                 this.userDetails = JSON.parse(localStorage.getItem('userDetails'));
             }
@@ -223,20 +233,16 @@ import Datepicker from 'vuejs-datepicker';
                 venue : null,
                 userid : null,
                 totalGames : null,
-                items: [
-                    { date: "18/Mar/1990 11:30 Hrs", image: "<img src='../../static/assets/images/IPL.png' />", tournament: 'Indian Premier League 2019', link: "<a href='' class='text-violet'>Click</a>" },
-                    { date: "18/Mar/1990 12:30 Hrs", image: "<img src='../../static/assets/images/IPL.png' />", tournament: 'IPL 2019', link: "<a href='' class='text-violet'>Click</a>" },
-                    { date: "18/Mar/1990 13:30 Hrs", image: "<img src='../../static/assets/images/IPL.png' />", tournament: 'Premier League 2019', link: "<a href='' class='text-violet'>Click</a>" },
-                    { date: "18/Mar/1990 01:30 Hrs", image: "<img src='../../static/assets/images/IPL.png' />", tournament: 'League 2019', link: "<a href='' class='text-violet'>Click</a>" }
-                ],
+                tourImage:null,
+                tournamentList: null,
                 fields: [
-                    { key: 'date', label: 'Date Created', sortable: true },
-                    { key: 'image', label: 'Image', sortable: true },
-                    { key: 'tournament', label: 'Tournament', sortable: true },
-                    { key: 'link', label: 'Link', sortable: true },
+                    { key: 'tournament_created_on', label: 'Date Created', sortable: true },
+                    { key: 'tourImage', label: 'Image', sortable: true },
+                    { key: 'tournament_name', label: 'Tournament', sortable: true },
+                    'Link'
                 ],
                 currentPage: 1,
-                perPage: 2,
+                perPage: 20,
                 totalRows: 4,
                 pageOptions: [25, 50, 75, 100, "Infinte Scroll"],
                 sortBy: 'date',
@@ -262,23 +268,46 @@ import Datepicker from 'vuejs-datepicker';
                 this.currentPage = 1
             },
 
+            processFile: function(event) {
+                this.tourImage = event.target.files[0];
+            },
+
             createTournament: function(){
+                this.errors = [];
                 if(!this.tournamentName || !this.selectedSport || ! this.startDate || !this.endDate || !this.venue || !this.totalGames || !this.selectedTeams){
                     this.errors.push("Required fields are missing");
                     return;
                 }
+                if(this.startDate.getTime() > this.endDate.getTime()){
+                    this.errors.push("Start date cannot be greater than end date");
+                    return;
+                }
+                if(this.selectedTeams.length < 2){
+                    this.errors.push("Must select atleast 2 teams to create a tournament");
+                    return;
+                }
+                if(this.totalGames < 1){
+                    this.errors.push("Total games must be atleast 1");
+                    return;
+                }
+                if(this.tourImage && this.tourImage.type.indexOf('image') == -1){
+                    this.errors.push("You can upload only image file");
+                    return;
+                }
                 this.showLoadingIcon = true;
 
-                var formData = {};
-                formData.tournamentName = this.tournamentName;
-                formData.sportId = this.selectedSport.sport_id;
-                formData.startDate = this.startDate;
-                formData.endDate = this.endDate;
-                formData.venue = this.venue;
-                formData.userid = this.userDetails.userid;
-                formData.totalGames = this.totalGames;
-                formData.teams = this.selectedTeams.map(team=>{ return team.team_id;});
-                
+                var tourDetails = {};
+                const formData = new FormData()
+                formData.append('file', this.tourImage, this.tourImage.name);
+                tourDetails.tournamentName = this.tournamentName;
+                tourDetails.sportId = this.selectedSport.sport_id;
+                tourDetails.startDate = this.startDate;
+                tourDetails.endDate = this.endDate;
+                tourDetails.venue = this.venue;
+                tourDetails.userid = this.userDetails.userid;
+                tourDetails.totalGames = this.totalGames;
+                tourDetails.teams = this.selectedTeams.map(team=>{ return team.team_id;});
+                formData.append('tourDetails', JSON.stringify(tourDetails));
 
                 api().post('/tournament/createTournament', formData)
                 .then(result=>{
@@ -317,6 +346,16 @@ import Datepicker from 'vuejs-datepicker';
                         console.log(err)
                     })
             },
+            getTourList: function(){
+                var self = this;
+                api().get('/tournament/allTournaments').then(result => {
+                        self.tournamentList = result.data.tours;
+                    },
+                    err => {
+                        this.errors = [];
+                        this.errors.push(err.response.data.message);
+                    })
+            }
         }
     }
 </script>

@@ -31,3 +31,8 @@ CREATE TABLE tournament_team(
    tournament_name_active boolean,
    tournament_name_deleted boolean
 )
+
+
+//new columns to add for Mithun Mar-15-2019
+
+ALTER TABLE stadium ADD COLUMN stadium_timezone varchar, ADD COLUMN stadium_created_by bigint, ADD COLUMN stadium_created_on date

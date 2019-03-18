@@ -1,8 +1,25 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+var fs = require('fs');
+var storage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        var dirPath = './uploads/tour/';
+        if (!fs.existsSync(dirPath)){
+            fs.mkdirSync(dirPath);
+        }
+        callback(null, dirPath);
+    },
+    filename: function (req, file, callback) {
+        callback(null, Date.now() + file.originalname)
+    }
+  })
+  
+var upload = multer({ storage: storage });
 
 const tournamentController = require('../controllers/tournamentController');
 const userController = require('../controllers/userController');
+const commonController = require('../controllers/commonController');
 
 router.get('/upcomingTournaments', (req, res, next) => { //Method to get upcoming tournaments based on today's date
     
@@ -19,6 +36,11 @@ tournamentController.getUpcomingTours(function(err, upcomingTours){
                     })
                 }
                 else if(upcomingTours.length > 0){
+                    for(var i=0; i<upcomingTours.length; i++){
+                        if(upcomingTours[i].tournament_image){
+                            upcomingTours[i].tourImage = commonController.buildImageURL(req, upcomingTours[i].tournament_image);
+                        }
+                    }
                     res.status(200).json({
                         message: "There are " + upcomingTours.length + " tour(s)",
                         tours: upcomingTours
@@ -42,11 +64,40 @@ tournamentController.getOngoingTours(function(err, ongoingTours){
                     })
                 }
                 else if(ongoingTours.length > 0){
+                    for(var i=0; i<ongoingTours.length; i++){
+                        if(ongoingTours[i].tournament_image){
+                            ongoingTours[i].tourImage = commonController.buildImageURL(req, ongoingTours[i].tournament_image);
+                        }
+                    }
                     res.status(200).json({
                         message: "There are " + ongoingTours.length + " tour(s)",
                         tours: ongoingTours
                     })
                 }
+            })
+});
+
+router.get('/allTournaments', (req, res, next) => { //Method to get all tournaments which are active
+    
+tournamentController.getAllTours(function(err, tours){
+                if(err){
+                    res.status(400).json({
+                        message: "Unable to get tournaments"
+                    })
+                }
+                else{
+                    if(tours.length > 0){
+                        for(var i=0; i<tours.length; i++){
+                            if(tours[i].tournament_image){
+                                tours[i].tourImage = commonController.buildImageURL(req, tours[i].tournament_image);
+                            }
+                        }
+                        res.status(200).json({
+                            message: "There are " + tours.length + " tour(s)",
+                            tours: tours
+                        })
+                    }
+            }
             })
 });
 
@@ -79,6 +130,11 @@ router.get('/searchTournament', (req, res, next) => { //Method to search tournam
             })
         }
         else{
+            for(var i=0; i<tournaments.length; i++){
+                if(tournaments[i].tournament_image){
+                    tournaments[i].tourImage = commonController.buildImageURL(req, tournaments[i].tournament_image);
+                }
+            }
             res.status(200).json({
                 message: "Tours found",
                 tournaments: tournaments
@@ -100,6 +156,9 @@ router.get('/searchTournament', (req, res, next) => { //Method to search tournam
                 })
             }
             else{
+                if(tournaments[0].tournament_image){
+                    tournaments[0].tourImage = commonController.buildImageURL(req, tournaments[0].tournament_image);
+                }
                 res.status(200).json({
                     message: "Tours found",
                     tournament: tournaments[0]
@@ -129,8 +188,9 @@ router.get('/searchTournament', (req, res, next) => { //Method to search tournam
         })
         });
 
-        router.post('/createTournament', (req, res, next) => { //Method to create a new tournament
-            userController.checkUserIsAdmin(req.body.userid, function(err, userIsAdmin){
+        router.post('/createTournament', upload.single('file'), (req, res, next) => { //Method to create a new tournament
+            var tourDetails = JSON.parse(req.body.tourDetails);
+            userController.checkUserIsAdmin(tourDetails.userid, function(err, userIsAdmin){
                 if(err){
                     res.status(400).json({
                         message: "Unable to check user has permission"
@@ -142,7 +202,7 @@ router.get('/searchTournament', (req, res, next) => { //Method to search tournam
                     })
                 }
                 else if(userIsAdmin){
-                    tournamentController.checkDuplicateTournamentName(req.body.tournamentName, function(err, tournamentNameExist){
+                    tournamentController.checkDuplicateTournamentName(tourDetails.tournamentName, function(err, tournamentNameExist){
                         if(err){
                             res.status(400).json({
                                 message: "Unable to check tournament name exist"
@@ -154,21 +214,22 @@ router.get('/searchTournament', (req, res, next) => { //Method to search tournam
                             })
                         }
                         else{
-                            tournamentController.createTournament(req.body, function(err, tour){
+                            tourDetails.tourImage = req.file.path;
+                            tournamentController.createTournament(tourDetails, function(err, tour){
                                 if(err){
                                     res.status(400).json({
                                         message: "Unable to create tournament"
                                     })
                                 }
                                 else{
-                                        tournamentController.createTourTeamRelation(req.body.teams, tour.tournament_id, function(err){
+                                        tournamentController.createTourTeamRelation(tourDetails.teams, tour.tournament_id, function(err){
                                             if(err){
                                                 res.status(400).json({
                                                     message: "Unable to create tournament-team relation"
                                                 })
                                             }
                                         })
-                                    
+                                    tour.tourImage = commonController.buildImageURL(req, tour.tournament_image);
                                     res.status(200).json({
                                         message: "Tournament created successfully",
                                         tour: tour
