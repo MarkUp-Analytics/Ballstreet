@@ -37,6 +37,7 @@ import InputTeam from '@/components/InputTeam'
 import InputTournament from '@/components/InputTournament'
 import InputResult from '@/components/InputResult'
 import InputSchedule from '@/components/InputSchedule'
+import InputSchedule2 from '@/components/InputSchedule-2'
 import ReportTransaction from '@/components/ReportTransaction'
 import ReportAcquisition from '@/components/ReportAcquisition'
 import ReportHealth from '@/components/ReportHealth'
@@ -222,6 +223,11 @@ export default new Router({
       path: '/inputSchedule',
       name: 'Input Schedule',
       component: InputSchedule
+    },
+    {
+      path: '/inputSchedule2',
+      name: 'Input Schedule2',
+      component: InputSchedule2
     },
     {
       path: '/inputResult',

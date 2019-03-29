@@ -71,6 +71,7 @@
                     <div class="col-lg-3 text-center">
                         <form class="py-5">
                             <label for="FormControlGamePin" class="mb-2 text-violet font-weight-bold">GAME ID: {{league.league_shortid}}</label>
+                            <br>
                             <label v-if="showLeaguePin" for="FormControlGamePin" class="mb-2 text-violet font-weight-bold">PIN: {{league.league_pin}}</label>
                             <input v-if="!showLeaguePin" type="Text" class="form-control form-control-md rounded-1 w-100 mb-3" id="GamePin" aria-describedby="emailHelp" placeholder="Game Pin">
                             <button v-if="!showLeaguePin" type="submit" class="btn btn-dark bg-violet rounded-1 w-100">Enter</button>
@@ -79,48 +80,70 @@
                 </div>    
             </div>
         </div>
-        <!-- <div class="p-5 mx-auto text-center bg-white">
+        <div class="p-5 mx-auto text-center bg-white">
             <div class="container">
-                <h1 class="text-violet mt-1 mb-3">Overview</h1>
+                <h1 class="text-violet mt-1 mb-3">Team Preference</h1>
                 <div class="row my-4">
-                    <div class="col-lg my-3">
-                        <i class="fas fa-dice-d6 text-yellow fa-4x"></i>
+                    <div class="col-lg my-4">
+                        
                     </div>
-                    <div class="col-lg my-3">
-                        <span class="text-secondary">Contribution, INR</span><br/>
-                        <h3>450.00</h3>
+                    <div class="col-lg my-4">
+                        <draggable v-model="teams" group="people" @start="drag=true" @end="drag=false" @change="updatePreference()">
+                             <transition-group type="transition" name="flip-list">
+                            <div v-for="(team, $index) in teams" :key="team.team_id">
+                                <div class="card bg-white" style="cursor:pointer">
+						            <div class="card-body">
+                                        <div>
+                                            <span>
+                                                <img style="float:left" :src="team.team_image" width="30px" height="30px"/>
+                                            </span>
+                                            <span>
+                                                {{team.team_abbreviation}}
+                                            </span>
+                                            <span class="badge">{{$index+1}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </transition-group>
+                        </draggable>
                     </div>
-                    <div class="col-lg my-3">
-                        <span class="text-secondary">Curr. Value, INR</span><br/>
-                        <h3>652.69</h3>
+                    <div class="col-lg my-4">
+                        
                     </div>
-                    <div class="col-lg my-3">
-                        <span class="text-secondary">P&L</span><br/>
-                        <h3 class="text-success">45.04%</h3>
-                    </div>
+                    
                 </div>              
             </div>
-        </div> -->
+        </div>
     </div>
 </template>
 
 <script>
 import api from '@/services/api';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import draggable from 'vuedraggable';
 export default {
     name: 'LeagueDashboard',
+    components:{
+        draggable
+    },
     created() {
         if (localStorage.getItem('userDetails')) {
                 this.userDetails = JSON.parse(localStorage.getItem('userDetails'));
                 
             }
-        if(this.$route.params != null){
+        if(this.$route.params.league){
                 this.league = this.$route.params.league;
                 this.displayLeaguePin();
                 this.getTournamentDetails(this.league.league_tournament_id);
                 this.getPlayingTeams(this.league.league_tournament_id);
                 this.getTotalGames(this.league.league_tournament_id);
                 this.showDetails = true;
+            }
+            else{
+                this.$router.push({
+                    name: 'Home',
+				});
             }
     },
     data(){
@@ -139,6 +162,7 @@ export default {
     },
     methods:{
         displayLeaguePin: function(){ //Method to display league pin if the user is part of the league.
+            var self = this;
             this.showLoadingIcon = true;
                 api().get('/league/memberInLeague', {
                     params: {
@@ -146,16 +170,16 @@ export default {
                             leagueId: this.league.league_id
                         }
                 }).then(result => {
-                    this.showLoadingIcon = false;
-                        this.showLeaguePin = result.data.memberBelongsToLeague;
+                        self.showLoadingIcon = false;
+                        self.showLeaguePin = result.data.memberBelongsToLeague;
                     },
                     err => {
-                        this.showLoadingIcon = false;
+                        self.showLoadingIcon = false;
                         if(err.response.data.message){
-                            this.errors.push(err.response.data.message);
+                            self.errors.push(err.response.data.message);
                         }
                         else{
-                            this.errors.push("Error getting league details");
+                            self.errors.push("Error getting league details");
                         }
                     })
         },
@@ -213,10 +237,35 @@ export default {
                         console.log(err)
                     })
             },
+            updatePreference: function(){
+                console.log(this.teams);
+            },
     }
 }
 </script>
 
 <style>
+.badge{
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: #777;
+    border-radius: 10px;
+    float: right;
+}
+
+.flip-list-move {
+  transition: transform 0.5s;
+}
+.no-move {
+  transition: transform 0s;
+}
 
 </style>

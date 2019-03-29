@@ -4,7 +4,7 @@
             <admin-menu></admin-menu> 
             <div class="container-lg mx-auto">
                 <h1 class="text-violet mt-5 mx-auto">Input</h1>
-                <h4 class="text-violet mx-auto">Tournament</h4>
+                <h4 class="text-violet mx-auto">Schedule</h4>
                 <div class="row m-0 p-0">
                     
                     <loading-spinner v-if="showLoadingIcon"></loading-spinner>
@@ -19,30 +19,26 @@
                     </div>
                     <div v-if="showSuccessMsg" class="alert alert-success alert-dismissible fade show w-100 mx-4 px-5 mb-4" role="alert">
                     <span>
-                            <strong>Successfully created a tour!</strong><br>
+                            <strong>Successfully created a schedule!</strong><br>
                         </span>
                         <button type="button" class="close" data-dismiss="alert" @click="showSuccessMsg = false;" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                 </div>
                         <form class="text-left py-3 mb-5 px-5" id="tournament-create">
-                            <h5 class="text-violet mt-4">Create Tournament</h5>
+                            <h5 class="text-violet mt-4">Create Schedule</h5>
                             <div class="form-group mt-4">
-                                <label>Sport</label>
-                                <select class="form-control" v-model="selectedSport">
-                                    <option v-for="sport in sportsList" :value="sport">
-                                        {{ sport.sport_name }}
-                                    </option>
-                                </select>
+                                <label>Tournament</label>
+                                <v-select @change="updateTeamsList" v-model="selectedTour" :options="tournamentList" label="tournament_name"></v-select>
                             </div>
                             <div class="form-group mt-4">
-                            <img src="../../static/assets/images/ipl.png" class="rounded border mb-2" width="50px" height="50px" /><br/>
-                            <label>Choose Image</label>
-                            <input type="file" class="form-control-file" @change="processFile($event)">
-                        </div>
+                                <label>Team A</label>
+                                <v-select :disabled="!selectedTour || teamsInTournamentList.length == 0" v-model="selectedTeamA" :options="teamsInTournamentList" label="team_abbreviation">
+                                </v-select>
+                            </div>
                             <div class="form-group mt-4">
-                                <label>Tournament Name</label>
-                                <input class="form-control" type="text" placeholder="Ex: IPL 2018" v-model="tournamentName" />
+                                <label>Team B</label>
+                                <v-select :disabled="!selectedTour || teamsInTournamentList.length == 0" v-model="selectedTeamB" :options="teamsInTournamentList" label="team_abbreviation"></v-select>
                             </div>
                             <div class="form-group mt-4">
                                 <label>From Date</label>
@@ -53,20 +49,18 @@
                                 <datepicker v-model="endDate"></datepicker>
                             </div>
                             <div class="form-group mt-4">
-                                <label>Tournament Venue</label>
-                                <input class="form-control" type="text" placeholder="Ex: India" v-model="venue" />
+                                <label>Match Venue</label>
+                                <v-select v-model="selectedVenue" :options="stadiumList" label="stadium_name">
+                                </v-select>
                             </div>
                             <div class="form-group mt-4">
-                                <label># Games</label>
-                                <input class="form-control" type="number" placeholder="No. of Games" v-model="totalGames" />
-                            </div>
-                            <div class="form-group mt-4">
-                                <label>Teams</label>
-                                <v-select v-if="teamList && teamList.length > 0" multiple v-model="selectedTeams" :options="teamList" label="team_abbreviation"></v-select>
+                                <label>Toss Time <span style="font-size:small">(Venue local time in 24 hrs format)</span></label>
+                                <input style="display: inline; max-width:100px;" class="form-control" type="number" placeholder="Hour" v-model="tossHour" />
+                                <input style="display: inline; max-width:100px;" class="form-control" type="number" placeholder="Minutes" v-model="tossMinutes" />
                             </div>
                             <div class="row">
                                 <div class="col-lg mt-4">
-                                    <a href="" class="btn btn-dark bg-violet border-0 w-100" @click.prevent="createTournament()">Save</a><br/>
+                                    <a href="" class="btn btn-dark bg-violet border-0 w-100" @click.prevent="createSchedule()">Save</a><br/>
                                 </div>
                             </div>
                             <div class="row text-center">
@@ -79,7 +73,7 @@
                     </div>
                     <div class="col-lg-9 mx-0 px-0">
                         <section class="text-left py-3 mb-5 px-5" id="tournament-created">
-                            <h5 class="text-violet mt-4">Created Tournament</h5>
+                            <h5 class="text-violet mt-4">Created Schedule</h5>
                             <b-container fluid  class="p-0">
                                 <b-row class="my-0 py-0">
                                     <b-col md="7">
@@ -117,7 +111,7 @@
                                 <div class="w-100 table-responsive mt-4 mb-4 px-1">
                                     <b-table 
                                         stacked="md"
-                                        :items="tournamentList"
+                                        :items="scheduleList"
                                         :fields="fields"
                                         :current-page="currentPage"
                                         :per-page="perPage"
@@ -135,15 +129,27 @@
                                         <template slot="emptyfiltered" slot-scope="scope">
                                             <h4>{{ scope.emptyFilteredText }}</h4>
                                         </template>
-                                        <template slot="tournament_created_on" slot-scope="data">
-                                            <span>{{data.item.tournament_created_on | formatDate}}</span>
+                                        <template slot="tournament_name" slot-scope="data">
+                                            <span>{{data.item.tournament_name}}</span>
                                         </template>
-                                        <template slot="Link" slot-scope="data">
-                                            <a href="">Link</a>
+                                        <template slot="match_fixture_start_date" slot-scope="data">
+                                            <span>{{data.item.match_fixture_start_date | formatDate}}</span>
                                         </template>
-                                        <template slot="tourImage" slot-scope="data">
-                                    <img :src="data.item.tourImage" class="rounded border mb-2" width="50px" height="50px" />
-                                </template>
+                                        <template slot="match_fixture_end_date" slot-scope="data">
+                                            <span>{{data.item.match_fixture_end_date | formatDate}}</span>
+                                        </template>
+                                        <template slot="match_team_1" slot-scope="data">
+                                            <span>{{data.item.match_team_1}}</span>
+                                        </template>
+                                        <template slot="match_team_2" slot-scope="data">
+                                            <span>{{data.item.match_team_2}}</span>
+                                        </template>
+                                        <template slot="match_venue" slot-scope="data">
+                                            <span>{{data.item.match_venue}}</span>
+                                        </template>
+                                        <template slot="result" slot-scope="data">
+                                            <a v-if="!data.item.winning_team && !data.item.no_result && !data.item.result_draw" href="" @click.prevent="inputResult(data.item)">Edit Result</a>
+                                        </template>
                                     </b-table>
                                 </div>
                                 <b-row class="mx-auto">
@@ -171,48 +177,53 @@ import commonServices from '@/services/commonServices';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import AdminMenu from '@/components/AdminMenu';
 import Datepicker from 'vuejs-datepicker';
-
+import { parse } from 'querystring';
 
     export default {
-        name: 'InputTournament',
+        name: 'InputSchedule2',
         components: {
             LoadingSpinner,
             Datepicker,
             AdminMenu
         },
         created() {
-            this.getAllTeam();
-            this.getSportList();
-            this.getTourList();
             if (localStorage.getItem('userDetails')) {
                 this.userDetails = JSON.parse(localStorage.getItem('userDetails'));
             }
-    
+            this.getScheduleList();
+            this.getTourList();
+            this.getStadiumList();
         },
         data() {
             return {
                 errors: [],
                 userDetails: null,
-                teamList: null,
-                selectedTeams: [],
-                selectedSport: null,
-                sportsList: [],
+                selectedTour: null,
+                selectedTeamA: null,
+                selectedTeamB: null,
+                selectedVenue: null,
+                tossHour: null,
+                tossMinutes: null,
+                stadiumList: [],
+                teamsInTournamentList: [],
                 showSuccessMsg: false,
                 showLoadingIcon: false,
-                tournamentName: null,
-                sportId : null,
                 startDate : null,
                 endDate : null,
                 venue : null,
                 userid : null,
-                totalGames : null,
-                tourImage:null,
-                tournamentList: null,
+                tournamentList: [],
+                scheduleList: [],
+                filterTournament: null,
                 fields: [
-                    { key: 'tournament_created_on', label: 'Date Created', sortable: true },
-                    { key: 'tourImage', label: 'Image', sortable: true },
                     { key: 'tournament_name', label: 'Tournament', sortable: true },
-                    'Link'
+                    { key: 'match_fixture_start_date', label: 'Start Date', sortable: true },
+                    { key: 'match_fixture_end_date', label: 'End Date', sortable: true },
+                    { key: 'team_a_abbreviation', label: 'Team 1', sortable: true },
+                    { key: 'team_b_abbreviation', label: 'Team 2', sortable: true },
+                    { key: 'stadium_name', label: 'Venue', sortable: true },
+                    { key: 'result', label: 'Edit Result', sortable: false },
+                    
                 ],
                 currentPage: 1,
                 perPage: 20,
@@ -240,54 +251,73 @@ import Datepicker from 'vuejs-datepicker';
                 this.totalRows = filteredItems.length
                 this.currentPage = 1
             },
+            inputResult: function(matchFixtureDetails){
+				this.$router.push({
+                    name: 'Input Result',
+                    params:{
+                        matchFixtureDetails: matchFixtureDetails
+                    }
+                    
+				})
+			},
+            getTimeStamp: function(hour, minutes){
+                var hr = null;
+                var mins = null;
+                if(hour < 10){
+                    hr = '0' + hour;
+                }
+                else{
+                    hr = hour.toString();
+                }
+                if(minutes < 10){
+                    mins = '0' + minutes;
+                }
+                else{
+                    mins = minutes.toString();
+                }
+                return (hr + ":" + mins + ":00");
 
-            processFile: function(event) {
-                this.tourImage = event.target.files[0];
             },
 
-            createTournament: function(){
+            createSchedule: function(){
                 this.errors = [];
-                if(!this.tournamentName || !this.selectedSport || ! this.startDate || !this.endDate || !this.venue || !this.totalGames || !this.selectedTeams){
+                if(!this.selectedTour || !this.selectedTeamA || !this.selectedTeamB || ! this.startDate || !this.endDate || !this.selectedVenue || !this.tossHour || !this.tossMinutes){
                     this.errors.push("Required fields are missing");
+                    return;
+                }
+                if(this.selectedTeamA.team_id === this.selectedTeamB.team_id){
+                    this.errors.push("Please select different teams");
                     return;
                 }
                 if(this.startDate.getTime() > this.endDate.getTime()){
                     this.errors.push("Start date cannot be greater than end date");
                     return;
                 }
-                if(this.selectedTeams.length < 2){
-                    this.errors.push("Must select atleast 2 teams to create a tournament");
+                if(parseInt(this.tossHour) < 0 || parseInt(this.tossHour) > 23){
+                    this.errors.push("Toss hour must be an integer between 0 - 23");
                     return;
                 }
-                if(this.totalGames < 1){
-                    this.errors.push("Total games must be atleast 1");
-                    return;
-                }
-                if(this.tourImage && this.tourImage.type.indexOf('image') == -1){
-                    this.errors.push("You can upload only image file");
+                if(parseInt(this.tossMinutes) < 0 || parseInt(this.tossMinutes) > 59){
+                    this.errors.push("Toss minutes must be an integer between 0 - 59");
                     return;
                 }
                 this.showLoadingIcon = true;
 
-                var tourDetails = {};
-                const formData = new FormData()
-                formData.append('file', this.tourImage, this.tourImage.name);
-                tourDetails.tournamentName = this.tournamentName;
-                tourDetails.sportId = this.selectedSport.sport_id;
-                tourDetails.startDate = this.startDate;
-                tourDetails.endDate = this.endDate;
-                tourDetails.venue = this.venue;
-                tourDetails.userid = this.userDetails.userid;
-                tourDetails.totalGames = this.totalGames;
-                tourDetails.teams = this.selectedTeams.map(team=>{ return team.team_id;});
-                formData.append('tourDetails', JSON.stringify(tourDetails));
+                var matchFixtureDetails = {};
+                matchFixtureDetails.tournamentId = this.selectedTour.tournament_id;
+                matchFixtureDetails.team1 = this.selectedTeamA.team_id;
+                matchFixtureDetails.team2 = this.selectedTeamB.team_id;
+                matchFixtureDetails.startDate = this.startDate;
+                matchFixtureDetails.endDate = this.endDate;
+                matchFixtureDetails.venue = this.selectedVenue.stadium_id;
+                matchFixtureDetails.tossTime = this.getTimeStamp(this.tossHour, this.tossMinutes);
+                matchFixtureDetails.userid = this.userDetails.userid;
 
-                api().post('/tournament/createTournament', formData)
+                api().post('/fixtures/createSchedule', matchFixtureDetails)
                 .then(result=>{
                         this.showLoadingIcon = false;
                         this.showSuccessMsg = true;
-		                console.log(result.data.message);
-                        
+                        this.scheduleList.push(result.data.schedule);
                     },
                     err => {
                         this.showLoadingIcon = false;
@@ -296,27 +326,14 @@ import Datepicker from 'vuejs-datepicker';
                     })
             },
 
-            getAllTeam: function(){
-                this.showLoadingIcon = true;
-
-                api().get('/team/getTeamsList')
-                    .then(result=>{
-                        this.showLoadingIcon = false;
-                        this.teamList = result.data.teamList;
-                    },
-                    err => {
-                        this.showLoadingIcon = false;
-                        this.errors = [];
-                        this.errors.push(err.response.data.message);
-                    })
-            },
-            getSportList: function() {
+            getStadiumList: function(){
                 var self = this;
-                api().get('/sport/getSportsList').then(result => {
-                        self.sportsList = result.data.sports;
+                api().get('/stadium/getStadiumList').then(result => {
+                        self.stadiumList = result.data.stadiumList;
                     },
                     err => {
-                        console.log(err)
+                        this.errors = [];
+                        this.errors.push(err.response.data.message);
                     })
             },
             getTourList: function(){
@@ -328,6 +345,44 @@ import Datepicker from 'vuejs-datepicker';
                         this.errors = [];
                         this.errors.push(err.response.data.message);
                     })
+            },
+            getScheduleList: function(){
+                var self = this;
+                api().get('/fixtures/getAllMatchFixtures',{
+                    params:{
+                        userid: self.userDetails.userid
+                    }
+                }).then(result => {
+                        self.scheduleList = result.data.scheduleList;
+                    },
+                    err => {
+                        this.errors = [];
+                        this.errors.push(err.response.data.message);
+                    })
+            },
+            updateTeamsList: function(tour){
+                this.errors = [];
+                this.teamsInTournamentList = [];
+                this.selectedTeamA = null;
+                this.selectedTeamB = null;
+                if(tour){
+                    var self = this;
+                    api().get('/tournament/playingTeams', {
+                        params: {
+                            tournamentId: tour.tournament_id
+                        }
+                    }).then(result => {
+                        result.data.teams.filter(team=>{
+                            team.disabled = true;
+                        });
+                        self.teamsInTournamentList = result.data.teams;
+                    },
+                    err => {
+                        this.errors = [];
+                        this.errors.push(err.response.data.message);
+                    })
+                }
+                
             }
         }
     }

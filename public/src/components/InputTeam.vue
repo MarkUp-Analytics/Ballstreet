@@ -1,39 +1,11 @@
 <template>
+<div>
     <div class="text-center bg-light">
-        <nav class="navbar sticky-top navbar-light bg-light shadow-sm w-100 z-index-3">
-            <div class=" px-1 mx-auto">
-                <nav class="nav nav-secondary justify-content-center">
-                    <a class="nav-link text-secondary" href="#">
-                        <span class="d-sm-none" title="Team">Te</span>
-                        <span class="d-none d-sm-block">Team</span>
-                    </a>
-                    <a class="nav-link text-secondary" href="#">
-                        <span class="d-sm-none" title="Tournament">To</span>
-                        <span class="d-none d-sm-block">Tournament</span>
-                    </a>
-                    <a class="nav-link text-secondary" href="#">
-                        <span class="d-sm-none" title="Schedule">Sc</span>
-                        <span class="d-none d-sm-block">Schedule</span>
-                    </a>
-                    <a class="nav-link text-secondary" href="#">
-                        <span class="d-sm-none" title="Result">Re</span>
-                        <span class="d-none d-sm-block">Result</span>
-                    </a>
-                    <a class="nav-link text-secondary" href="#">
-                        <span class="d-sm-none" title="Acquisition">Ac</span>
-                        <span class="d-none d-sm-block">Acquisition</span>
-                    </a>
-                    <a class="nav-link text-secondary" href="#">
-                        <span class="d-sm-none" title="Transaction">Tr</span>
-                        <span class="d-none d-sm-block">Transaction</span>
-                    </a>
-                </nav>
-            </div>
-        </nav>
+        <admin-menu></admin-menu>
 
-        <div class="container-lg bg-light">
-            <h1 class="text-violet">Input</h1>
-            <h4 class="text-violet">Tournament</h4>
+        <div class="container-lg mx-auto">
+            <h1 class="text-violet mt-5 mx-auto">Input</h1>
+            <h4 class="text-violet mx-auto">Team</h4>
             <loading-spinner v-if="showLoadingIcon"></loading-spinner>
             <div class="row">
                 <div class="col-lg-3 border-right mx-0 w-100">
@@ -97,17 +69,19 @@
             </div>
         </div>
     </div>
-              
+</div>     
 </template>
 
 <script>
 import api from '@/services/api';
 import commonServices from '@/services/commonServices';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import AdminMenu from '@/components/AdminMenu';
     export default {
         name: 'InputTeam',
         components: {
-        	LoadingSpinner
+            LoadingSpinner,
+            AdminMenu
         },
          created() {
             this.getAllTeam();
@@ -143,6 +117,10 @@ import LoadingSpinner from '@/components/LoadingSpinner';
                 this.errors = [];
                 if(!this.teamImage || !this.teamName || !this.teamShortName){
                     this.errors.push("Required fields are missing");
+                    return;
+                }
+                else if(this.teamShortName.length > 4){
+                    this.errors.push("Short name cannot be greater than 4 characters");
                     return;
                 }
                 else if(this.teamImage && this.teamImage.type.indexOf('image') == -1){

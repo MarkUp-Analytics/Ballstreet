@@ -17,7 +17,7 @@ module.exports = function(app){
     app.use('/league', leagueRoutes);
     app.use('/team', teamRoutes);
     app.use('/sport', sportRoutes);
-    app.use('/fixture', fixtureRoutes);
+    app.use('/fixtures', fixtureRoutes);
     app.use('/stadium', stadiumRoutes);
 };
 
