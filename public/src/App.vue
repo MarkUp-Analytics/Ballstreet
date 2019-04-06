@@ -3,9 +3,9 @@
 		<div v-if="!userDetails" class="d-flex flex-column flex-md-row align-items-center p-2 px-md-4 mb-1 bg-white container">
 			<div class="ballstreet-logo-full mr-md-auto font-weight-normal cursorPointer" @click="redirectPage('Index')"></div>
 			<div>
-				<a class="p-2 text-red" href="#/getstarted">Get Started</a>
-				<a class="p-2 text-red" href="#/signin">Sign In</a>
-				<a class="mx-2 btn btn-dark bg-red border-0" href="#/signup">Sign Up</a>
+				<a class="p-2 text-red" href="" @click.prevent="redirectPage('AboutBallstreet')">Get Started</a>
+				<a class="p-2 text-red" href="" @click.prevent="redirectPage('Signin')">Sign In</a>
+				<a class="mx-2 btn btn-dark bg-red border-0" href="" @click.prevent="redirectPage('SignUp')">Sign Up</a>
 			</div>
 		</div>
 		<nav v-if="userDetails" class="navbar navbar-expand-lg navbar-light bg-white font-size-16">
@@ -60,28 +60,28 @@
 					<div class="col-sm-4 mb-4 col-md">
 						<h6 class="text-yellow font-weight-bold">Company</h6>
 						<ul class="list-unstyled font-size-14pc">
-							<li><a class="text-white" @click="scrollToTop()" href="#/getstarted">About</a></li>
-							<li><a class="text-white" @click="scrollToTop()" href="#">Careers</a></li>
-							<li><a class="text-white" @click="scrollToTop()" href="#/getstarted/brandCenter">Brand Center</a></li>
-							<li><a class="text-white" @click="scrollToTop()" href="#/getstarted/privacy">Privacy & Terms</a></li>
-							<li><a class="text-white" @click="scrollToTop()" href="#/getstarted/refund">Returns & Refunds</a></li>
-							<li><a class="text-white" @click="scrollToTop()" href="#/getstarted/contact">Get In Touch</a></li>
+							<li><a class="text-white" @click="scrollToTop(); redirectPage('AboutBallstreet')" href="">About</a></li>
+							<li><a class="text-white" @click="scrollToTop(); redirectPage('Careers')" href="">Careers</a></li>
+							<li><a class="text-white" @click="scrollToTop(); redirectPage('BrandCenter')" href="">Brand Center</a></li>
+							<li><a class="text-white" @click="scrollToTop(); redirectPage('Privacy')" href="">Privacy & Terms</a></li>
+							<li><a class="text-white" @click="scrollToTop(); redirectPage('Refund')" href="">Returns & Refunds</a></li>
+							<li><a class="text-white" @click="scrollToTop(); redirectPage('Contact')" href="">Get In Touch</a></li>
 						</ul>
 					</div>
 					<div class="col-sm-4 mb-2 col-md">
 						<h6 class="text-yellow font-weight-bold">Ballstreet</h6>
 						<ul class="list-unstyled font-size-14pc">
-							<li><a class="text-white" @click="scrollToTop()" href="#/getstarted/features">Features</a></li>
-							<li><a class="text-white" @click="scrollToTop()" href="#/getstarted/security">Security</a></li>
-							<li><a class="text-white" @click="scrollToTop()" href="#/getstarted/downloads">Downloads</a></li>
-							<li><a class="text-white" @click="scrollToTop()" href="#/getstarted/gamesOfSkill">Games of Skill</a></li>
-							<li><a class="text-white" @click="scrollToTop()" href="#/getstarted/howBallstreetWorks">How it Works</a></li>
+							<li><a class="text-white" @click="scrollToTop(); redirectPage('Features')" href="">Features</a></li>
+							<li><a class="text-white" @click="scrollToTop(); redirectPage('Security')" href="">Security</a></li>
+							<li><a class="text-white" @click="scrollToTop(); redirectPage('Downloads')" href="">Downloads</a></li>
+							<li><a class="text-white" @click="scrollToTop(); redirectPage('GamesOfSkill')" href="">Games of Skill</a></li>
+							<li><a class="text-white" @click="scrollToTop(); redirectPage('HowBallstreetWorks')" href="">How it Works</a></li>
 						</ul>
 					</div>
 					<div class="col-sm-4 mb-4 col-md">
 						<h6 class="text-yellow font-weight-bold">Help</h6>
 						<ul class="list-unstyled font-size-14pc">
-							<li><a class="text-white" @click="scrollToTop()" href="#/getstarted/FAQS">FAQs</a></li>
+							<li><a class="text-white" @click="scrollToTop(); redirectPage('FAQS')" href="">FAQs</a></li>
 							<li><a class="text-white" href="#">Blog</a></li>
 							<li><a class="text-white" href="#">Facebook</a></li>
 							<li><a class="text-white" href="#">Twitter</a></li>

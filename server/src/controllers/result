@@ -42,3 +42,15 @@ ALTER TABLE tournament ADD COLUMN tournament_image varchar
 ALTER TABLE match_fixtures ALTER COLUMN match_fixture_toss_time TYPE time
 
 ALTER TABLE match_fixtures ADD COLUMN match_fixture_created_by bigint, ADD COLUMN match_fixture_created_on date
+
+ALTER TABLE league_member_preference ADD COLUMN league_member_preference_league_id integer, ADD COLUMN league_member_preference_updated_on time
+
+update roles as t set
+    role_name = c.role_name
+from (values
+    ('LEAGUE_MEMBER', 1),
+    ('LEAGUE_ADMIN', 2),
+	('ADMIN', 3),
+	('TOURNAMENT_ADMIN', 4)
+) as c(role_name, role_id) 
+where c.role_id = t.role_id;

@@ -69,7 +69,7 @@
                                             {{league.league_minimum_bet*totalGames}}
                                         </td>
                                         <td class="align-middle">
-                                            <a href="" @click.prevent="gotoLeagueDashboard(league)" class="text-violet">Click</a>
+                                            <a href="" @click.prevent="gotoLeagueDashboard(league)" class="text-violet">Visit League</a>
                                         </td>
                                     </tr>
                                 </tbody>

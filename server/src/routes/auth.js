@@ -20,10 +20,22 @@ router.post('/', (req, res, next) => { //Method to login
                     })
                 }
                 if(userDetails){
-                    res.status(200).json({
-                        message: "Logged in succesfully",
-                        userDetails: userDetails
-                    })
+                    authController.getUserRole(userDetails.userid, function(err, userRole){
+                        if(err){
+                            res.status(400).json({
+                                message: "Unable to retrieve user role"
+                            })
+                        }
+                        else if(userRole){
+                            userDetails.roleName = userRole.role_name;
+                            res.status(200).json({
+                                message: "Logged in succesfully",
+                                userDetails: userDetails
+                            })
+                        }
+                        
+                    });
+                    
                 }
             })
         }
@@ -58,7 +70,7 @@ router.post('/signup', (req, res, next) => { // Method to create new user
                             })
                         }
                         else{
-                            userDetails.userRole = userRole;
+                            createdUser.roleName = userRole;
                             res.status(200).json({
                                 message: "User successfully created.",
                                 userDetails: createdUser

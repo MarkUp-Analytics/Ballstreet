@@ -46,4 +46,23 @@ leagueController.getLeagueByShortId = function(leagueShortId, tournamentId, call
     });
 };
 
+leagueController.compareLeagueKey = function(leagueId, leagueKey, callback){
+    var queryText = 'select * from league where league_id = $1 AND league_pin = $2 AND league_active = true AND league_deleted = false';
+    var queryParams = [leagueId, leagueKey];
+    pool.query(queryText, queryParams, (err, result) => {
+        var leagueMatches = false;
+        if(err){
+            callback(err, null)
+        }
+        else if(result && (result.rowCount == 0 || result.rowCount > 1)){
+            callback(err, leagueMatches);
+        }
+        else if(result && result.rowCount == 1){
+            leagueMatches = true;
+            callback(err, leagueMatches);
+        }
+        
+    });
+};
+
 module.exports = leagueController;

@@ -49,12 +49,18 @@ authController.createUser = function(newUserDetails, callback){
     
     bcrypt.hash(password, saltRounds, function(err, hash) {
         
-        var queryText = 'INSERT INTO users (firstname, lastname, age, sex, email, password, accountcreationdate, shortid, active, deleted) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
+        var queryText = 'INSERT INTO users (firstname, lastname, age, sex, email, password, accountcreationdate, shortid, active, deleted) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *;';
     
         var queryParams = [firstname, lastname, age, sex, email, hash, accountcreationdate, newShortid, active, deleted];
 
         pool.query(queryText, queryParams, (err, result) => {
-            callback(err, result);
+            if(err){
+                callback(err, null);
+            }
+            else if(result){
+                callback(null, result.rows[0]);
+            }
+            
         });
     });
 };
@@ -72,8 +78,6 @@ authController.comparePassword = function(userDetails, callback){
                         lastname: user.lastname,
                         userid: user.userid,
                         email: user.email,
-                        age: user.age,
-                        sex: user.sex,
                         accountcreationdate: user.accountcreationdate,
                         shortid: user.shortid
                     }
@@ -96,9 +100,9 @@ authController.comparePassword = function(userDetails, callback){
     })
 };
 
-authController.getUserRole = function(role_id, callback){
-    var queryText = 'SELECT role_name from roles WHERE role_id = $1';
-    var queryParams = [role_id];
+authController.getUserRole = function(userid, callback){
+    var queryText = 'select ur.user_id, r.role_id, r.role_name from user_roles ur inner join roles r on r.role_id = ur.role_id where ur.user_id = $1 AND ur.active = true and ur.deleted = false';
+    var queryParams = [userid];
     pool.query(queryText, queryParams, (err, result) => {
         if(err){
             callback(err, null);
@@ -114,12 +118,18 @@ authController.createUserRole = function(userid, callback){
         if(err){
             callback(err, null);
         }
-        authController.getUserRole(result.rows[0].userid, function(err, userRole){
-            if(err){
-                callback(err, null);
-            }
-            callback(err, userRole);
-        });
+        else if(result){
+            authController.getUserRole(result.rows[0].user_id, function(err, userRole){
+                if(err){
+                    callback(err, null);
+                }
+                else if(userRole){
+                    callback(null, userRole.role_name);
+                }
+                
+            });
+        }
+        
         
     });
 };

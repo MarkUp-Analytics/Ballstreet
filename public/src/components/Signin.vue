@@ -31,7 +31,7 @@
 				</div>
 			</div>
 			<div class="container">
-				<a href="#/getstarted/howBallstreetWorks" class="text-violet">
+				<a href="" @click.prevent="redirectPage('AboutBallstreet')" class="text-violet">
 					<h6 class="mt-1 mb-5 px-5">Click here to know more on how Ballstreet works</h6>
 				</a>
 			</div>
@@ -101,6 +101,11 @@
             }
         },
         methods: {
+			redirectPage: function(componentName){
+				this.$router.push({
+					name: componentName,
+				})
+			},
             login: function() {
                 if(!this.email || !this.password){
                     this.errors = [];

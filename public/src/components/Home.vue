@@ -19,13 +19,13 @@
                         <div class="col-lg mb-5">
                             <div class="bg-tennis"></div>
                             <h3>Would you like to join a league?</h3>                        
-                            <a class="m-1 btn btn-dark bg-violet border-0" href="#/discover">Discover</a><br/><br/>
+                            <a class="m-1 btn btn-dark bg-violet border-0" href="" @click.prevent="redirectPage('Discover')">Discover</a><br/><br/>
                             <span class="text-secondary">You would need to get the Game Pin and Game Password from your friends!</span>
                         </div>
                         <div class="col-lg mb-5">
                             <div class="bg-high-jump"></div>
                             <h3>Would you like to create a league?</h3>
-                            <a class="m-1 btn btn-dark bg-violet border-0" href="#/create">Create</a><br/><br/>
+                            <a class="m-1 btn btn-dark bg-violet border-0" href="" @click.prevent="redirectPage('Create')">Create</a><br/><br/>
                             <span class="text-secondary">Once you create a leage, you would be able to share the Game Pin and Game Password with your friends!</span>
                         </div>
                     </div>
@@ -116,7 +116,7 @@
             <div class="container">
                 <h1 class="text-violet mt-1 mb-1">Upcoming Tournaments</h1>
                 <h4 class="text-violet mt-1 mb-1">Basis Your Preferences</h4>
-                <a href="#/discover" class="text-violet">
+                <a href="" @click.prevent="redirectPage('Discover')" class="text-violet">
                     <h6 class="mt-1 mb-5">Click here to update your sports preferences</h6>
                 </a>
 
@@ -178,7 +178,7 @@
                     </div>
                 </div>                
             </div>                    
-            <a href="#/discover" class="text-violet">
+            <a href="" @click.prevent="redirectPage('Discover')" class="text-violet">
                 <h6 class="mt-1 mb-5">Click here to discover all the upcoming tournaments</h6>
             </a>
         </div>
@@ -240,6 +240,11 @@
                         league: league
                     }
                     
+				})
+            },
+            redirectPage: function(componentName){
+				this.$router.push({
+					name: componentName,
 				})
 			},
         }

@@ -3,6 +3,15 @@
         <div class="p-5 mx-auto text-center bg-light">
             <div class="container">
                 <h1 class="text-violet mt-1 mb-5">Dashboard</h1>
+                <div v-if="errors.length" class="alert alert-danger alert-dismissible fade show w-100" role="alert">
+                            <span v-for="error in errors">
+                                <strong>Error!</strong> {{error}}
+                            </span>
+                            <button type="button" class="close" data-dismiss="alert" @click="errors = [];" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    <loading-spinner v-if="showLoadingIcon"></loading-spinner>
                 <div v-if="showDetails" class="row text-left">
                     <div class="col-lg-9">
                         <img src="../../static/assets/images/ipl.png" class="rounded border mb-2" width="50px" height="50px"/>
@@ -72,24 +81,22 @@
                         <form class="py-5">
                             <label for="FormControlGamePin" class="mb-2 text-violet font-weight-bold">GAME ID: {{league.league_shortid}}</label>
                             <br>
-                            <label v-if="showLeaguePin" for="FormControlGamePin" class="mb-2 text-violet font-weight-bold">PIN: {{league.league_pin}}</label>
-                            <input v-if="!showLeaguePin" type="Text" class="form-control form-control-md rounded-1 w-100 mb-3" id="GamePin" aria-describedby="emailHelp" placeholder="Game Pin">
-                            <button v-if="!showLeaguePin" type="submit" class="btn btn-dark bg-violet rounded-1 w-100">Enter</button>
+                            <label v-if="userIsLeagueMember" for="FormControlGamePin" class="mb-2 text-violet font-weight-bold">PIN: {{league.league_pin}}</label>
+                            <input v-if="!userIsLeagueMember" type="password" class="form-control form-control-md rounded-1 w-100 mb-3" id="GamePin" v-model="leaguePin" aria-describedby="emailHelp" placeholder="Game Pin">
+                            <button v-if="!userIsLeagueMember" @click.prevent="joinLeague()" class="btn btn-dark bg-violet rounded-1 w-100">Join League</button>
                         </form>
                     </div>
                 </div>    
             </div>
         </div>
         <div class="p-5 mx-auto text-center bg-white">
-            <div class="container">
-                <h1 class="text-violet mt-1 mb-3">Team Preference</h1>
+            <div v-if="!userIsLeagueMember" class="container">
+                <h1 class="text-violet mt-1 mb-3">Team List</h1>
                 <div class="row my-4">
                     <div class="col-lg my-4">
                         
                     </div>
                     <div class="col-lg my-4">
-                        <draggable v-model="teams" group="people" @start="drag=true" @end="drag=false" @change="updatePreference()">
-                             <transition-group type="transition" name="flip-list">
                             <div v-for="(team, $index) in teams" :key="team.team_id">
                                 <div class="card bg-white" style="cursor:pointer">
 						            <div class="card-body">
@@ -101,6 +108,37 @@
                                                 {{team.team_abbreviation}}
                                             </span>
                                             <span class="badge">{{$index+1}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="col-lg my-4">
+                        
+                    </div>
+                    
+                </div>              
+            </div>
+            <div v-if="userIsLeagueMember" class="container">
+                <h1  class="text-violet mt-1 mb-3">Team Preference</h1>
+                <div class="row my-4">
+                    <div class="col-lg my-4">
+                        
+                    </div>
+                    <div class="col-lg my-4">
+                        <draggable v-model="teamPreferenceList" :options="{animation:150}" @start="drag=true" @end="drag=false" @change="updatePreference()">
+                             <transition-group type="transition" name="flip-list">
+                            <div v-for="team in teamPreferenceList" :key="team.team_id">
+                                <div class="card bg-white" style="cursor:pointer">
+						            <div class="card-body">
+                                        <div>
+                                            <span>
+                                                <img style="float:left" :src="team.team_image" width="30px" height="30px"/>
+                                            </span>
+                                            <span>
+                                                {{team.team_abbreviation}}
+                                            </span>
+                                            <span class="badge">{{team.preference_rank}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -125,7 +163,8 @@ import draggable from 'vuedraggable';
 export default {
     name: 'LeagueDashboard',
     components:{
-        draggable
+        draggable,
+        LoadingSpinner
     },
     created() {
         if (localStorage.getItem('userDetails')) {
@@ -151,16 +190,43 @@ export default {
             userDetails: null,
             teamString: null,
             showLoadingIcon: false,
-            showLeaguePin: false,
+            userIsLeagueMember: false,
             showDetails: false,
             league: null,
+            leaguePin: null,
             details: null,
             teams: null,
+            teamPreferenceList: null,
             totalGames: null,
             errors: []
         }
     },
     methods:{
+        getTeamPreference: function(){ //Method to get team preference if the user is a league member
+            var self = this;
+            this.showLoadingIcon = true;
+                api().get('/league/getTeamPreference', {
+                    params: {
+                            leagueMemberId: this.league.league_member_id,
+                            leagueId: this.league.league_id,
+                            userId: this.userDetails.userid
+                        }
+                }).then(result => {
+                        self.showLoadingIcon = false;
+                        self.teamPreferenceList = result.data.teamPreference;
+                        self.teamPreferenceList.sort((a, b) => (b.preference_rank < a.preference_rank) ? 1 : -1);
+                    },
+                    err => {
+                        self.showLoadingIcon = false;
+                        if(err.response.data.message){
+                            self.errors.push(err.response.data.message);
+                        }
+                        else{
+                            self.errors.push("Error getting team preference");
+                        }
+                    })
+        },
+
         displayLeaguePin: function(){ //Method to display league pin if the user is part of the league.
             var self = this;
             this.showLoadingIcon = true;
@@ -171,7 +237,10 @@ export default {
                         }
                 }).then(result => {
                         self.showLoadingIcon = false;
-                        self.showLeaguePin = result.data.memberBelongsToLeague;
+                        self.userIsLeagueMember = result.data.memberBelongsToLeague;
+                        if(self.userIsLeagueMember){
+                            self.getTeamPreference();
+                        }
                     },
                     err => {
                         self.showLoadingIcon = false;
@@ -238,7 +307,55 @@ export default {
                     })
             },
             updatePreference: function(){
-                console.log(this.teams);
+                for(var i=0; i<this.teamPreferenceList.length; i++){
+                    this.teamPreferenceList[i].preference_rank = i+1;
+                }
+
+                this.showLoadingIcon = true;
+                var formData = {};
+                formData.preferences = this.teamPreferenceList;
+                formData.userId = this.userDetails.userid;
+                formData.leagueId = this.league.league_id;
+                formData.leagueMemberId = this.league.league_member_id;
+
+                api().post('/league/updateTeamPreference/', formData).then(result => {
+                        this.showLoadingIcon = false;
+                        this.teamPreferenceList = result.data.teamPreference;
+                        this.teamPreferenceList.sort((a, b) => (b.preference_rank < a.preference_rank) ? 1 : -1); 
+                    },
+                    err => {
+						this.errors = [];
+						this.showLoadingIcon = false;
+                        this.errors.push(err.response.data.message);
+                    })
+            },
+            joinLeague: function(){
+                this.errors = [];
+                if(!this.leaguePin){
+                    this.errors.push("Required field(s) are missing");
+                    return;
+                }
+                this.showLoadingIcon = true;
+                
+                var formData = {};
+                formData.userid = this.userDetails.userid;
+                formData.leagueId = this.league.league_id;
+                formData.tournamentId = this.league.league_tournament_id;
+                formData.leaguePin = this.leaguePin;
+
+                api().post('/league/joinLeague', formData).then(result => {
+                        this.showLoadingIcon = false;
+                        this.userIsLeagueMember = true;
+                        this.teamPreferenceList = result.data.teamPreference;
+                        this.teamPreferenceList.sort((a, b) => (b.preference_rank < a.preference_rank) ? 1 : -1); 
+                    },
+                    err => {
+						this.errors = [];
+						this.showLoadingIcon = false;
+                        this.errors.push(err.response.data.message);
+                    })
+
+
             },
     }
 }
