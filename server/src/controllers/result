@@ -54,3 +54,7 @@ from (values
 	('TOURNAMENT_ADMIN', 4)
 ) as c(role_name, role_id) 
 where c.role_id = t.role_id;
+
+ALTER TABLE league_member ADD COLUMN league_member_joined_on date
+
+ALTER TABLE league_member DROP COLUMN league_member_initial_bet_amount, DROP COLUMN league_member_current_bet_amount

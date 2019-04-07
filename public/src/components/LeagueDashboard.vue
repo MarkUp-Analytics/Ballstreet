@@ -1,5 +1,6 @@
 <template>
 <div>
+        <member-menu :league="$route.query.league"></member-menu>
         <div class="p-5 mx-auto text-center bg-light">
             <div class="container">
                 <h1 class="text-violet mt-1 mb-5">Dashboard</h1>
@@ -82,75 +83,17 @@
                             <label for="FormControlGamePin" class="mb-2 text-violet font-weight-bold">GAME ID: {{league.league_shortid}}</label>
                             <br>
                             <label v-if="userIsLeagueMember" for="FormControlGamePin" class="mb-2 text-violet font-weight-bold">PIN: {{league.league_pin}}</label>
+                            <div v-if="userIsLeagueMember" >
+                                <span class="text-red" style="font-size:smaller">Share Game ID and Pin to your friends to join the league</span>
+                            </div>
                             <input v-if="!userIsLeagueMember" type="password" class="form-control form-control-md rounded-1 w-100 mb-3" id="GamePin" v-model="leaguePin" aria-describedby="emailHelp" placeholder="Game Pin">
                             <button v-if="!userIsLeagueMember" @click.prevent="joinLeague()" class="btn btn-dark bg-violet rounded-1 w-100">Join League</button>
+                            <div v-if="!userIsLeagueMember" >
+                                <span class="text-red" style="font-size:smaller">Enter Game Pin to join the league</span>
+                            </div>
                         </form>
                     </div>
                 </div>    
-            </div>
-        </div>
-        <div class="p-5 mx-auto text-center bg-white">
-            <div v-if="!userIsLeagueMember" class="container">
-                <h1 class="text-violet mt-1 mb-3">Team List</h1>
-                <div class="row my-4">
-                    <div class="col-lg my-4">
-                        
-                    </div>
-                    <div class="col-lg my-4">
-                            <div v-for="(team, $index) in teams" :key="team.team_id">
-                                <div class="card bg-white" style="cursor:pointer">
-						            <div class="card-body">
-                                        <div>
-                                            <span>
-                                                <img style="float:left" :src="team.team_image" width="30px" height="30px"/>
-                                            </span>
-                                            <span>
-                                                {{team.team_abbreviation}}
-                                            </span>
-                                            <span class="badge">{{$index+1}}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-                    <div class="col-lg my-4">
-                        
-                    </div>
-                    
-                </div>              
-            </div>
-            <div v-if="userIsLeagueMember" class="container">
-                <h1  class="text-violet mt-1 mb-3">Team Preference</h1>
-                <div class="row my-4">
-                    <div class="col-lg my-4">
-                        
-                    </div>
-                    <div class="col-lg my-4">
-                        <draggable v-model="teamPreferenceList" :options="{animation:150}" @start="drag=true" @end="drag=false" @change="updatePreference()">
-                             <transition-group type="transition" name="flip-list">
-                            <div v-for="team in teamPreferenceList" :key="team.team_id">
-                                <div class="card bg-white" style="cursor:pointer">
-						            <div class="card-body">
-                                        <div>
-                                            <span>
-                                                <img style="float:left" :src="team.team_image" width="30px" height="30px"/>
-                                            </span>
-                                            <span>
-                                                {{team.team_abbreviation}}
-                                            </span>
-                                            <span class="badge">{{team.preference_rank}}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            </transition-group>
-                        </draggable>
-                    </div>
-                    <div class="col-lg my-4">
-                        
-                    </div>
-                    
-                </div>              
             </div>
         </div>
     </div>
@@ -159,25 +102,48 @@
 <script>
 import api from '@/services/api';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import MemberMenu from '@/components/MemberMenu';
 import draggable from 'vuedraggable';
 export default {
     name: 'LeagueDashboard',
     components:{
         draggable,
-        LoadingSpinner
+        LoadingSpinner,
+        MemberMenu
     },
     created() {
+        var self = this;
         if (localStorage.getItem('userDetails')) {
                 this.userDetails = JSON.parse(localStorage.getItem('userDetails'));
                 
             }
-        if(this.$route.params.league){
-                this.league = this.$route.params.league;
-                this.displayLeaguePin();
-                this.getTournamentDetails(this.league.league_tournament_id);
-                this.getPlayingTeams(this.league.league_tournament_id);
-                this.getTotalGames(this.league.league_tournament_id);
-                this.showDetails = true;
+        if(this.$route.query.league){
+                self.showLoadingIcon = true;
+                api().get('/league/getLeague', {
+                    params:{
+                        leagueShortId: this.$route.query.league
+                    }
+                }).then(result =>{
+                    self.showLoadingIcon = false;
+                    self.league = result.data.league;
+                    self.displayLeaguePin();
+                    self.getTournamentDetails(self.league.league_tournament_id);
+                    self.getPlayingTeams(self.league.league_tournament_id);
+                    self.getTotalGames(self.league.league_tournament_id);
+                    self.showDetails = true;
+                },
+                err =>{
+                    self.errors = [];
+                    self.showLoadingIcon = false;
+                    if(err.response.data.message){
+                        self.errors.push(err.response.data.message);
+                    }
+                    else{
+                        self.errors.push("Error getting league details");
+                    }
+                })
+                
+                
             }
             else{
                 this.$router.push({
@@ -202,31 +168,6 @@ export default {
         }
     },
     methods:{
-        getTeamPreference: function(){ //Method to get team preference if the user is a league member
-            var self = this;
-            this.showLoadingIcon = true;
-                api().get('/league/getTeamPreference', {
-                    params: {
-                            leagueMemberId: this.league.league_member_id,
-                            leagueId: this.league.league_id,
-                            userId: this.userDetails.userid
-                        }
-                }).then(result => {
-                        self.showLoadingIcon = false;
-                        self.teamPreferenceList = result.data.teamPreference;
-                        self.teamPreferenceList.sort((a, b) => (b.preference_rank < a.preference_rank) ? 1 : -1);
-                    },
-                    err => {
-                        self.showLoadingIcon = false;
-                        if(err.response.data.message){
-                            self.errors.push(err.response.data.message);
-                        }
-                        else{
-                            self.errors.push("Error getting team preference");
-                        }
-                    })
-        },
-
         displayLeaguePin: function(){ //Method to display league pin if the user is part of the league.
             var self = this;
             this.showLoadingIcon = true;
@@ -238,9 +179,7 @@ export default {
                 }).then(result => {
                         self.showLoadingIcon = false;
                         self.userIsLeagueMember = result.data.memberBelongsToLeague;
-                        if(self.userIsLeagueMember){
-                            self.getTeamPreference();
-                        }
+                        self.getLeagueMemberId(self.userDetails.userid, self.league.league_id);
                     },
                     err => {
                         self.showLoadingIcon = false;
@@ -251,6 +190,27 @@ export default {
                             self.errors.push("Error getting league details");
                         }
                     })
+        },
+        getLeagueMemberId: function(userId, leagueId){
+            var self = this;
+            this.showLoadingIcon = true;
+            api().get('/league/getLeagueMemberId',{
+                params: {
+                    userId: userId,
+                    leagueId: leagueId
+                }
+            }).then(result => {
+                    self.showLoadingIcon = false;
+                    self.league.league_member_id = result.data.leagueMemberId;
+                },
+                err => {
+                    self.showLoadingIcon = false;
+                    if (err.response.data.message) {
+                        self.errors.push(err.response.data.message);
+                    } else {
+                        self.errors.push("Error getting league member ID");
+                    }
+                })
         },
         getTournamentDetails: function(tournamentID){
             this.showLoadingIcon = true;
@@ -304,29 +264,6 @@ export default {
                     },
                     err => {
                         console.log(err)
-                    })
-            },
-            updatePreference: function(){
-                for(var i=0; i<this.teamPreferenceList.length; i++){
-                    this.teamPreferenceList[i].preference_rank = i+1;
-                }
-
-                this.showLoadingIcon = true;
-                var formData = {};
-                formData.preferences = this.teamPreferenceList;
-                formData.userId = this.userDetails.userid;
-                formData.leagueId = this.league.league_id;
-                formData.leagueMemberId = this.league.league_member_id;
-
-                api().post('/league/updateTeamPreference/', formData).then(result => {
-                        this.showLoadingIcon = false;
-                        this.teamPreferenceList = result.data.teamPreference;
-                        this.teamPreferenceList.sort((a, b) => (b.preference_rank < a.preference_rank) ? 1 : -1); 
-                    },
-                    err => {
-						this.errors = [];
-						this.showLoadingIcon = false;
-                        this.errors.push(err.response.data.message);
                     })
             },
             joinLeague: function(){

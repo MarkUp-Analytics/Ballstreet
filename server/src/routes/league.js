@@ -175,7 +175,7 @@ router.post('/joinLeague', (req, res, next) => { //Method to join league as a le
 });
 
 router.get('/findLeagueById', (req, res, next) => { //Method to search league based on short id
-    leagueController.getLeagueByShortId(req.query.leagueShortId, req.query.tournamentId, function (err, leagues) {
+    leagueController.searchLeaguesByShortId(req.query.leagueShortId, req.query.tournamentId, function (err, leagues) {
         if (err) {
             res.status(400).json({
                 message: "Unable to search league"
@@ -190,6 +190,23 @@ router.get('/findLeagueById', (req, res, next) => { //Method to search league ba
             res.status(200).json({
                 message: "League found",
                 leagues: leagues
+            })
+        }
+    })
+});
+
+router.get('/getLeague', (req, res, next) => { //Method to get one league based on short id exact match
+    leagueController.findLeagueByShortId(req.query.leagueShortId, function (err, league) {
+        if (err || !league) {
+            res.status(400).json({
+                message: "Unable to find league"
+            })
+        }
+        
+        else {
+            res.status(200).json({
+                message: "League found",
+                league: league
             })
         }
     })
@@ -252,7 +269,6 @@ router.get('/getTeamPreference', (req, res, next) => {
             })
         }
         else if (memberBelongsToLeague){
-            //leagueMemberController.getLeagueMemberId();
             leagueMemberController.getTeamPreference(req.query.leagueMemberId, function (err, teamList) {
                 if (err || !teamList) {
                     res.status(400).json({
@@ -262,6 +278,35 @@ router.get('/getTeamPreference', (req, res, next) => {
                 else if(teamList){
                     res.status(200).json({
                         teamPreference: teamList
+                    })
+                }
+            });
+        }
+    })
+});
+
+router.get('/getLeagueMemberId', (req, res, next) => {
+    leagueMemberController.memberInLeague(req.query.userId, req.query.leagueId, function (err, memberBelongsToLeague) {
+        if (err) {
+            res.status(400).json({
+                message: "Unable to check whether member belongs to league"
+            })
+        }
+        else if (!memberBelongsToLeague) {
+            res.status(400).json({
+                message: "Member does not belongs to the league"
+            })
+        }
+        else if (memberBelongsToLeague){
+            leagueMemberController.getLeagueMemberId(req.query.userId, req.query.leagueId, function (err, leagueMemberId) {
+                if (err) {
+                    res.status(400).json({
+                        message: "Unable to get league member Id"
+                    })
+                }
+                else if(leagueMemberId){
+                    res.status(200).json({
+                        leagueMemberId: leagueMemberId
                     })
                 }
             });

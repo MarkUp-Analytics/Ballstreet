@@ -6,15 +6,30 @@ var leagueMemberController = {};
 
 leagueMemberController.createLeagueMember = function(leagueMemberDetails, callback){
     
-    var queryText = 'INSERT INTO league_member (lm_league_id, league_member_user_id, league_member_active, league_member_deleted) VALUES ($1, $2, $3, $4) RETURNING *;';
+    var queryText = 'INSERT INTO league_member (lm_league_id, league_member_user_id, league_member_joined_on, league_member_active, league_member_deleted) VALUES ($1, $2, $3, $4, $5) RETURNING *;';
     
-    var queryParams = [leagueMemberDetails.leagueid, leagueMemberDetails.userid, true, false];
+    var queryParams = [leagueMemberDetails.leagueid, leagueMemberDetails.userid, new Date(), true, false];
     pool.query(queryText, queryParams, (err, result) => {
         if(err){
             callback(err, null);
         }
         else if(result){
             callback(null, result.rows[0]);
+        }
+        
+    });
+};
+
+leagueMemberController.getAllMembers = function(leagueId, callback){ //Method to get all active league members
+    var queryText = 'select lm.league_member_id, concat(u.firstname,\' \', u.lastname) as league_member_name, lm.league_member_joined_on, u.email as league_member_email from league_member lm inner join users u on u.userid = lm.league_member_user_id where lm.lm_league_id = $1 AND lm.league_member_active = true AND lm.league_member_deleted = false';
+    
+    var queryParams = [leagueId];
+    pool.query(queryText, queryParams, (err, result) => {
+        if(err){
+            callback(err, null);
+        }
+        else if(result){
+            callback(null, result.rows);
         }
         
     });
@@ -123,7 +138,7 @@ leagueMemberController.getLeagueMemberId = function(userId, leagueId, callback){
                 callback(err);
             }
             else if(result){
-                callback(null, result.rows[0]);
+                callback(null, result.rows[0].league_member_id);
             }
         });
 };

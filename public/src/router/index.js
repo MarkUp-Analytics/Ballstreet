@@ -8,6 +8,8 @@ import Home from '@/components/Home'
 import Create from '@/components/Create'
 import Discover from '@/components/Discover'
 import LeagueDashboard from '@/components/LeagueDashboard'
+import LeaguePreferences from '@/components/LeaguePreferences'
+import LeaguePlayers from '@/components/LeaguePlayers'
 import GetStarted from '@/components/GetStarted'
 import AboutBallstreet from '@/components/GetStartedComponents/AboutBallstreet'
 import HowBallstreetWorks from '@/components/GetStartedComponents/HowBallstreetWorks'
@@ -29,7 +31,6 @@ import Page5 from '@/components/Page5'
 import Page6 from '@/components/Page6'
 import Page7 from '@/components/Page7'
 import Page8 from '@/components/Page8'
-import Page9 from '@/components/Page9'
 import Page10 from '@/components/Page10'
 import Page11 from '@/components/Page11'
 import Profile from '@/components/Profile'
@@ -151,6 +152,18 @@ Vue.use(BootstrapVue)
       meta: {requiresAuth: true, roles: ['ADMIN', 'LEAGUE_MEMBER']}
     },
     {
+      path: '/preference',
+      name: 'LeaguePreferences',
+      component: LeaguePreferences,
+      meta: {requiresAuth: true, roles: ['ADMIN', 'LEAGUE_MEMBER']}
+    },
+    {
+      path: '/players',
+      name: 'LeaguePlayers',
+      component: LeaguePlayers,
+      meta: {requiresAuth: true, roles: ['ADMIN', 'LEAGUE_MEMBER']}
+    },
+    {
       path: '/page1',
       name: 'Page1',
       component: Page1,
@@ -201,12 +214,6 @@ Vue.use(BootstrapVue)
       path: '/page8',
       name: 'Page8',
       component: Page8,
-      meta: {requiresAuth: true, roles: ['ADMIN', 'LEAGUE_MEMBER']}
-    },
-    {
-      path: '/page9',
-      name: 'Page9',
-      component: Page9,
       meta: {requiresAuth: true, roles: ['ADMIN', 'LEAGUE_MEMBER']}
     },
     {
