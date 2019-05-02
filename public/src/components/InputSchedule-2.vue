@@ -318,6 +318,7 @@ import { parse } from 'querystring';
                         this.showLoadingIcon = false;
                         this.showSuccessMsg = true;
                         this.scheduleList.push(result.data.schedule);
+                        this.clearInputFields();
                     },
                     err => {
                         this.showLoadingIcon = false;
@@ -383,7 +384,17 @@ import { parse } from 'querystring';
                     })
                 }
                 
-            }
+            },
+            clearInputFields: function(){
+                this.selectedTour = null;
+                this.selectedTeamA = null;
+                this.selectedTeamB = null;
+                this.startDate = null;
+                this.endDate = null;
+                this.selectedVenue = null;
+                this.tossHour = null;
+                this.tossMinutes = null;
+            },
         }
     }
 </script>

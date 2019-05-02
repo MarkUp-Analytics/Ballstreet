@@ -182,8 +182,8 @@
             gotoLeagueDashboard: function(league){
 				this.$router.push({
                     name: 'LeagueDashboard',
-                    params:{
-                        league: league
+                    query:{
+                        league: league.league_shortid
                     }
                     
 				})

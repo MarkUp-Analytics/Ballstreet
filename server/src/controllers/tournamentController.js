@@ -77,7 +77,7 @@ tournamentController.getTournamentByNameAndSportId = function(tournamentName, sp
 tournamentController.getPlayingTeamsByTournamentId = function(tournamentId, callback){
     // var queryText = 'SELECT t1.team_name, t1.team_abbreviation FROM match_fixtures mf inner join team t1 on mf.match_fixture_team_1 = t1.team_id inner join team t2 on mf.match_fixture_team_2 = t2.team_id WHERE mf.match_fixture_tournament_id = $1 AND mf.match_fixture_active = true AND t1.team_active = true group by t1.team_name, t1.team_abbreviation union SELECT t2.team_name, t2.team_abbreviation FROM match_fixtures mf inner join team t2 on mf.match_fixture_team_2 = t2.team_id WHERE mf.match_fixture_tournament_id = $1 AND mf.match_fixture_active = true AND t2.team_active = true group by t2.team_name, t2.team_abbreviation';
 
-    var queryText = 'SELECT t1.team_id, t1.team_name, t1.team_abbreviation, t1.team_image FROM team t1 INNER JOIN tournament_team tt ON t1.team_id = tt.tournament_name_team_id WHERE tt.tournament_name_tour_id = $1 AND t1.team_active = true AND t1.team_deleted = false'
+    var queryText = 'SELECT t1.team_id, t1.team_name, t1.team_abbreviation, t1.team_image, tt.tournament_name_team_rank as team_rank FROM team t1 INNER JOIN tournament_team tt ON t1.team_id = tt.tournament_name_team_id WHERE tt.tournament_name_tour_id = $1 AND t1.team_active = true AND t1.team_deleted = false'
 
     var queryParams = [tournamentId];
 
@@ -128,12 +128,12 @@ tournamentController.createTourTeamRelation = function(teams, tour_id, callback)
     var teamList = [];
     for(var i=0; i< teams.length; i++){
         teamList.push([
-            tour_id, teams[i], true, false
+            tour_id, teams[i], i+1, true, false
         ]);
     }
     //New method to insert multiple rows
     
-        var queryText = format('INSERT INTO tournament_team (tournament_name_tour_id, tournament_name_team_id, tournament_name_active, tournament_name_deleted) VALUES %L returning *', teamList);
+        var queryText = format('INSERT INTO tournament_team (tournament_name_tour_id, tournament_name_team_id, tournament_name_team_rank, tournament_name_active, tournament_name_deleted) VALUES %L returning *', teamList);
         
         var queryParams = [];
         pool.query(queryText, queryParams, (err, result) => {

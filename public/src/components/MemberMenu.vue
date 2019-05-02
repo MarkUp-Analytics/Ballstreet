@@ -6,19 +6,19 @@
                         <span class="d-sm-none" :class="{'textBold': $route.name === 'LeagueDashboard'}" title="Dashboard">Dash</span>
                         <span class="d-none d-sm-block" :class="{'textBold': $route.name === 'LeagueDashboard'}">Dashboard</span>
                     </a>
-                    <a class="nav-link text-secondary" href="" @click.prevent="redirectPage('LeaguePreferences')">
+                    <a class="nav-link text-secondary" :class="memberInLeague ? '' : 'disabled'" href="" @click.prevent="redirectPage('LeaguePreferences')">
                         <span class="d-sm-none" :class="{'textBold': $route.name === 'LeaguePreferences'}" title="Preferences">Pref</span>
                         <span class="d-none d-sm-block" :class="{'textBold': $route.name === 'LeaguePreferences'}">Preferences</span>
                     </a>
-                    <a class="nav-link text-secondary" href="" @click.prevent="redirectPage('LeagueResult')">
+                    <a class="nav-link text-secondary" :class="memberInLeague ? '' : 'disabled'" href="" @click.prevent="redirectPage('LeagueResult')">
                         <span class="d-sm-none" title="Results">Resu</span>
                         <span class="d-none d-sm-block">Results</span>
                     </a>
-                    <a class="nav-link text-secondary" href="" @click.prevent="redirectPage('LeagueStats')">
+                    <a class="nav-link text-secondary" :class="memberInLeague ? '' : 'disabled'" href="" @click.prevent="redirectPage('LeagueStats')">
                         <span class="d-sm-none" title="Statistics">Stat</span>
                         <span class="d-none d-sm-block">Statistics</span>
                     </a>
-                    <a class="nav-link text-secondary" href="" @click.prevent="redirectPage('LeaguePlayers')">
+                    <a class="nav-link text-secondary" :class="memberInLeague ? '' : 'disabled'" href="" @click.prevent="redirectPage('LeaguePlayers')">
                         <span class="d-sm-none" :class="{'textBold': $route.name === 'LeaguePlayers'}" title="Players">Play</span>
                         <span class="d-none d-sm-block" :class="{'textBold': $route.name === 'LeaguePlayers'}">Players</span>
                     </a>
@@ -30,7 +30,7 @@
 <script>
 export default {
     name: 'MemberMenu',
-    props:['league'],
+    props:['league', 'memberInLeague'],
     created() {
         
     },
@@ -42,12 +42,14 @@ export default {
     methods: {
         redirectPage: function(componentName){
             var self = this;
-			this.$router.push({
-                name: componentName,
-                query:{
-                    league: self.league
-                }
-			})
+            if(componentName == 'LeagueDashboard'|| self.memberInLeague){
+                    this.$router.push({
+                    name: componentName,
+                    query:{
+                        league: self.league
+                    }
+			    })
+            }
 		},
     }
 }

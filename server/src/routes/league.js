@@ -4,6 +4,7 @@ const router = express.Router();
 const leagueController = require('../controllers/leagueController');
 const leagueMemberController = require('../controllers/leagueMemberController');
 const tournamentController = require('../controllers/tournamentController');
+const teamSelectionController = require('../controllers/teamSelectionController');
 
 router.post('/createLeague', (req, res, next) => { //Method to create new league
     leagueController.checkDuplicateLeagueName(req.body.newLeague.league_name, function (err, leagueNameExist) {
@@ -53,7 +54,7 @@ router.post('/createLeague', (req, res, next) => { //Method to create new league
                                         preferences.push(
                                             {
                                                 teamId: teamList[i].team_id,
-                                                rank: i + 1
+                                                rank: teamList[i].team_rank
                                             }
                                         );
                                     }
@@ -65,10 +66,29 @@ router.post('/createLeague', (req, res, next) => { //Method to create new league
                                             })
                                         }
                                         else {
-                                            res.status(200).json({
-                                                message: "Successfully created league",
-                                                league: league
+                                            teamSelectionController.getMemberPredictionForAllGames(league.league_tournament_id, leagueMember.league_member_id, function(err, predictions){
+                                                if (err) {
+                                                    res.status(400).json({
+                                                        message: "Unable to get predictions for all games"
+                                                    })
+                                                }
+                                                else{
+                                                    teamSelectionController.createTeamSelection(predictions, league.league_id, leagueMember.league_member_id, function(err, teamSelection){
+                                                        if(err){
+                                                            res.status(400).json({
+                                                                message: "Unable to update team selection for all games"
+                                                            });
+                                                        }
+                                                        else{
+                                                            res.status(200).json({
+                                                                message: "Successfully created league",
+                                                                league: league
+                                                            })
+                                                        }
+                                                    });
+                                                }
                                             })
+                                            
                                         }
                                     });
 
@@ -143,7 +163,7 @@ router.post('/joinLeague', (req, res, next) => { //Method to join league as a le
                                         preferences.push(
                                             {
                                                 teamId: teamList[i].team_id,
-                                                rank: i + 1
+                                                rank: teamList[i].team_rank
                                             }
                                         );
                                     }
@@ -155,9 +175,27 @@ router.post('/joinLeague', (req, res, next) => { //Method to join league as a le
                                             })
                                         }
                                         else {
-                                            res.status(200).json({
-                                                message: "Successfully joined the league",
-                                                teamPreference: preference
+                                            teamSelectionController.getMemberPredictionForAllGames(req.body.tournamentId, leagueMember.league_member_id, function(err, predictions){
+                                                if (err) {
+                                                    res.status(400).json({
+                                                        message: "Unable to get predictions for all games"
+                                                    })
+                                                }
+                                                else{
+                                                    teamSelectionController.createTeamSelection(predictions, req.body.leagueId, leagueMember.league_member_id, function(err, teamSelection){
+                                                        if(err){
+                                                            res.status(400).json({
+                                                                message: "Unable to update team selection for all games"
+                                                            });
+                                                        }
+                                                        else{
+                                                            res.status(200).json({
+                                                                message: "Successfully joined the league",
+                                                                teamPreference: preference
+                                                            })
+                                                        }
+                                                    });
+                                                }
                                             })
                                         }
                                     });
@@ -334,9 +372,32 @@ router.post('/updateTeamPreference', (req, res, next) => { //Method to update te
                     })
                 }
                 else {
-                    res.status(200).json({
-                        teamPreference: teamList
+                    // Update all matches prediction after updating the preference.
+                    //teamSelectionController.getMemberPredictionForAllGames()
+                    //teamSelectionController.updateTeamSelection()
+
+                    teamSelectionController.getMemberPredictionForAllGames(req.body.tournamentId, req.body.leagueMemberId, function(err, predictions){
+                        if (err) {
+                            res.status(400).json({
+                                message: "Unable to get predictions for all games"
+                            })
+                        }
+                        else{
+                            teamSelectionController.updateTeamSelection(predictions, req.body.leagueId, req.body.leagueMemberId, function(err, teamSelection){
+                                if(err){
+                                    res.status(400).json({
+                                        message: "Unable to update team selection for all games"
+                                    });
+                                }
+                                else{
+                                    res.status(200).json({
+                                        teamPreference: teamList
+                                    })
+                                }
+                            });
+                        }
                     })
+
                 }
             });
         }

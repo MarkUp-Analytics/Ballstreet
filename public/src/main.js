@@ -5,10 +5,12 @@ import App from './App'
 import router from './router'
 import moment from 'moment'
 import vueScrollto from 'vue-scrollto'
+import vSelect from 'vue-select'
+
 
 Vue.use(vueScrollto);
 
-Vue.component('v-select', VueSelect.VueSelect)
+Vue.component('v-select', vSelect)
 
 Vue.config.productionTip = false
 

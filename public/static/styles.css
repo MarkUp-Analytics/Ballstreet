@@ -32,3 +32,8 @@
 .textBold{
     font-weight:bold;
 }
+
+.disabled {
+    cursor: not-allowed;
+    color: gray
+  }

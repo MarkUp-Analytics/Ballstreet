@@ -1,4 +1,5 @@
 const pool = require('../db');
+const teamSelectionController = require('./teamSelectionController');
 
 var fixturesController = {};
 
@@ -83,7 +84,14 @@ fixturesController.updateMatchResult = function(matchFixtureDetails, callback){
             callback(err, null);
         }
         else{
-            callback(err, result.rows[0]);
+            teamSelectionController.updateResult(result.rows[0].match_fixture_id, function(err, memberResult){
+                if(err){
+                    callback(err, null);
+                }
+                else{
+                    callback(err, result.rows[0]);
+                }
+            });
         }
         
     });

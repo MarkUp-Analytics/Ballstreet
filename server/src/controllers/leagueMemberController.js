@@ -68,7 +68,7 @@ leagueMemberController.createTeamPreference = function(preferences, leagueId, le
     }
     //New method to insert multiple rows
     
-        var queryText = format('INSERT INTO league_member_preference (league_member_preference_league_id, league_member_preference_team_id, league_member_preference_rank, league_member_id, league_member_preference_updated_on, league_member_preference_active, league_member_preference_deleted) VALUES %L returning *', preferenceList);
+        var queryText = format('INSERT INTO league_member_preference (league_member_preference_league_id, league_member_preference_team_id, league_member_preference_rank, league_member_id, last_updated_on, league_member_preference_active, league_member_preference_deleted) VALUES %L returning *', preferenceList);
         
         var queryParams = [];
         pool.query(queryText, queryParams, (err, result) => {
@@ -109,14 +109,14 @@ leagueMemberController.updateTeamPreference = function(preferences, leagueId, le
             preferences[i].team_id,
             preferences[i].preference_rank,
             leagueMemberId,
-            new Date(),
+            new Date().toLocaleString(),
             true,
             false
         ]);
     }
     //New method to insert multiple rows
     
-        var queryText = format('UPDATE league_member_preference AS lmp SET league_member_preference_rank = CAST(c.league_member_preference_rank AS INTEGER),league_member_preference_updated_on = CAST(c.league_member_preference_updated_on AS TIME) FROM (VALUES %L) as c(league_member_preference_league_id, league_member_preference_team_id, league_member_preference_rank, league_member_id, league_member_preference_updated_on, league_member_preference_active, league_member_preference_deleted) where CAST(c.league_member_id AS INTEGER) = lmp.league_member_id AND CAST(c.league_member_preference_league_id AS INTEGER) = lmp.league_member_preference_league_id AND CAST(c.league_member_preference_team_id AS INTEGER) = lmp.league_member_preference_team_id RETURNING *;', preferenceList);
+        var queryText = format('UPDATE league_member_preference AS lmp SET league_member_preference_rank = CAST(c.league_member_preference_rank AS INTEGER),last_updated_on = CAST(c.last_updated_on AS TIMESTAMP) FROM (VALUES %L) as c(league_member_preference_league_id, league_member_preference_team_id, league_member_preference_rank, league_member_id, last_updated_on, league_member_preference_active, league_member_preference_deleted) where CAST(c.league_member_id AS INTEGER) = lmp.league_member_id AND CAST(c.league_member_preference_league_id AS INTEGER) = lmp.league_member_preference_league_id AND CAST(c.league_member_preference_team_id AS INTEGER) = lmp.league_member_preference_team_id RETURNING *;', preferenceList);
         var queryParams = [];
         pool.query(queryText, queryParams, (err, result) => {
             if(err){

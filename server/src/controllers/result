@@ -43,7 +43,7 @@ ALTER TABLE match_fixtures ALTER COLUMN match_fixture_toss_time TYPE time
 
 ALTER TABLE match_fixtures ADD COLUMN match_fixture_created_by bigint, ADD COLUMN match_fixture_created_on date
 
-ALTER TABLE league_member_preference ADD COLUMN league_member_preference_league_id integer, ADD COLUMN league_member_preference_updated_on time
+ALTER TABLE league_member_preference ADD COLUMN league_member_preference_league_id integer
 
 update roles as t set
     role_name = c.role_name
@@ -58,3 +58,18 @@ where c.role_id = t.role_id;
 ALTER TABLE league_member ADD COLUMN league_member_joined_on date
 
 ALTER TABLE league_member DROP COLUMN league_member_initial_bet_amount, DROP COLUMN league_member_current_bet_amount
+
+ALTER TABLE member_team_selection ADD COLUMN member_team_selection_id serial NOT NULL;
+
+ALTER TABLE member_team_selection ADD PRIMARY KEY (member_team_selection_id);
+
+ALTER TABLE member_team_selection
+ADD FOREIGN KEY (match_fixture_id) REFERENCES match_fixtures(match_fixture_id);
+
+ALTER TABLE member_team_selection ADD COLUMN member_team_selection_locked boolean,
+ADD COLUMN member_team_selection_active boolean,
+ADD COLUMN member_team_selection_deleted boolean;
+
+alter table tournament_team add column tournament_name_team_rank integer
+
+alter table member_team_selection add column manually_updated boolean, add column last_update_on timestamp with time zone

@@ -1,6 +1,6 @@
 <template>
 <div>
-        <member-menu :league="$route.query.league"></member-menu>
+        <member-menu :league="$route.query.league" :memberInLeague="userIsLeagueMember"></member-menu>
         <div class="p-5 mx-auto text-center bg-light">
             <div class="container">
                 <h1 class="text-violet mt-1 mb-5">Dashboard</h1>
@@ -179,7 +179,10 @@ export default {
                 }).then(result => {
                         self.showLoadingIcon = false;
                         self.userIsLeagueMember = result.data.memberBelongsToLeague;
-                        self.getLeagueMemberId(self.userDetails.userid, self.league.league_id);
+                        if(self.userIsLeagueMember){
+                            self.getLeagueMemberId(self.userDetails.userid, self.league.league_id);
+                        }
+                        
                     },
                     err => {
                         self.showLoadingIcon = false;

@@ -1,6 +1,6 @@
 <template>
 <div>
-        <member-menu :league="$route.query.league"></member-menu>
+        <member-menu :league="$route.query.league" :memberInLeague="userIsLeagueMember"></member-menu>
         <div class="mx-auto text-center bg-light">
             <div class="container">
                 <div v-if="errors.length" class="alert alert-danger alert-dismissible fade show w-100" role="alert">
@@ -209,6 +209,7 @@ export default {
             formData.userId = this.userDetails.userid;
             formData.leagueId = this.league.league_id;
             formData.leagueMemberId = this.league.league_member_id;
+            formData.tournamentId = this.league.league_tournament_id;
 
             api().post('/league/updateTeamPreference/', formData).then(result => {
                     this.showLoadingIcon = false;

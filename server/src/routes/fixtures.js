@@ -9,6 +9,11 @@ new Date("2018-11-19 20:00:00").toLocaleString("en-US", {timeZone: "Asia/Kolkata
 The above string works in modern browser. So we have to save time zome in match_fixtures table to get the correct local time of where the match is held.
 To get time zone values select * from pg_timezone_names; Use only name column as that is the primary key for this table and DONOT USE abbrev column.
 
+select * from match_fixtures where match_fixture_tournament_id = 12 AND 
+to_timestamp(concat(match_fixture_start_date, ' ', match_fixture_toss_time), 'YYYY-MM-DD HH24:MI:SS') < 
+(SELECT now() AT TIME ZONE (select stadium_timezone from stadium where stadium_id = 1))
+
+
 */
 
 router.post('/createSchedule', (req, res, next) => { //Method to create a new match schedule

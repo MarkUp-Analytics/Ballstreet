@@ -1,6 +1,6 @@
 <template>
     <div>
-        <member-menu :league="$route.query.league"></member-menu>
+        <member-menu :league="$route.query.league" :memberInLeague="userIsLeagueMember"></member-menu>
         <div class="p-5 mx-auto text-center bg-light">
             <div class="container">
                 <h1 class="text-violet mt-1 mb-5">Players</h1>
