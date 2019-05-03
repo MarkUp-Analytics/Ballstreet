@@ -143,4 +143,49 @@ leagueMemberController.getLeagueMemberId = function(userId, leagueId, callback){
         });
 };
 
+leagueMemberController.getResults = function(leagueMemberId, tournamentId, callback){ // Method used to get details for Result page in league dashboard
+
+    var queryText = 'SELECT mf.match_fixture_id, mf.match_fixture_start_date, mf.match_fixture_toss_time, ' +
+    'tm1.team_name as team_a, tm1.team_abbreviation as team_a_abbreviation, ' +
+    'tm2.team_name as team_b, tm2.team_abbreviation as team_b_abbreviation, ' +
+    'CASE ' +
+        'WHEN mf.match_fixture_result_won IS Not NULL THEN tm3.team_name ' +
+        'WHEN mf.match_fixture_result_draw = true THEN \'Drawn\' ' +
+        'WHEN mf.match_fixture_no_result = true THEN \'No Result\' ' +
+        'END as match_result, ' +
+    'CASE ' +
+        'WHEN mf.match_fixture_result_won IS Not NULL THEN tm3.team_abbreviation ' +
+        'WHEN mf.match_fixture_result_draw = true THEN \'Drawn\' ' +
+        'WHEN mf.match_fixture_no_result = true THEN \'No Result\' ' +
+        'END as match_result_abbreviation, ' +
+    '(SELECT count(*) FROM member_team_selection mts WHERE mts.selected_team = mf.match_fixture_team_1) as team_a_supporters, ' +
+    '(SELECT count(*) FROM member_team_selection mts WHERE mts.selected_team = mf.match_fixture_team_2) as team_b_supporters, ' +
+    '(SELECT tm4.team_abbreviation from team tm4 left join member_team_selection mts on mts.selected_team = tm4.team_id ' +
+     'WHERE mts.league_member_id = $1 AND mts.match_fixture_id = mf.match_fixture_id ) ' +
+    'as user_selection, ' +
+    'concat(sd.stadium_name, \', \', sd.stadium_city) as stadium, sd.stadium_timezone ' +
+    'from match_fixtures mf ' +
+    'INNER JOIN stadium sd on sd.stadium_id = mf.match_fixture_venue_stadium_id ' +
+    'INNER JOIN team tm1 on tm1.team_id = mf.match_fixture_team_1 ' +
+    'INNER JOIN team tm2 on tm2.team_id = mf.match_fixture_team_2 ' +
+    'LEFT JOIN team tm3 on tm3.team_id = mf.match_fixture_result_won ' +
+    'WHERE mf.match_fixture_tournament_id = $2 AND ' +
+    'mf.match_fixture_result_won IS NOT NULL ' +
+    'OR mf.match_fixture_result_draw IS NOT NULL OR mf.match_fixture_no_result IS NOT NULL';
+
+    var queryParams = [leagueMemberId, tournamentId];
+
+    pool.query(queryText, queryParams, (err, result) => {
+        
+        if(err){
+            callback(err, null)
+        }
+        else if(result){
+            callback(err, result.rows);
+        }
+        
+    });
+};
+
+
 module.exports = leagueMemberController;

@@ -13,7 +13,6 @@ select * from match_fixtures where match_fixture_tournament_id = 12 AND
 to_timestamp(concat(match_fixture_start_date, ' ', match_fixture_toss_time), 'YYYY-MM-DD HH24:MI:SS') < 
 (SELECT now() AT TIME ZONE (select stadium_timezone from stadium where stadium_id = 1))
 
-
 */
 
 router.post('/createSchedule', (req, res, next) => { //Method to create a new match schedule

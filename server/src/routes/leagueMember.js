@@ -23,4 +23,24 @@ router.get('/getAllMembers', (req, res, next) => { //Method to search league bas
     })
 });
 
+router.get('/getResults', (req, res, next) => { //Method to search league based on short id
+    leagueMemberController.getResults(req.query.leagueMemberId, req.query.tournamentId, function (err, matchResults) {
+        if (err) {
+            res.status(400).json({
+                message: "Unable to get results for the tournament"
+            })
+        }
+        else if (matchResults.length === 0) {
+            res.status(400).json({
+                message: "No match result found"
+            })
+        }
+        else {
+            res.status(200).json({
+                result: matchResults
+            })
+        }
+    })
+});
+
 module.exports = router;

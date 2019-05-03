@@ -372,9 +372,6 @@ router.post('/updateTeamPreference', (req, res, next) => { //Method to update te
                     })
                 }
                 else {
-                    // Update all matches prediction after updating the preference.
-                    //teamSelectionController.getMemberPredictionForAllGames()
-                    //teamSelectionController.updateTeamSelection()
 
                     teamSelectionController.getMemberPredictionForAllGames(req.body.tournamentId, req.body.leagueMemberId, function(err, predictions){
                         if (err) {

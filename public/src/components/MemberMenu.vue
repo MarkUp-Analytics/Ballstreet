@@ -10,7 +10,7 @@
                         <span class="d-sm-none" :class="{'textBold': $route.name === 'LeaguePreferences'}" title="Preferences">Pref</span>
                         <span class="d-none d-sm-block" :class="{'textBold': $route.name === 'LeaguePreferences'}">Preferences</span>
                     </a>
-                    <a class="nav-link text-secondary" :class="memberInLeague ? '' : 'disabled'" href="" @click.prevent="redirectPage('LeagueResult')">
+                    <a class="nav-link text-secondary" :class="memberInLeague ? '' : 'disabled'" href="" @click.prevent="redirectPage('LeagueResults')">
                         <span class="d-sm-none" title="Results">Resu</span>
                         <span class="d-none d-sm-block">Results</span>
                     </a>
