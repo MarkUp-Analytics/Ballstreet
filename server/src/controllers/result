@@ -73,3 +73,8 @@ ADD COLUMN member_team_selection_deleted boolean;
 alter table tournament_team add column tournament_name_team_rank integer
 
 alter table member_team_selection add column manually_updated boolean, add column last_update_on timestamp with time zone
+
+CREATE TABLE member_statistics (member_statistics_id SERIAL NOT NULL, league_member_id BIGINT NOT NULL, league_id BIGINT NOT NULL,
+							   match_fixture_id BIGINT NOT NULL, member_result varchar(20), member_risk_taking_score numeric(5,2), member_money_won numeric,
+							   members_with_same_team integer, member_statistics_active boolean, member_statistics_deleted boolean,
+							   PRIMARY KEY(league_member_id, match_fixture_id))

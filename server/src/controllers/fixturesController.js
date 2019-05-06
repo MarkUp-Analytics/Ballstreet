@@ -89,7 +89,15 @@ fixturesController.updateMatchResult = function(matchFixtureDetails, callback){
                     callback(err, null);
                 }
                 else{
-                    callback(err, result.rows[0]);
+                    teamSelectionController.updateStatistics(result.rows[0].match_fixture_id, function(err, statsResult){
+                        if(err){
+                            callback(err, null);
+                        }
+                        else{
+                            callback(err, result.rows[0]);
+                        }
+                    });
+                    
                 }
             });
         }
