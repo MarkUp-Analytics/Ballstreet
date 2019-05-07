@@ -10,7 +10,7 @@ teamSelectionController.getMemberPredictionForAllGames = function(tournamentId, 
     'case when lmp1.league_member_preference_rank < lmp2.league_member_preference_rank then mf.match_fixture_team_1 else mf.match_fixture_team_2 END as user_preference_team ' +
       'from (select match_fixture_id, match_fixture_tournament_id, match_fixture_team_1, match_fixture_team_2 ' +
               'from match_fixtures' +
-              ' where match_fixture_result_won is NULL AND match_fixture_result_draw is NULL AND match_fixture_no_result is NULL ' +
+              ' where match_fixture_locked is NULL AND match_fixture_result_won is NULL AND match_fixture_result_draw is NULL AND match_fixture_no_result is NULL ' +
               'group by match_fixture_id) mf ' +
     'inner join (select league_member_preference_team_id, league_member_id, league_member_preference_rank ' +
                   'from league_member_preference' +

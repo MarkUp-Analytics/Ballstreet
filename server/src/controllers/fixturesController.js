@@ -105,4 +105,16 @@ fixturesController.updateMatchResult = function(matchFixtureDetails, callback){
     });
 };
 
+fixturesController.lockMatchFixture = function(){ // This method is executed by cron scheduler and it runs every 2 minutes.
+    var queryText = 'update match_fixtures mf1 set match_fixture_locked = result.locked from (select match_time.match_fixture_id, CASE when match_time.stadium_current_time >= match_time.match_start_time THEN true END AS locked from (select mf.match_fixture_id, CAST(CONCAT(mf.match_fixture_start_date ,\' \', mf.match_fixture_toss_time) AS timestamp) as match_start_time, s.stadium_name, s.stadium_timezone, now() AT TIME ZONE s.stadium_timezone as stadium_current_time from match_fixtures mf inner join stadium s on s.stadium_id = mf.match_fixture_venue_stadium_id order by mf.match_fixture_start_date) as match_time) as result where result.match_fixture_id = mf1.match_fixture_id AND mf1.match_fixture_locked is null';
+    
+    var queryParams = [];
+    pool.query(queryText, queryParams, (err, result) => {
+        if(err){
+            console.log(err);
+        }
+        
+    });
+};
+
 module.exports = fixturesController;

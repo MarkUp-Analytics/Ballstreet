@@ -3,9 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
-
-
-
+const cronJob = require('./routes/cronScheduler');
 
 const app = express();
 
