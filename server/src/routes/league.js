@@ -379,7 +379,7 @@ router.post('/updateTeamPreference', (req, res, next) => { //Method to update te
                                 message: "Unable to get predictions for all games"
                             })
                         }
-                        else{
+                        else if(predictions && predictions.length > 0){
                             teamSelectionController.updateTeamSelection(predictions, req.body.leagueId, req.body.leagueMemberId, function(err, teamSelection){
                                 if(err){
                                     res.status(400).json({
@@ -392,6 +392,11 @@ router.post('/updateTeamPreference', (req, res, next) => { //Method to update te
                                     })
                                 }
                             });
+                        }
+                        else{
+                            res.status(200).json({
+                                teamPreference: teamList
+                            })
                         }
                     })
 

@@ -11,6 +11,7 @@ import LeagueDashboard from '@/components/LeagueDashboard'
 import LeaguePreferences from '@/components/LeaguePreferences'
 import LeaguePlayers from '@/components/LeaguePlayers'
 import LeagueResults from '@/components/LeagueResults'
+import LeagueStatistics from '@/components/LeagueStatistics'
 import GetStarted from '@/components/GetStarted'
 import AboutBallstreet from '@/components/GetStartedComponents/AboutBallstreet'
 import HowBallstreetWorks from '@/components/GetStartedComponents/HowBallstreetWorks'
@@ -168,6 +169,12 @@ Vue.use(BootstrapVue)
       path: '/results',
       name: 'LeagueResults',
       component: LeagueResults,
+      meta: {requiresAuth: true, roles: ['ADMIN', 'LEAGUE_MEMBER']}
+    },
+    {
+      path: '/statistics',
+      name: 'LeagueStatistics',
+      component: LeagueStatistics,
       meta: {requiresAuth: true, roles: ['ADMIN', 'LEAGUE_MEMBER']}
     },
     {

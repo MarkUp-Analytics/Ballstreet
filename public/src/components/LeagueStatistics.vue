@@ -3,7 +3,7 @@
         <member-menu :league="$route.query.league" :memberInLeague="userIsLeagueMember"></member-menu>
         <div class="p-5 mx-auto text-center bg-light">
             <div class="container">
-                <h1 class="text-violet mt-1 mb-5">Results</h1>
+                <h1 class="text-violet mt-1 mb-5">Statistics</h1>
                 
                 <b-container fluid class="my-4 px-0">
                     <b-row class="my-0 py-0">
@@ -37,7 +37,7 @@
                     <div class="w-100 table-responsive mt-4 mb-4 px-1">
                         <b-table 
                             stacked="md"
-                            :items="leagueResults"
+                            :items="leagueStatistics"
                             :fields="fields"
                             :filter="filter"
                             :sort-by.sync="sortBy"
@@ -53,9 +53,6 @@
                             <template slot="emptyfiltered" slot-scope="scope">
                                 <h4>{{ scope.emptyFilteredText }}</h4>
                             </template>
-                            <template slot="match_fixture_start_date" slot-scope="data">
-                                            <span>{{data.item.match_fixture_start_date | formatDate}}</span>
-                                        </template>
                         </b-table>
                     </div>
                 </b-container>
@@ -69,12 +66,12 @@ import api from '@/services/api';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import MemberMenu from '@/components/MemberMenu';
     export default {
-        name: 'LeagueResults',
-     components:{
-        LoadingSpinner,
-        MemberMenu
-    },
-    created() {
+        name: 'LeagueStatistics',
+        components: {
+            LoadingSpinner,
+            MemberMenu
+        },
+        created() {
         var self = this;
         if (localStorage.getItem('userDetails')) {
                 this.userDetails = JSON.parse(localStorage.getItem('userDetails'));
@@ -118,19 +115,17 @@ import MemberMenu from '@/components/MemberMenu';
                 userIsLeagueMember: false,
                 league: null,
                 errors: [],
-                leagueResults: [],
+                leagueStatistics: [],
                 fields: [
-                    { key: 'match_fixture_start_date', label: 'Date', sortable: true },
-                    { key: 'stadium', label: 'Venue', sortable: true },
-                    { key: 'team_a_abbreviation', label: 'A', sortable: true },
-                    { key: 'team_b_abbreviation', label: 'B', sortable: true },
-                    { key: 'team_a_supporters', label: 'A Supporters', sortable: true },
-                    { key: 'team_b_supporters', label: 'B Supporters', sortable: true },
-                    { key: 'match_result_abbreviation', label: 'Result', sortable: true },
-                    { key: 'user_selection', label: 'Your Pick', sortable: true },
-                    { key: 'pl', label: 'P&L', sortable: true },
+                    { key: 'member_name', label: 'Name', sortable: true },
+                    { key: 'email', label: 'Email', sortable: true },
+                    { key: 'profit_loss', label: 'Net P&L', sortable: true },
+                    { key: 'streak', label: 'Current Streak', sortable: true },
+                    { key: 'bestStreak', label: 'Best Streak', sortable: true },
+                    { key: 'worstStreak', label: 'Worst Streak', sortable: true },
+                    { key: 'risk_taking_score', label: 'Risk Score', sortable: true }
                 ],
-                sortBy: 'match_fixture_start_date',
+                sortBy: 'member_name',
                 sortDesc: false,
                 sortDirection: 'asc',
                 filter: null
@@ -164,7 +159,7 @@ import MemberMenu from '@/components/MemberMenu';
                         self.showLoadingIcon = false;
                         self.userIsLeagueMember = result.data.memberBelongsToLeague;
                         if(self.userIsLeagueMember){
-                            self.getLeagueMemberId(self.userDetails.userid, self.league.league_id);
+                            self.getLeagueStatistics(self.league.league_id);
                         }
                         else{
                             //send to dashboard
@@ -187,41 +182,16 @@ import MemberMenu from '@/components/MemberMenu';
                         }
                     })
             },
-            getLeagueMemberId: function(userId, leagueId){
+            getLeagueStatistics: function(leagueId){
                 var self = this;
                 this.showLoadingIcon = true;
-                api().get('/league/getLeagueMemberId',{
+                    api().get('/league_member/getLeagueStatistics', {
                     params: {
-                        userId: userId,
-                        leagueId: leagueId
-                    }
-                }).then(result => {
-                    self.showLoadingIcon = false;
-                    self.league.league_member_id = result.data.leagueMemberId;
-                    
-                    self.getLeagueResults(self.league.league_member_id, self.league.league_tournament_id);
-                },
-                err => {
-                    self.showLoadingIcon = false;
-                    if (err.response.data.message) {
-                        self.errors.push(err.response.data.message);
-                    } else {
-                        self.errors.push("Error getting league member ID");
-                    }
-                });
-        
-            },
-            getLeagueResults: function(leagueMemberId, tournamentId){
-                var self = this;
-                this.showLoadingIcon = true;
-                    api().get('/league_member/getResults', {
-                    params: {
-                            leagueMemberId: leagueMemberId,
-                            tournamentId: tournamentId
+                            leagueId: leagueId,
                         }
                     }).then(result => {
                         self.showLoadingIcon = false;
-                        self.leagueResults = result.data.result;
+                        self.leagueStatistics = result.data.leagueStatistics;
                     },
                     err => {
                         self.showLoadingIcon = false;
@@ -229,7 +199,7 @@ import MemberMenu from '@/components/MemberMenu';
                             self.errors.push(err.response.data.message);
                         }
                         else{
-                            self.errors.push("Error getting league results");
+                            self.errors.push("Error getting league statistics");
                         }
                     })
             },

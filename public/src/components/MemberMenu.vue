@@ -11,12 +11,12 @@
                         <span class="d-none d-sm-block" :class="{'textBold': $route.name === 'LeaguePreferences'}">Preferences</span>
                     </a>
                     <a class="nav-link text-secondary" :class="memberInLeague ? '' : 'disabled'" href="" @click.prevent="redirectPage('LeagueResults')">
-                        <span class="d-sm-none" title="Results">Resu</span>
-                        <span class="d-none d-sm-block">Results</span>
+                        <span class="d-sm-none" :class="{'textBold': $route.name === 'LeagueResults'}" title="Results">Resu</span>
+                        <span class="d-none d-sm-block" :class="{'textBold': $route.name === 'LeagueResults'}">Results</span>
                     </a>
-                    <a class="nav-link text-secondary" :class="memberInLeague ? '' : 'disabled'" href="" @click.prevent="redirectPage('LeagueStats')">
-                        <span class="d-sm-none" title="Statistics">Stat</span>
-                        <span class="d-none d-sm-block">Statistics</span>
+                    <a class="nav-link text-secondary" :class="memberInLeague ? '' : 'disabled'" href="" @click.prevent="redirectPage('LeagueStatistics')">
+                        <span class="d-sm-none" :class="{'textBold': $route.name === 'LeagueStatistics'}" title="Statistics">Stat</span>
+                        <span class="d-none d-sm-block" :class="{'textBold': $route.name === 'LeagueStatistics'}">Statistics</span>
                     </a>
                     <a class="nav-link text-secondary" :class="memberInLeague ? '' : 'disabled'" href="" @click.prevent="redirectPage('LeaguePlayers')">
                         <span class="d-sm-none" :class="{'textBold': $route.name === 'LeaguePlayers'}" title="Players">Play</span>
