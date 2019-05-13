@@ -406,4 +406,62 @@ router.post('/updateTeamPreference', (req, res, next) => { //Method to update te
     })
 });
 
+router.post('/updateSingleTeamPreference', (req, res, next) => { //Method to update single team preference for a league manually
+    leagueMemberController.memberInLeague(req.body.userId, req.body.leagueId, function (err, memberBelongsToLeague) {
+        if (err) {
+            res.status(400).json({
+                message: "Unable to check whether member belongs to league"
+            })
+        }
+        else if (!memberBelongsToLeague) {
+            res.status(400).json({
+                message: "Member does not belongs to the league"
+            })
+        }
+        else if (memberBelongsToLeague){
+            teamSelectionController.updateSingleTeamSelection(req.body.leagueId, req.body.leagueMemberId, req.body.matchFixtureId, req.body.selectedTeamId, function(err, updatedTeam){
+                if(err){
+                    res.status(400).json({
+                        message: "Unable to override team preference"
+                    });
+                }
+                else{
+                    res.status(200).json({
+                        updatedResult: true
+                    })
+                }
+            });
+        }
+    })
+});
+
+router.get('/getAllAvailableGames', (req, res, next) => {
+    leagueMemberController.memberInLeague(req.query.userId, req.query.leagueId, function (err, memberBelongsToLeague) {
+        if (err) {
+            res.status(400).json({
+                message: "Unable to check whether member belongs to league"
+            })
+        }
+        else if (!memberBelongsToLeague) {
+            res.status(400).json({
+                message: "Member does not belongs to the league"
+            })
+        }
+        else if (memberBelongsToLeague){
+            leagueMemberController.getAllAvailableGames(req.query.leagueMemberId, req.query.leagueId, function (err, games) {
+                if (err) {
+                    res.status(400).json({
+                        message: "Unable to get available games"
+                    })
+                }
+                else if(games){
+                    res.status(200).json({
+                        games: games
+                    })
+                }
+            });
+        }
+    })
+});
+
 module.exports = router;

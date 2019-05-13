@@ -10,7 +10,13 @@ teamSelectionController.getMemberPredictionForAllGames = function(tournamentId, 
     'case when lmp1.league_member_preference_rank < lmp2.league_member_preference_rank then mf.match_fixture_team_1 else mf.match_fixture_team_2 END as user_preference_team ' +
       'from (select match_fixture_id, match_fixture_tournament_id, match_fixture_team_1, match_fixture_team_2 ' +
               'from match_fixtures' +
-              ' where match_fixture_locked is NULL AND match_fixture_result_won is NULL AND match_fixture_result_draw is NULL AND match_fixture_no_result is NULL ' +
+              ' where ' +
+                'match_fixture_locked is NULL ' +
+                'AND match_fixture_result_won is NULL ' +
+                'AND match_fixture_result_draw is NULL ' +
+                'AND match_fixture_no_result is NULL ' +
+                'AND match_fixture_team_1 is NOT NULL ' +
+				'AND match_fixture_team_2 is NOT NULL ' +
               'group by match_fixture_id) mf ' +
     'inner join (select league_member_preference_team_id, league_member_id, league_member_preference_rank ' +
                   'from league_member_preference' +
@@ -52,6 +58,21 @@ teamSelectionController.createTeamSelection = function(predictions, leagueId, le
     
         var queryText = format('INSERT INTO member_team_selection (league_id, league_member_id, match_fixture_id, selected_team, last_update_on, manuallY_updated, member_team_selection_locked, member_team_selection_active, member_team_selection_deleted) VALUES %L returning *;', predictionList);
         var queryParams = [];
+        pool.query(queryText, queryParams, (err, result) => {
+            if(err){
+                callback(err, null);
+            }
+            else if(result){
+                callback(null, result.rows);
+            }
+        });
+};
+
+teamSelectionController.updateSingleTeamSelection = function(leagueId, leagueMemberId, matchFixtureId, selectedTeam, callback){// This method is used to override single match prediction for a member when they override their preference manually.
+    
+        var queryText = 'UPDATE member_team_selection set selected_team = CAST($4 AS BIGINT), last_update_on = CAST($5 AS TIMESTAMP), manually_updated = true where league_id = $1 AND league_member_id = $2 AND match_fixture_id = $3 RETURNING *;';
+
+        var queryParams = [leagueId, leagueMemberId, matchFixtureId, selectedTeam, new Date()];
         pool.query(queryText, queryParams, (err, result) => {
             if(err){
                 callback(err, null);

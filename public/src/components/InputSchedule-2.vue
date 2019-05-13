@@ -138,17 +138,17 @@
                                         <template slot="match_fixture_end_date" slot-scope="data">
                                             <span>{{data.item.match_fixture_end_date | formatDate}}</span>
                                         </template>
-                                        <template slot="match_team_1" slot-scope="data">
-                                            <span>{{data.item.match_team_1}}</span>
+                                        <template slot="team_a_abbreviation" slot-scope="data">
+                                            <span>{{data.item.team_a_abbreviation ? data.item.team_a_abbreviation : "TBD"}}</span>
                                         </template>
-                                        <template slot="match_team_2" slot-scope="data">
-                                            <span>{{data.item.match_team_2}}</span>
+                                        <template slot="team_b_abbreviation" slot-scope="data">
+                                            <span>{{data.item.team_b_abbreviation ? data.item.team_b_abbreviation : "TBD"}}</span>
                                         </template>
                                         <template slot="match_venue" slot-scope="data">
                                             <span>{{data.item.match_venue}}</span>
                                         </template>
                                         <template slot="result" slot-scope="data">
-                                            <a v-if="!data.item.winning_team && !data.item.no_result && !data.item.result_draw" href="" @click.prevent="inputResult(data.item)">Edit Result</a>
+                                            <a v-if="!data.item.winning_team && !data.item.no_result && !data.item.result_draw && data.item.team_a_abbreviation != null &&  data.item.team_b_abbreviation != null" href="" @click.prevent="inputResult(data.item)">Edit Result</a>
                                         </template>
                                     </b-table>
                                 </div>
@@ -285,7 +285,7 @@ import { parse } from 'querystring';
                     this.errors.push("Required fields are missing");
                     return;
                 }
-                if(this.selectedTeamA.team_id === this.selectedTeamB.team_id){
+                if(this.selectedTeamA.team_id != -1 || this.selectedTeamB.team_id != -1 && (this.selectedTeamA.team_id === this.selectedTeamB.team_id)){ // Both the teams can be TBD if the schedule is not yet confirmed
                     this.errors.push("Please select different teams");
                     return;
                 }
@@ -305,8 +305,9 @@ import { parse } from 'querystring';
 
                 var matchFixtureDetails = {};
                 matchFixtureDetails.tournamentId = this.selectedTour.tournament_id;
-                matchFixtureDetails.team1 = this.selectedTeamA.team_id;
-                matchFixtureDetails.team2 = this.selectedTeamB.team_id;
+                //Save team as null if the selected team is TBD
+                matchFixtureDetails.team1 = this.selectedTeamA.team_id == -1 ? null : this.selectedTeamA.team_id;
+                matchFixtureDetails.team2 = this.selectedTeamB.team_id == -1 ? null : this.selectedTeamB.team_id;
                 matchFixtureDetails.startDate = this.startDate;
                 matchFixtureDetails.endDate = this.endDate;
                 matchFixtureDetails.venue = this.selectedVenue.stadium_id;
@@ -377,6 +378,11 @@ import { parse } from 'querystring';
                             team.disabled = true;
                         });
                         self.teamsInTournamentList = result.data.teams;
+                        self.teamsInTournamentList.push({ // To add TBD option in dropdown
+                            team_id: -1,
+                            team_abbreviation: "TBD",
+                            team_name: "To Be Decided"
+                        });
                     },
                     err => {
                         this.errors = [];

@@ -53,6 +53,9 @@
                             <template slot="emptyfiltered" slot-scope="scope">
                                 <h4>{{ scope.emptyFilteredText }}</h4>
                             </template>
+                            <template slot="league_member_joined_on" slot-scope="data">
+                                            <span>{{data.item.league_member_joined_on | formatDate}}</span>
+                            </template>
                         </b-table>
                     </div>
                 </b-container>

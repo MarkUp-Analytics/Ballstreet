@@ -18,6 +18,9 @@
 						<ul class="navbar-nav mr-auto">
 						</ul>
 						<ul class="navbar-nav">
+							<li v-if="userDetails.roleName === 'ADMIN'" class="nav-item m-2">
+								<a class="text-red" href="" @click.prevent="redirectPage('Input Team')" :class="{'textBold': $route.name === 'Input Team'}">Admin Menu</a>
+							</li>
 							<li class="nav-item m-2">
 								<a class="text-red" href="" @click.prevent="redirectPage('Discover')" :class="{'textBold': $route.name === 'Discover'}">Discover</a>
 							</li>
@@ -101,20 +104,25 @@
 </template>
 
 <script>
+import api from '@/services/api';
+import commonServices from '@/services/commonServices';
+import LoadingSpinner from '@/components/LoadingSpinner';
 	export default {
 		name: 'App',
 		created() {
-			// if(localStorage.getItem('userDetails')){ //If user is already logged in, it takes it to home page
-            //     this.$router.push({
-            //                 name: 'Home', 
-            //             })
+			// if (localStorage.getItem('userDetails')) {
+            //     this.userDetails = JSON.parse(localStorage.getItem('userDetails'));
             // }
+			
 		},
 		computed: {
 		
 		},
 		data() {
 			return {
+				showLoadingIcon: false,
+				errors: [],
+				userDetails: null,
 				get userDetails() {
 					if (localStorage.getItem('userDetails')) {
 						return JSON.parse(localStorage.getItem('userDetails'));

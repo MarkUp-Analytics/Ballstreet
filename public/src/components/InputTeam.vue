@@ -30,7 +30,7 @@
                         <div class="form-group mt-4">
                             <img src="../../static/assets/images/ipl.png" class="rounded border mb-2" width="50px" height="50px" /><br/>
                             <label>Choose Image</label>
-                            <input type="file" class="form-control-file" @change="processFile($event)">
+                            <input id="team_image" type="file" class="form-control-file" @change="processFile($event)">
                         </div>
                         <div class="form-group mt-4">
                             <label>Team/Player Name</label>
@@ -55,9 +55,9 @@
                 <div class="col-lg-9 mx-0 w-100">
                     <section class="text-left pt-5 px-5">
                         <h4 class="text-violet mt-4">Created Players / Teams</h4>
-                        <input class="form-control form-control-md mt-4 mb-3" type="text" placeholder="Search for Teams/Players"/>
-                            <b-table :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :items="teamList" :fields="fields">
-                                <template slot="teamImage" slot-scope="data">
+                        <input class="form-control form-control-md mt-4 mb-3" type="text" v-model="filter" placeholder="Search for Teams/Players"/>
+                            <b-table :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :items="teamList" :filter="filter" @filtered="onFiltered" :fields="fields">
+                                <template slot="team_image" slot-scope="data">
                                     <img :src="data.item.team_image" class="rounded border mb-2" width="50px" height="50px" />
                                 </template>
                                 <template slot="edit" slot-scope="data">
@@ -94,8 +94,15 @@ import AdminMenu from '@/components/AdminMenu';
             return{
                 sortBy: 'team_name',
                 sortDesc: false,
+                currentPage: 1,
+                perPage: 20,
+                totalRows: 4,
+                pageOptions: [25, 50, 75, 100, "Infinte Scroll"],
+                sortDirection: 'desc',
+                filter: null,
                 fields: [
-                    { key: 'teamImage', label: 'Team Image' },
+                    { key: 'team_name', label: 'Team Name', sortable: true },
+                    { key: 'team_image', label: 'Team Image' },
                     { key: 'team_name', sortable: true },
                     { key: 'edit', label: 'Edit' },
                 ],
@@ -109,6 +116,11 @@ import AdminMenu from '@/components/AdminMenu';
             }
         },
         methods:{
+            onFiltered(filteredItems) {
+                // Trigger pagination to update the number of buttons/pages due to filtering
+                this.totalRows = filteredItems.length
+                this.currentPage = 1
+            },
             processFile: function(event) {
                 this.teamImage = event.target.files[0];
             },
@@ -157,6 +169,7 @@ import AdminMenu from '@/components/AdminMenu';
             clearForm: function(){
                 this.teamName = null;
                 this.teamImage = null;
+                document.getElementById('team_image').value= null;
                 this.teamShortName = null;
             },
             getAllTeam: function(){

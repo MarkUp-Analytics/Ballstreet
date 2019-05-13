@@ -3,32 +3,32 @@
                 <div class=" px-1 mx-auto">
                     <nav class="nav nav-secondary justify-content-center">
                         <a class="nav-link text-secondary b-0" href="" @click.prevent="redirectPage('Input Team')">
-                            <span class="d-sm-none" title="Team">Te</span>
-                            <span class="d-none d-sm-block">Team</span>
+                            <span class="d-sm-none" :class="{'textBold': $route.name === 'Input Team'}" title="Team">Te</span>
+                            <span class="d-none d-sm-block" :class="{'textBold': $route.name === 'Input Team'}">Team</span>
                         </a>
                         <a class="nav-link text-secondary b-0" href="" @click.prevent="redirectPage('Input Tournament')">
-                            <span class="d-sm-none" title="Tournament">To</span>
-                            <span class="d-none d-sm-block">Tournament</span>
+                            <span class="d-sm-none" :class="{'textBold': $route.name === 'Input Tournament'}" title="Tournament">To</span>
+                            <span class="d-none d-sm-block" :class="{'textBold': $route.name === 'Input Tournament'}">Tournament</span>
                         </a>
                         <a class="nav-link text-secondary b-0" href="" @click.prevent="redirectPage('Input Schedule2')">
-                            <span class="d-sm-none" title="Schedule">Sc</span>
-                            <span class="d-none d-sm-block">Schedule</span>
+                            <span class="d-sm-none" :class="{'textBold': $route.name === 'Input Schedule2'}" title="Schedule">Sc</span>
+                            <span class="d-none d-sm-block" :class="{'textBold': $route.name === 'Input Schedule2'}">Schedule</span>
                         </a>
                         <a class="nav-link text-secondary b-0" href="" @click.prevent="redirectPage('Input Result')">
-                            <span class="d-sm-none" title="Live">Re</span>
-                            <span class="d-none d-sm-block">Result</span>
+                            <span class="d-sm-none" :class="{'textBold': $route.name === 'Input Result'}" title="Live">Re</span>
+                            <span class="d-none d-sm-block" :class="{'textBold': $route.name === 'Input Result'}">Result</span>
                         </a>
                         <a class="nav-link text-secondary b-0" href="" @click.prevent="redirectPage('Report Acquisition')">
-                            <span class="d-sm-none" title="Acquisition">Ac</span>
-                            <span class="d-none d-sm-block">Acquisition</span>
+                            <span class="d-sm-none" :class="{'textBold': $route.name === 'Report Acquisition'}" title="Acquisition">Ac</span>
+                            <span class="d-none d-sm-block" :class="{'textBold': $route.name === 'Report Acquisition'}">Acquisition</span>
                         </a>
                         <a class="nav-link text-secondary b-0" href="" @click.prevent="redirectPage('Report Health')">
-                            <span class="d-sm-none" title="Health">He</span>
-                            <span class="d-none d-sm-block">Health</span>
+                            <span class="d-sm-none" :class="{'textBold': $route.name === 'Report Health'}" title="Health">He</span>
+                            <span class="d-none d-sm-block" :class="{'textBold': $route.name === 'Report Health'}">Health</span>
                         </a>
                         <a class="nav-link text-secondary b-0" href="" @click.prevent="redirectPage('Report Transaction')">
-                            <span class="d-sm-none" title="reporttransaction">Tr</span>
-                            <span class="d-none d-sm-block">Transaction</span>
+                            <span class="d-sm-none" :class="{'textBold': $route.name === 'Report Transaction'}" title="reporttransaction">Tr</span>
+                            <span class="d-none d-sm-block" :class="{'textBold': $route.name === 'Report Transaction'}">Transaction</span>
                         </a>
                     </nav>
                 </div>

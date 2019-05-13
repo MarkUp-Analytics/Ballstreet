@@ -38,4 +38,20 @@ router.get('/associatedLeagues', (req, res, next) => { //Method to get all leagu
     })
 });
 
+router.get('/isUserAdmin', (req, res, next) => { //Method to check if a user has admin access
+    
+    userController.checkUserIsAdmin(req.query.userId, function(err, userIsAdmin){
+        if(err){
+            res.status(400).json({
+                message: "Unable to check user has permission"
+            })
+        }
+        else{
+            res.status(200).json({
+                userIsAdmin: userIsAdmin
+            })
+        }
+    });
+});
+
 module.exports = router;
