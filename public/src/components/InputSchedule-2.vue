@@ -149,6 +149,62 @@
                                         </template>
                                         <template slot="result" slot-scope="data">
                                             <a v-if="!data.item.winning_team && !data.item.no_result && !data.item.result_draw && data.item.team_a_abbreviation != null &&  data.item.team_b_abbreviation != null" href="" @click.prevent="inputResult(data.item)">Edit Result</a>
+
+                                            <a v-if="data.item.team_a_abbreviation == null ||  data.item.team_b_abbreviation == null" href="" @click.prevent="openDialog(data.item)">Edit Schedule</a>
+
+                                            <span v-if="data.item.winning_team || data.item.no_result || data.item.result_draw">{{data.item.winning_team_abbreviation}}</span>
+
+                                            <div v-if="data.item.team_a_abbreviation == null ||  data.item.team_b_abbreviation == null">
+                                                <b-modal :id="'edit-modal-' + data.item.match_fixture_id" v-model="data.item.show" centered title="Edit Schedule">
+                                                    <div v-if="editErrors.length" class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                        <span v-for="error in editErrors">
+                                                            <strong>Error!</strong> {{error}}<br>
+                                                        </span>
+                                                        <button type="button" class="close" data-dismiss="alert" @click="errors = [];" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <form class="text-left pt-5 px-5">
+                                                        <div class="form-group mt-4">
+                                                            <label><b>Tournament: </b></label>
+                                                            <label v-if="editSchedule">{{editSchedule.tournament_name}}</label>
+                                                        </div>
+                                                        <div class="form-group mt-4">
+                                                            <label><b>Team A: </b></label>
+                                                            <v-select v-if="editSchedule" v-model="editSchedule.selectedTeamA" :options="editSchedule.teamsInTournamentList" label="team_abbreviation">
+                                                            </v-select>
+                                                        </div>
+                                                        <div class="form-group mt-4">
+                                                            <label><b>Team B: </b></label>
+                                                            <v-select v-if="editSchedule" v-model="editSchedule.selectedTeamB" :options="editSchedule.teamsInTournamentList" label="team_abbreviation"></v-select>
+                                                        </div>
+                                                        <div class="form-group mt-4">
+                                                            <label><b>From Date: </b></label>
+                                                            <label v-if="editSchedule">{{editSchedule.match_fixture_start_date}}</label>
+                                                        </div>
+                                                        <div class="form-group mt-4">
+                                                            <label><b>To Date: </b></label>
+                                                            <label v-if="editSchedule">{{editSchedule.match_fixture_end_date}}</label>
+                                                        </div>
+                                                        <div class="form-group mt-4">
+                                                            <label><b>Match Venue: </b></label>
+                                                            <label v-if="editSchedule">{{editSchedule.stadium_name}}</label>
+                                                        </div>
+                                                    </form>
+                                                    <template slot="modal-footer">
+                                                        <div class="row">
+                                                            <div class="col-lg mt-4">
+                                                                <a href="" class="btn btn-dark bg-violet border-0 w-100" @click.prevent="updateSchedule(editSchedule)">Save Changes</a><br/>    
+                                                            </div>
+                                                        </div>
+                                                        <div class="row text-center">
+                                                            <div class="col-lg mt-2">
+                                                                <a href="" class="text-violet mt-5" @click.prevent="closeModal(data.item)">Cancel</a>
+                                                            </div>
+                                                        </div>
+                                                    </template>  
+                                                </b-modal>
+                                            </div>
                                         </template>
                                     </b-table>
                                 </div>
@@ -214,7 +270,9 @@ import { parse } from 'querystring';
                 userid : null,
                 tournamentList: [],
                 scheduleList: [],
+                editSchedule: {},
                 filterTournament: null,
+                editErrors: [],
                 fields: [
                     { key: 'tournament_name', label: 'Tournament', sortable: true },
                     { key: 'match_fixture_start_date', label: 'Start Date', sortable: true },
@@ -222,7 +280,7 @@ import { parse } from 'querystring';
                     { key: 'team_a_abbreviation', label: 'Team 1', sortable: true },
                     { key: 'team_b_abbreviation', label: 'Team 2', sortable: true },
                     { key: 'stadium_name', label: 'Venue', sortable: true },
-                    { key: 'result', label: 'Edit Result', sortable: false },
+                    { key: 'result', label: 'Result/Action', sortable: false },
                     
                 ],
                 currentPage: 1,
@@ -277,6 +335,27 @@ import { parse } from 'querystring';
                 }
                 return (hr + ":" + mins + ":00");
 
+            },
+
+            openDialog: function(item){
+                var tour = this.tournamentList.find(tour=> tour.tournament_name.toLowerCase() == item.tournament_name.toLowerCase());
+                this.getTeamList(tour.tournament_id).then(result=>{
+                    this.editSchedule.teamsInTournamentList = result.data.teams;
+                    this.editSchedule.match_fixture_id = item.match_fixture_id;
+                    this.editSchedule.match_fixture_start_date = item.match_fixture_start_date;
+                    this.editSchedule.match_fixture_end_date = item.match_fixture_end_date;
+                    this.editSchedule.stadium_name = item.stadium_name;
+                    this.editSchedule.tournament_id = item.tournament_id;
+                    this.editSchedule.tournament_name = item.tournament_name;
+                    this.editSchedule.selectedTeamA = {};
+                    this.editSchedule.selectedTeamA = {};
+                    this.editSchedule.team_a_id = item.team_a_id;
+                    this.editSchedule.team_b_id = item.team_b_id;
+                    this.editSchedule.team_a_abbreviation = item.team_a_abbreviation;
+                    this.editSchedule.team_b_abbreviation = item.team_b_abbreviation;
+                    item.show = true;
+                });
+                
             },
 
             createSchedule: function(){
@@ -355,12 +434,22 @@ import { parse } from 'querystring';
                         userid: self.userDetails.userid
                     }
                 }).then(result => {
+                        result.data.scheduleList.filter(schedule=>{
+                            schedule.show = false; // This is for edit modal
+                        });
                         self.scheduleList = result.data.scheduleList;
                     },
                     err => {
                         this.errors = [];
                         this.errors.push(err.response.data.message);
                     })
+            },
+            getTeamList: function(tournamentId){
+                return api().get('/tournament/playingTeams', {
+                        params: {
+                            tournamentId: tournamentId
+                        }
+                    });
             },
             updateTeamsList: function(tour){
                 this.errors = [];
@@ -369,11 +458,27 @@ import { parse } from 'querystring';
                 this.selectedTeamB = null;
                 if(tour){
                     var self = this;
-                    api().get('/tournament/playingTeams', {
-                        params: {
-                            tournamentId: tour.tournament_id
-                        }
-                    }).then(result => {
+                    // api().get('/tournament/playingTeams', {
+                    //     params: {
+                    //         tournamentId: tour.tournament_id
+                    //     }
+                    // }).then(result => {
+                    //     result.data.teams.filter(team=>{
+                    //         team.disabled = true;
+                    //     });
+                    //     self.teamsInTournamentList = result.data.teams;
+                    //     self.teamsInTournamentList.push({ // To add TBD option in dropdown
+                    //         team_id: -1,
+                    //         team_abbreviation: "TBD",
+                    //         team_name: "To Be Decided"
+                    //     });
+                    // },
+                    // err => {
+                    //     this.errors = [];
+                    //     this.errors.push(err.response.data.message);
+                    // })
+
+                    self.getTeamList(tour.tournament_id).then(result => {
                         result.data.teams.filter(team=>{
                             team.disabled = true;
                         });

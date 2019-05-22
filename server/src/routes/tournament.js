@@ -182,7 +182,7 @@ router.get('/searchTournament', (req, res, next) => { //Method to search tournam
             else{
                 for(var i=0; i<teams.length; i++){
                     if(teams[i].team_image){
-                        teams[i].team_image = commonController.buildImageURL(req, upcomingTours[i].team_image);
+                        teams[i].team_image = commonController.buildImageURL(req, teams[i].team_image);
                     }
                 }
                 res.status(200).json({

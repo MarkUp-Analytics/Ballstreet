@@ -61,7 +61,46 @@
                                     <img :src="data.item.team_image" class="rounded border mb-2" width="50px" height="50px" />
                                 </template>
                                 <template slot="edit" slot-scope="data">
-                                    <a href="" @click.prevent="editTeam(data.item.team_id)">Edit</a>
+                                    <a href="" @click.prevent="openDialog(data.item)">Edit</a>
+                                    <div>
+                                        <b-modal :id="'edit-modal-' + data.item.team_id" v-model="data.item.show" centered title="Edit Players / Teams">
+                                        <div v-if="editErrors.length" class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <span v-for="error in editErrors">
+                                                <strong>Error!</strong> {{error}}<br>
+                                            </span>
+                                            <button type="button" class="close" data-dismiss="alert" @click="errors = [];" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                            <form class="text-left pt-5 px-5">
+                        <div class="form-group mt-4">
+                            <label>Choose Image</label>
+                            <input id="team_image" type="file" class="form-control-file" @change="editTeamImage(editTeam, $event)">
+                        </div>
+                        <div class="form-group mt-4">
+                            <label>Team/Player Name</label>
+                            <input class="form-control" type="text" placeholder="Ex: India/Roger Federer" v-model="editTeam.team_name" />
+                        </div>
+                        <div class="form-group mt-4">
+                            <label>Short Name</label>
+                            <input class="form-control" type="text" placeholder="Ex: Ind/Aus" v-model="editTeam.team_abbreviation" />
+                        </div>
+                        
+                    </form>
+                                          <template slot="modal-footer">
+                                                <div class="row">
+                                                <div class="col-lg mt-4">
+                                <a href="" class="btn btn-dark bg-violet border-0 w-100" @click.prevent="updateTeam(editTeam)">Save Changes</a><br/>    
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-lg mt-2">
+                                <a href="" class="text-violet mt-5" @click.prevent="closeModal(data.item)">Cancel</a>
+                            </div>
+                        </div>
+                                          </template>  
+                                        </b-modal>
+                                    </div>
                                 </template>
                             </b-table>
                     </section>
@@ -90,6 +129,9 @@ import AdminMenu from '@/components/AdminMenu';
             }
     
         },
+        watch:{
+
+        },
         data(){
             return{
                 sortBy: 'team_name',
@@ -112,7 +154,12 @@ import AdminMenu from '@/components/AdminMenu';
                 teamShortName: null,
                 showLoadingIcon: false,
                 showSuccessMsg: false,
-                errors: []
+                showModal: false,
+                editTeam: {
+                    showModal: false
+                },
+                errors: [],
+                editErrors: []
             }
         },
         methods:{
@@ -123,6 +170,18 @@ import AdminMenu from '@/components/AdminMenu';
             },
             processFile: function(event) {
                 this.teamImage = event.target.files[0];
+            },
+            editTeamImage: function(editTeam, event){
+                editTeam.teamImage = event.target.files[0];
+            },
+            closeModal: function(item){
+               item.show = false;
+            },
+            openDialog: function(item){
+                this.editTeam.team_name = item.team_name;
+                this.editTeam.team_abbreviation = item.team_abbreviation;
+                this.editTeam.team_id = item.team_id;
+                item.show = true;
             },
             saveTeam: function(){
                 var self = this;
@@ -166,6 +225,73 @@ import AdminMenu from '@/components/AdminMenu';
                 }
 
             },
+            updateTeam: function(editTeam){
+                var self = this;
+                if(!editTeam.team_name || !editTeam.team_abbreviation){
+                    self.editErrors = [];
+                    self.editErrors.push("Team name or abbreviation cannot be empty");
+                    return;
+                }
+                var duplicateTeam = self.teamList.filter(team=>{
+                    if(team.team_id != editTeam.team_id && team.team_name.toLowerCase().trim() === editTeam.team_name.toLowerCase().trim()){
+                        return team;
+                    }
+                });
+                if(duplicateTeam.length > 0){
+                    self.editErrors = [];
+                    self.editErrors.push("Team name already exist");
+                    return;
+                }
+
+                const formData = new FormData();
+                var editWithImage = false;
+                if(editTeam.teamImage){
+                    formData.append('file', editTeam.teamImage, editTeam.teamImage.name);
+                    editWithImage = true;
+                }
+                
+                var team_details = {};
+                team_details.team_name = editTeam.team_name;
+                team_details.team_abbreviation = editTeam.team_abbreviation;
+                team_details.team_id = editTeam.team_id;
+                team_details.userid = this.userDetails.userid;
+                formData.append('teamDetails', JSON.stringify(team_details));
+                this.showLoadingIcon = true;
+                if(editWithImage){
+                    api().post('/team/updateTeamWithImage', formData, {
+                        headers: {
+                        'Content-Type': 'multipart/form-data'
+                        }
+                    }).then(result=>{
+                        self.showLoadingIcon = false;
+                        var oldTeamIndex = self.teamList.findIndex(team=> team.team_id == editTeam.team_id);
+                        result.data.team.show = false;
+                        self.closeModal(self.teamList[oldTeamIndex]);
+                        self.teamList.splice(oldTeamIndex, 1, result.data.team);
+                    },
+                    err => {
+                        this.showLoadingIcon = false;
+                        this.editErrors = [];
+                        this.editErrors.push(err.response.data.message);
+                    })
+                }
+                else{
+                    api().post('/team/updateTeamWithoutImage', team_details
+                ).then(result=>{
+                    self.showLoadingIcon = false;
+                    var oldTeamIndex = self.teamList.findIndex(team=> team.team_id == editTeam.team_id);
+                    result.data.team.show = false;
+                    self.closeModal(self.teamList[oldTeamIndex]);
+                    self.teamList.splice(oldTeamIndex, 1, result.data.team);
+                },
+                err => {
+                    this.showLoadingIcon = false;
+                    this.editErrors = [];
+                    this.editErrors.push(err.response.data.message);
+                })
+                }
+                
+            },
             clearForm: function(){
                 this.teamName = null;
                 this.teamImage = null;
@@ -178,6 +304,7 @@ import AdminMenu from '@/components/AdminMenu';
                 api().get('/team/getTeamsList')
                     .then(result=>{
                         this.showLoadingIcon = false;
+                        result.data.teamList.filter(team=>{team.show = false}); // This is for edit modal
                         this.teamList = result.data.teamList;
                     },
                     err => {

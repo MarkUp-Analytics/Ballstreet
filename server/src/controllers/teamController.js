@@ -28,6 +28,35 @@ teamController.createTeam = function(teamDetails, callback){
     });
 };
 
+teamController.updateTeamWithImage = function(teamDetails, callback){
+    
+    var queryText = 'UPDATE team set team_name = $2, team_abbreviation = $3, team_image = $4 where team_id = $1 RETURNING *;';
+
+    var queryParams = [teamDetails.team_id, teamDetails.team_name, teamDetails.team_abbreviation, teamDetails.team_image];
+    pool.query(queryText, queryParams, (err, result) => {
+        if(err){
+            callback(err, null);
+        }
+        callback(err, result.rows[0]);
+    });
+};
+
+teamController.updateTeamWithoutImage = function(teamDetails, callback){
+    
+    var queryText = 'UPDATE team set team_name = $2, team_abbreviation = $3 where team_id = $1 RETURNING *;';
+
+    var queryParams = [teamDetails.team_id, teamDetails.team_name, teamDetails.team_abbreviation];
+    pool.query(queryText, queryParams, (err, result) => {
+        if(err){
+            callback(err, null);
+        }
+        else{
+            callback(err, result.rows[0]);
+        }
+        
+    });
+};
+
 teamController.checkDuplicateTeamName = function(team_name, callback){
     var queryText = 'SELECT * from team where team_name = $1 AND team_active = true AND team_deleted = false';
     

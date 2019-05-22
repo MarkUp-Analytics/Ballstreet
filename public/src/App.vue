@@ -19,7 +19,7 @@
 						</ul>
 						<ul class="navbar-nav">
 							<li v-if="userDetails.roleName === 'ADMIN'" class="nav-item m-2">
-								<a class="text-red" href="" @click.prevent="redirectPage('Input Team')" :class="{'textBold': $route.name === 'Input Team'}">Admin Menu</a>
+								<a class="text-red" href="" @click.prevent="redirectPage('Input Team')" :class="{'textBold': $route.name.indexOf('Input') != -1}">Admin Menu</a>
 							</li>
 							<li class="nav-item m-2">
 								<a class="text-red" href="" @click.prevent="redirectPage('Discover')" :class="{'textBold': $route.name === 'Discover'}">Discover</a>
