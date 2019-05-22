@@ -1,4 +1,4 @@
-.p0{
+/* .p0{
     padding: 0px !important;
 }
 
@@ -19,7 +19,7 @@
 }
 .pl15{
     padding-left: 15px !important;
-}
+} */
 
 .cursorPointer{
     cursor: pointer;
@@ -28,3 +28,12 @@
 .textCenter{
     text-align: center;
 }
+
+.textBold{
+    font-weight:bold;
+}
+
+.disabled {
+    cursor: not-allowed;
+    color: gray
+  }

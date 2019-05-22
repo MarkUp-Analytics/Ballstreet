@@ -1,70 +1,246 @@
 body {
-    padding-bottom: 20px;
-    background: #fafafa;
-    font-family: 'Ubuntu', sans-serif;
+  font-size: 14px;
+  font-family: 'Oxygen', sans-serif;
+}
+
+.font-family-ubuntu {
+  font-family: 'Ubuntu', sans-serif;
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: 16px;
   }
-  
-  .container {
-    max-width: 975px;
-  }
-  
-  .img-square-50 {
-    width: 50px;
-    height: 50px;
-  }
-  
-  .img-square-75 {
-    width: 75px;
-    height: 75px;
-  }
-  
-  .img-square-100 {
-    width: 100px;
-    height: 100px;
-  }
-  
-  .img-square-125 {
-    width: 125px;
-    height: 125px;
-  }
-  
-  footer {
-    font-size: .95rem;
-  }
-  
-  .w-95 {
-      width: 95%;
-  }
-  
-  .overflow-x-auto {
-      overflow-x: auto;
-  }
-  
-  .bg-fafafa {
-    background-color: #fafafa;
-  }
-  
-  .z-index-0 {
-      z-index: 0;
-  }
-  
-  .z-index-1 {
-      z-index: 1;
-  }
-  
-  .z-index-2 {
-      z-index: 2;
-  }
-  
-  .z-index-3 {
-      z-index: 5;
-  }
-  
-  .z-index-4 {
-      z-index: 5;
-  }
-  
-  .z-index-5 {
-      z-index: 5;
-  }
-  
+}
+
+.container {
+  max-width: 960px;
+}
+
+.container-lg {
+  max-width: 1280px;
+}
+
+.pricing-header {
+  max-width: 700px;
+}
+
+.ballstreet-logo-full {
+  background: url(assets/icons/ballstreet-low.png) center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 70px;
+  width: 250px;
+}
+
+.ballstreet-logo-small {
+  background: url(assets/icons/ballstreet-low.png) center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 60px;
+  width: 150px;
+}
+
+.ballstreet-logo-only {
+  background: url(assets/icons/ballstreet-logo-only-low.png) center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 50px;
+  width: 300px;
+}
+
+.ballstreet-logo-only-violet {
+  background: url(assets/icons/ballstreet-logo-only-violet-low.png) center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 70px;
+  width: 300px;
+}
+
+.bg-green {
+  background-color: #47b39d;
+}
+
+.bg-yellow {
+  background-color: #ffc153;
+}
+
+.bg-red {
+  background-color: #eb6b56;
+}
+
+.bg-pink {
+  background-color: #b05f6d;
+}
+
+.bg-violet {
+  background-color: #462446;
+}
+
+.bg-dark-blue {
+  background-color: #355C7D;
+}
+
+.bg-light-blue {
+  background-color: #4FC1E9;
+}
+
+.text-green {
+  color: #47b39d;
+}
+
+.text-yellow {
+  color: #ffc153;
+}
+
+.text-red {
+  color: #eb6b56;
+}
+
+.text-pink {
+  color: #b05f6d;
+}
+
+.text-violet {
+  color: #462446;
+}
+
+.text-dark-blue {
+  color: #355C7D;
+}
+
+.text-light-blue {
+  color: #4FC1E9;
+}
+
+a:hover, a:active {
+  text-decoration: underline;
+  color: inherit;
+}
+
+.bg-game-of-skill {
+  background: url(assets/images/bg-game-of-skill-low.png) center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 300px;
+}
+
+.bg-index-sign-in {
+  background: url(assets/images/bg-index-sign-in-low.png) center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 250px;
+}
+
+.bg-index-sign-up {
+  background: url(assets/images/bg-index-sign-up-low.png) center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 250px;
+}
+
+.bg-high-jump {
+  background: url(assets/images/bg-high-jump.png) center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100px;
+}
+
+.bg-tennis {
+  background: url(assets/images/bg-tennis.png) center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100px;
+}
+
+.font-size-12pc {
+	font-size: 12px;
+}
+
+/* not active */
+.getStartedInactive {
+  background-color: #fafafa !important;
+  color: #462446 !important;
+  border-radius: 0.25rem;
+  padding: 5px;
+}
+
+.removeTextDecoration.removeTextDecoration:hover{
+  text-decoration: none !important;
+
+}
+
+.getStartedActive {
+  background-color: #462446 !important;
+  color: white !important;
+  border-radius: 0.25rem;
+  padding: 5px;
+}
+
+.font-size-16 {
+  font-size: 16px;
+}
+
+.font-size-16pc {
+  font-size: 16px;
+}
+
+.font-size-14pc {
+  font-size: 14px;
+}
+
+.max-height-75vh {
+  max-height: 75vh;
+}
+
+.max-height-80vh {
+  max-height: 80vh;
+}
+
+.max-height-90vh {
+  max-height: 90vh;
+}
+
+table {
+  overflow: scroll;
+}
+
+.border-bottom {
+  border-bottom-width: 20px;
+}
+
+.z-index-1 {
+  z-index: 1;
+}
+
+.z-index-2 {
+  z-index: 2;
+}
+
+.z-index-3 {
+  z-index: 3;
+}
+
+.z-index-4 {
+  z-index: 4;
+}
+
+.z-index-5 {
+  z-index: 5;
+}
+
+.b-pagination .pagination>li>a, .b-pagination .pagination>li>span, .b-pagination {
+  color:#462446;
+}
+
+.pagination>li>span:focus {
+  box-shadow: none;
+  border: none;
+}
+
+.b-pagination .pagination>li.active>a {
+  background: #462446;
+  color: #fff;
+  box-shadow: none;
+  border: #462446;
+}
