@@ -77,13 +77,13 @@ Vue.use(BootstrapVue)
       path: '/create',
       name: 'Create',
       component: Create,
-      meta: {requiresAuth: true, roles: ['LEAGUE_MEMBER']}
+      meta: {requiresAuth: true, roles: ['ADMIN','LEAGUE_MEMBER']}
     },
     {
       path: '/discover',
       name: 'Discover',
       component: Discover,
-      meta: {requiresAuth: true, roles: ['LEAGUE_MEMBER']}
+      meta: {requiresAuth: true, roles: ['ADMIN','LEAGUE_MEMBER']}
     },
     {
       path: '/getstarted',
@@ -299,7 +299,8 @@ Vue.use(BootstrapVue)
   ];
 // })
 
-const router = new VueRouter({routes, mode: 'history'});
+//const router = new VueRouter({routes, mode: 'history'});
+const router = new VueRouter({routes});
 
 router.beforeEach((to, from, next) =>{ //This will make sure admin pages are not accessed by league member and other pages are not accessed if the user is not logged in.
   if(!to.meta.requiresAuth){
