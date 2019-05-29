@@ -133,10 +133,10 @@
                                             <span>{{data.item.tournament_name}}</span>
                                         </template>
                                         <template slot="match_fixture_start_date" slot-scope="data">
-                                            <span>{{data.item.match_fixture_start_date | formatDate}}</span>
+                                            <span>{{getDate(data.item.match_fixture_start_date, data.item.stadium_timezone) | formatDate}}</span>
                                         </template>
                                         <template slot="match_fixture_end_date" slot-scope="data">
-                                            <span>{{data.item.match_fixture_end_date | formatDate}}</span>
+                                            <span>{{getDate(data.item.match_fixture_end_date, data.item.stadium_timezone) | formatDate}}</span>
                                         </template>
                                         <template slot="team_a_abbreviation" slot-scope="data">
                                             <span>{{data.item.team_a_abbreviation ? data.item.team_a_abbreviation : "TBD"}}</span>
@@ -317,7 +317,16 @@ import { parse } from 'querystring';
                     }
                     
 				})
-			},
+            },
+            getDate: function(date, timeZone){
+            var dateObj = new Date(new Date(date).toLocaleString("en-US", {timeZone: timeZone}));
+            // var year = dateObj.getFullYear();
+            // var month = dateObj.getMonth();
+            // var date = dateObj.getDate();
+            // var dateTimeString = year + "/" + month + "/" + date + " " + hr;
+            // return dateTimeString;
+            return dateObj;
+            },
             getTimeStamp: function(hour, minutes){
                 var hr = null;
                 var mins = null;
