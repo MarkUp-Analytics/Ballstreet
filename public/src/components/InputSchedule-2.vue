@@ -364,7 +364,7 @@ import { parse } from 'querystring';
                     this.errors.push("Required fields are missing");
                     return;
                 }
-                if(this.selectedTeamA.team_id != -1 || this.selectedTeamB.team_id != -1 && (this.selectedTeamA.team_id === this.selectedTeamB.team_id)){ // Both the teams can be TBD if the schedule is not yet confirmed
+                if(this.selectedTeamA.team_id != -1 && (this.selectedTeamA.team_id === this.selectedTeamB.team_id)){ // Both the teams can be TBD if the schedule is not yet confirmed
                     this.errors.push("Please select different teams");
                     return;
                 }
