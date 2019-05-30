@@ -79,7 +79,7 @@
 						<div class="card-body">
 							<div class="text-left p-1">
                                 <div class="form-group mt-2">
-                                    <label>Match Starts: {{game.match_fixture_start_date | formatDate}} {{" " + game.match_fixture_toss_time}} </label>                                    
+                                    <label>Match Starts: {{getDate(game.match_fixture_start_date, game.stadium_timezone) | formatDate}} {{" " + game.match_fixture_toss_time}} </label>                                    
                                 </div>
                                 <div class="form-group mt-2">
                                     <label>Time left: {{getRemainingTime(game.match_fixture_start_date, game.match_fixture_toss_time, game.stadium_timezone)}}</label>                                    
@@ -182,12 +182,16 @@ export default {
         }
     },
     methods:{
+        getDate: function(date, timeZone){
+            var dateObj = new Date(new Date(date).toLocaleString("en-US", {timeZone: timeZone}));
+            return dateObj;
+            },
         getTime: function(date, hr, timeZone){
-            var dateObj = new Date(date);
+            var dateObj = new Date(new Date(date).toLocaleString("en-US", {timeZone: timeZone}));
             var year = dateObj.getFullYear();
             var month = dateObj.getMonth();
             var date = dateObj.getDate();
-            var dateTimeString = year + "/" + month + "/" + date + " " + hr;
+            var dateTimeString = year + "/" + (month+1) + "/" + date + " " + hr;
             return dateTimeString;
         },
         getSeconds: function(date, hr, timeZone){
@@ -211,7 +215,7 @@ export default {
         },
         getRemainingTime: function(date, hr, timeZone){
             var seconds = (this.getSeconds(date, hr, timeZone) - this.getSeconds(null, null, timeZone))/ 1000;
-
+            console.log(seconds);
             var days        = Math.floor(seconds/24/60/60);
             var hoursLeft   = Math.floor((seconds) - (days*86400));
             var hours       = Math.floor(hoursLeft/3600);
@@ -298,7 +302,9 @@ export default {
                                 game.selected_team_model = self.getTeamFromGlobalList(game.selected_team_id);
                             });
                         }
-                        self.games = result.data.games;
+                        self.games = result.data.games.sort(function(a,b){
+                                return new Date(a.match_fixture_start_date) - new Date(b.match_fixture_start_date);
+                        });
                         self.totalGames = result.data.games.length;
                         if(self.totalGames >= 3){
                             self.limitGames = 3; //by default we show 3 games
