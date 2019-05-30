@@ -122,6 +122,7 @@ import api from '@/services/api';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import MemberMenu from '@/components/MemberMenu';
 import draggable from 'vuedraggable';
+import moment from 'moment-timezone';
 export default {
     name: 'LeaguePreferences',
     components:{
@@ -186,35 +187,22 @@ export default {
             var dateObj = new Date(new Date(date).toLocaleString("en-US", {timeZone: timeZone}));
             return dateObj;
             },
-        getTime: function(date, hr, timeZone){
-            var dateObj = new Date(new Date(date).toLocaleString("en-US", {timeZone: timeZone}));
-            var year = dateObj.getFullYear();
-            var month = dateObj.getMonth();
-            var date = dateObj.getDate();
-            var dateTimeString = year + "/" + (month+1) + "/" + date + " " + hr;
-            return dateTimeString;
-        },
         getSeconds: function(date, hr, timeZone){
-            if(!date && !hr){
-                return new Date(new Date().toLocaleString("en-US", {timeZone: timeZone})).getTime();
-            }
-            else{
-                var dateTimeString = this.getTime(date, hr, timeZone);
-                return new Date(new Date(dateTimeString).toLocaleString("en-US", {timeZone: timeZone})).getTime();
-            }
+            var now = moment().tz(timeZone).format('YYYY/MM/DD HH:mm:ss'); //todays date
+            var end = moment.tz(moment(date), timeZone).format('YYYY/MM/DD') + " " + hr; // match start date
+            
+            var duration = moment.duration(moment(end).diff(moment(now)));
+            
+            var seconds = (Math.floor(duration.asSeconds()));
+
+            return seconds;
             
 
         },
-        getCurrentTime: function(timeZone){
-            if(timeZone){
-                return new Date().toLocaleString("en-US", {timeZone: timeZone});
-            }
-            else{
-                return new Date();
-            }
-        },
+        
         getRemainingTime: function(date, hr, timeZone){
-            var seconds = (this.getSeconds(date, hr, timeZone) - this.getSeconds(null, null, timeZone))/ 1000;
+
+            var seconds = this.getSeconds(date, hr, timeZone);
             
             var days        = Math.floor(seconds/24/60/60);
             var hoursLeft   = Math.floor((seconds) - (days*86400));
@@ -390,7 +378,8 @@ export default {
             var hr = game.match_fixture_toss_time;
             var timeZone = game.stadium_timezone;
 
-            var seconds = (this.getSeconds(date, hr, timeZone) - this.getSeconds(null, null, timeZone))/ 1000;
+            var seconds = this.getSeconds(date, hr, timeZone);
+            
             if(seconds <= 0){
                 return false;
             }

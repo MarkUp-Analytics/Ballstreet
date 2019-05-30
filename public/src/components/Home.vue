@@ -78,7 +78,7 @@
                             <tbody>
                                 <tr v-for="(league, index) in associatedLeagues">
                                     <td>
-                                        <span class="mb-2 text-bold text-yellow cursorPointer">{{league.league_shortid}} </span>
+                                        <span @click.prevent="gotoLeagueDashboard(league)" class="mb-2 text-bold cursorPointer">{{league.league_shortid}} </span>
                                     </td>
                                     <td>
                                         {{league.league_name}}

@@ -7,7 +7,6 @@ import moment from 'moment'
 import vueScrollto from 'vue-scrollto'
 import vSelect from 'vue-select'
 
-
 Vue.use(vueScrollto);
 
 Vue.component('v-select', vSelect)
