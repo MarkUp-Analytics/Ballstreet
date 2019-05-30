@@ -205,7 +205,7 @@ leagueMemberController.getLeagueStatistics = function(leagueId, callback){
 };
 
 leagueMemberController.getAllAvailableGames = function(leagueMemberId, leagueId, callback){
-    var queryText = 'select mf.match_fixture_id, mf.match_fixture_start_date, mf.match_fixture_toss_time, t1.team_id as team_1_id, t2.team_id as team_2_id, t3.team_id as selected_team_id, concat(std.stadium_name, \', \', std.stadium_city) as stadium_name, std.stadium_timezone from member_team_selection mts inner join match_fixtures mf on mf.match_fixture_id = mts.match_fixture_id inner join stadium std on std.stadium_id = mf.match_fixture_venue_stadium_id inner join team t1 on t1.team_id = mf.match_fixture_team_1 inner join team t2 on t2.team_id = mf.match_fixture_team_2 inner join team t3 on t3.team_id = mts.selected_team where mts.league_member_id = $1 AND mts.league_id = $2 AND mts.member_team_selection_locked <> true';
+    var queryText = 'select mf.match_fixture_id, mf.match_fixture_start_date, mf.match_fixture_toss_time, t1.team_id as team_1_id, t2.team_id as team_2_id, t3.team_id as selected_team_id, concat(std.stadium_name, \', \', std.stadium_city) as stadium_name, std.stadium_timezone from member_team_selection mts inner join match_fixtures mf on mf.match_fixture_id = mts.match_fixture_id inner join stadium std on std.stadium_id = mf.match_fixture_venue_stadium_id inner join team t1 on t1.team_id = mf.match_fixture_team_1 inner join team t2 on t2.team_id = mf.match_fixture_team_2 inner join team t3 on t3.team_id = mts.selected_team where mts.league_member_id = $1 AND mts.league_id = $2 AND mts.member_team_selection_locked is not true';
 
     var queryParams = [leagueMemberId, leagueId];
 
