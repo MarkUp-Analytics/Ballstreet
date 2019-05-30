@@ -215,7 +215,7 @@ export default {
         },
         getRemainingTime: function(date, hr, timeZone){
             var seconds = (this.getSeconds(date, hr, timeZone) - this.getSeconds(null, null, timeZone))/ 1000;
-            console.log(seconds);
+            
             var days        = Math.floor(seconds/24/60/60);
             var hoursLeft   = Math.floor((seconds) - (days*86400));
             var hours       = Math.floor(hoursLeft/3600);
