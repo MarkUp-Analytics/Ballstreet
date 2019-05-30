@@ -124,18 +124,7 @@ teamSelectionController.getTeamSelection = function(leagueId, leagueMemberId){//
 
 teamSelectionController.updateResult = function(matchFixtureId, callback){
     
-    var queryText = 'UPDATE member_team_selection SET member_team_selection_locked = true, match_result = CASE ' +
-    'WHEN result.match_fixture_result_won IS NOT NULL THEN ' +
-        'CASE ' +
-          'WHEN  result.selected_team = result.match_fixture_result_won THEN \'W\' ELSE \'L\' ' +
-      'END ' +
-    'WHEN result.match_fixture_result_draw = true THEN \'D\' ' +
-    'WHEN result.match_fixture_no_result = true THEN \'N\' ' +
-   'END ' +
-  'FROM (select mts.league_member_id, mts.match_fixture_id, mts.selected_team, mf.match_fixture_result_won, ' +
-  'mf.match_fixture_result_draw, mf.match_fixture_no_result ' +
-  'from member_team_selection mts inner join match_fixtures mf on mf.match_fixture_id = mts.match_fixture_id ' +
-  'where mf.match_fixture_id = $1) as result';
+    var queryText = 'WITH subquery AS (select result.member_team_selection_id, result.league_member_id,result.match_fixture_id, true as member_team_selection_locked, CASE WHEN result.match_fixture_result_won IS NOT NULL THEN CASE WHEN  result.selected_team result.match_fixture_result_won THEN \'W\' ELSE \'L\' END WHEN result.match_fixture_result_draw = true THEN \'D\' WHEN result.match_fixture_no_result = true THEN \'N\' END as match_resultFROM (select mts.member_team_selection_id,mts.league_member_id, mts.match_fixture_id, mts.selected_team,mf.match_fixture_result_won, mf.match_fixture_result_draw, mf.match_fixture_no_result from member_team_selection mts inner join match_fixtures mf on mf.match_fixture_id = mts.match_fixture_id where mf.match_fixture_id = $1) as result) UPDATE member_team_selection SET member_team_selection_locked = subquery.member_team_selection_locked, match_result = subquery.match_result FROM subquery WHERE member_team_selection.member_team_selection_id = subquery.member_team_selection_id';
         var queryParams = [matchFixtureId];
         pool.query(queryText, queryParams, (err, result) => {
             if(err){
