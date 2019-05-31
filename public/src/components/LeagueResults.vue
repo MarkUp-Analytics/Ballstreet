@@ -129,7 +129,7 @@ import MemberMenu from '@/components/MemberMenu';
                     { key: 'team_b_supporters', label: 'B Supporters', sortable: true },
                     { key: 'match_result_abbreviation', label: 'Result', sortable: true },
                     { key: 'user_selection', label: 'Your Pick', sortable: true },
-                    { key: 'pl', label: 'P&L', sortable: true },
+                    { key: 'profit_loss', label: 'P&L', sortable: true },
                 ],
                 sortBy: 'match_fixture_start_date',
                 sortDesc: false,

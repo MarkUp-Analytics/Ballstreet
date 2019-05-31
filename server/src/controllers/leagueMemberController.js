@@ -158,6 +158,7 @@ leagueMemberController.getResults = function(leagueMemberId, tournamentId, callb
         'WHEN mf.match_fixture_result_draw = true THEN \'Drawn\' ' +
         'WHEN mf.match_fixture_no_result = true THEN \'No Result\' ' +
         'END as match_result_abbreviation, ' +
+    'ms.member_money_won as profit_loss ' +
     '(SELECT count(*) FROM member_team_selection mts WHERE mts.selected_team = mf.match_fixture_team_1 AND mts.match_fixture_id = mf.match_fixture_id) as team_a_supporters, ' +
     '(SELECT count(*) FROM member_team_selection mts WHERE mts.selected_team = mf.match_fixture_team_2 AND mts.match_fixture_id = mf.match_fixture_id) as team_b_supporters, ' +
     '(SELECT tm4.team_abbreviation from team tm4 left join member_team_selection mts on mts.selected_team = tm4.team_id ' +
@@ -168,8 +169,9 @@ leagueMemberController.getResults = function(leagueMemberId, tournamentId, callb
     'INNER JOIN stadium sd on sd.stadium_id = mf.match_fixture_venue_stadium_id ' +
     'INNER JOIN team tm1 on tm1.team_id = mf.match_fixture_team_1 ' +
     'INNER JOIN team tm2 on tm2.team_id = mf.match_fixture_team_2 ' +
+    'INNER JOIN member_statistics ms on ms.match_fixture_id = mf.match_fixture_id ' +
     'LEFT JOIN team tm3 on tm3.team_id = mf.match_fixture_result_won ' +
-    'WHERE mf.match_fixture_tournament_id = $2 AND ' +
+    'WHERE mf.match_fixture_tournament_id = $2 AND AND ms.league_member_id = $1 AND ' +
     'mf.match_fixture_result_won IS NOT NULL ' +
     'OR mf.match_fixture_result_draw IS NOT NULL OR mf.match_fixture_no_result IS NOT NULL';
 
