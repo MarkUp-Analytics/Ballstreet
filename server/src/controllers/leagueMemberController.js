@@ -171,7 +171,7 @@ leagueMemberController.getResults = function(leagueMemberId, tournamentId, callb
     'INNER JOIN team tm2 on tm2.team_id = mf.match_fixture_team_2 ' +
     'INNER JOIN member_statistics ms on ms.match_fixture_id = mf.match_fixture_id ' +
     'LEFT JOIN team tm3 on tm3.team_id = mf.match_fixture_result_won ' +
-    'WHERE mf.match_fixture_tournament_id = $2 AND AND ms.league_member_id = $1 AND ' +
+    'WHERE mf.match_fixture_tournament_id = $2 AND ms.league_member_id = $1 AND ' +
     'mf.match_fixture_result_won IS NOT NULL ' +
     'OR mf.match_fixture_result_draw IS NOT NULL OR mf.match_fixture_no_result IS NOT NULL';
 
