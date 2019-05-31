@@ -70,7 +70,6 @@
                                     <th>Admin</th>
                                     <th>#Players</th>
                                     <th>Contribution</th>
-                                    <th>Current</th>
                                     <th>P&L</th>
                                     <th>Link</th>
                                 </tr>
@@ -96,10 +95,7 @@
                                         {{league.league_minimum_bet}}
                                     </td>
                                     <td>
-                                        289
-                                    </td>
-                                    <td>
-                                        20%
+                                        {{league.profit_loss}}
                                     </td>
                                     <td>
                                         <a href="" @click.prevent="gotoLeagueDashboard(league)">Open</a>

@@ -188,7 +188,7 @@ leagueMemberController.getResults = function(leagueMemberId, tournamentId, callb
 };
 
 leagueMemberController.getLeagueStatistics = function(leagueId, callback){
-    var queryText = 'select concat(users.firstname, \' \', users.lastname) as member_name, users.email, CAST(sum(member_money_won) as numeric(10,2)) as profit_loss, CAST((avg(member_risk_taking_score) * 100.0) as numeric(5,2)) as risk_taking_score from member_statistics ms inner join league_member lm on ms.league_member_id = lm.league_member_id inner join users on users.userid = lm.league_member_user_id where league_id = $1 group by lm.league_member_id, users.userid';
+    var queryText = 'select concat(users.firstname, \' \', users.lastname) as member_name, users.email, CAST(sum(member_money_won) as numeric(10,2)) as profit_loss, CAST((avg(member_risk_taking_score) * 100.0) as numeric(5,2)) as risk_taking_score, string_agg(member_result, \', \') as current_streak from member_statistics ms inner join league_member lm on ms.league_member_id = lm.league_member_id inner join users on users.userid = lm.league_member_user_id where league_id = $1 group by lm.league_member_id, users.userid';
 
     var queryParams = [leagueId];
 

@@ -3,6 +3,7 @@
         <member-menu :league="$route.query.league" :memberInLeague="userIsLeagueMember"></member-menu>
         <div class="p-5 mx-auto text-center bg-light">
             <div class="container">
+                <loading-spinner v-if="showLoadingIcon"></loading-spinner>
                 <h1 class="text-violet mt-1 mb-5">Players</h1>
 
                 <b-container fluid class="my-4 px-0">

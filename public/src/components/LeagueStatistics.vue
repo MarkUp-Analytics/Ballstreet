@@ -3,6 +3,7 @@
         <member-menu :league="$route.query.league" :memberInLeague="userIsLeagueMember"></member-menu>
         <div class="p-5 mx-auto text-center bg-light">
             <div class="container">
+                <loading-spinner v-if="showLoadingIcon"></loading-spinner>
                 <h1 class="text-violet mt-1 mb-5">Statistics</h1>
                 
                 <b-container fluid class="my-4 px-0">
@@ -120,9 +121,7 @@ import MemberMenu from '@/components/MemberMenu';
                     { key: 'member_name', label: 'Name', sortable: true },
                     { key: 'email', label: 'Email', sortable: true },
                     { key: 'profit_loss', label: 'Net P&L', sortable: true },
-                    { key: 'streak', label: 'Current Streak', sortable: true },
-                    { key: 'bestStreak', label: 'Best Streak', sortable: true },
-                    { key: 'worstStreak', label: 'Worst Streak', sortable: true },
+                    { key: 'current_streak', label: 'Current Streak', sortable: true },
                     { key: 'risk_taking_score', label: 'Risk Score', sortable: true }
                 ],
                 sortBy: 'member_name',

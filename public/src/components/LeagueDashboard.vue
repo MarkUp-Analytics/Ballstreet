@@ -15,7 +15,7 @@
                     <loading-spinner v-if="showLoadingIcon"></loading-spinner>
                 <div v-if="showDetails" class="row text-left">
                     <div class="col-lg-9">
-                        <img src="../../static/assets/images/ipl.png" class="rounded border mb-2" width="50px" height="50px"/>
+                        <img :src="details.tournament_image" class="rounded border mb-2" width="50px" height="50px"/>
                         <h4 class="mb-2"><span class="text-violet">{{details ? details.tournament_name : ''}}</span> | <span class="text-violet">Cricket</span></h4>
                         <h5 class="mb-4">{{teamString}}</h5>
                         <div class="row">
