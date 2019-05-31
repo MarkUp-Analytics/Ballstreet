@@ -158,7 +158,7 @@ leagueMemberController.getResults = function(leagueMemberId, tournamentId, callb
         'WHEN mf.match_fixture_result_draw = true THEN \'Drawn\' ' +
         'WHEN mf.match_fixture_no_result = true THEN \'No Result\' ' +
         'END as match_result_abbreviation, ' +
-    'ms.member_money_won as profit_loss ' +
+    'ms.member_money_won as profit_loss, ' +
     '(SELECT count(*) FROM member_team_selection mts WHERE mts.selected_team = mf.match_fixture_team_1 AND mts.match_fixture_id = mf.match_fixture_id) as team_a_supporters, ' +
     '(SELECT count(*) FROM member_team_selection mts WHERE mts.selected_team = mf.match_fixture_team_2 AND mts.match_fixture_id = mf.match_fixture_id) as team_b_supporters, ' +
     '(SELECT tm4.team_abbreviation from team tm4 left join member_team_selection mts on mts.selected_team = tm4.team_id ' +
