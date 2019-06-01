@@ -80,16 +80,15 @@
 
                     <div class="col-lg-3 text-center">
                         <form class="py-5">
-                            <label for="FormControlGamePin" class="mb-2 text-violet font-weight-bold">GAME ID: {{league.league_shortid}}</label>
-                            <br>
-                            <label v-if="userIsLeagueMember" for="FormControlGamePin" class="mb-2 text-violet font-weight-bold">PIN: {{league.league_pin}}</label>
+                            <h5 for="FormControlGamePin" class="mb-2 text-secondary">Game ID: <span class="mb-2 text-violet">{{league.league_shortid}}</span></h5>
+                            <h5 v-if="userIsLeagueMember" for="FormControlGamePin" class="mb-2 text-secondary">PIN: <span class="mb-2 text-violet">{{league.league_pin}}</span></h5>
                             <div v-if="userIsLeagueMember" >
-                                <span class="text-red" style="font-size:smaller">Share Game ID and Pin to your friends to join the league</span>
+                                <span class="text-secondary" style="font-size:smaller">Share Game ID and Pin to your friends to join the league</span>
                             </div>
                             <input v-if="!userIsLeagueMember" type="password" class="form-control form-control-md rounded-1 w-100 mb-3" id="GamePin" v-model="leaguePin" aria-describedby="emailHelp" placeholder="Game Pin">
                             <button v-if="!userIsLeagueMember" @click.prevent="joinLeague()" class="btn btn-dark bg-violet rounded-1 w-100">Join League</button>
                             <div v-if="!userIsLeagueMember" >
-                                <span class="text-red" style="font-size:smaller">Enter Game Pin to join the league</span>
+                                <span class="text-secondary" style="font-size:smaller">Enter Game Pin to join the league</span>
                             </div>
                         </form>
                     </div>

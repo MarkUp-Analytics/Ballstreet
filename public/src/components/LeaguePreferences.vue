@@ -16,9 +16,9 @@
         </div>
         <div class="p-5 mx-auto text-center bg-light">
             <div v-if="userIsLeagueMember" class="container">
-                <h1 class="text-violet mt-1 mb-3">Team Preference</h1>
+                <h1 class="text-violet mt-1 ">Team Preference</h1>
                 <div>
-                    <span class="text-red" style="font-size:smaller">Drag the team name to modify your preference</span>
+                    <span class="text-secondary mb-3" style="font-size:smaller">Drag the team name to modify your preference</span>
                 </div>
                 <div class="row my-4">
                     <div class="col-lg my-4">
@@ -27,19 +27,21 @@
                         <draggable v-model="teamPreferenceList" :options="{animation:150}" @start="drag=true" @end="drag=false" @change="updatePreference()">
                              <transition-group type="transition" name="flip-list">
                             <div v-for="team in teamPreferenceList" :key="team.team_id">
-                                <div class="card bg-white" style="cursor:pointer">
-						            <div class="card-body">
-                                        <div>
-                                            <span>
-                                                <img style="float:left" :src="team.team_image" width="30px" height="30px"/>
-                                            </span>
-                                            <span>
-                                                {{team.team_abbreviation}}
-                                            </span>
-                                            <span class="badge">{{team.preference_rank}}</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                <table class='table bg-white rounded-lg border table-borderless' style="height:50px; cursor:pointer"> 
+                                    <tbody> 
+                                        <tr> 
+                                            <td class="align-middle text-center" width="33.33%" scope="col"> 
+                                                <img style=" " :src="team.team_image" width="30px" height="30px"/>
+                                            </td> 
+                                            <td class="align-middle text-center" width="33.33%" scope="col"> 
+                                                <h5>{{team.team_abbreviation}}</h5>
+                                            </td> 
+                                            <td class="align-middle text-center" width="33.33%" scope="col"> 
+                                                <h6>#{{team.preference_rank}}</h6>
+                                            </td>
+                                        </tr> 
+                                    </tbody> 
+                                </table>
                             </div>
                             </transition-group>
                         </draggable>
@@ -90,10 +92,10 @@
                                 <div class="form-group mt-2">
                                     <label>Preference:</label>
                                     <v-select v-model="game.selected_team_model" :options="game.teamList" 
-                                    item-value="team_id"
-                                    item-text="team_abbreviation"
-                                    label="team_abbreviation">
-                                </v-select>
+                                        item-value="team_id"
+                                        item-text="team_abbreviation"
+                                        label="team_abbreviation">
+                                    </v-select>
                                 </div>
                                 <div class="form-group mt-2">
                                     <small><a href="" v-scroll-to="'#update-preferences'" class="text-violet">Override is applicable only for this game. To update preferences for all games, click here.</a></small>

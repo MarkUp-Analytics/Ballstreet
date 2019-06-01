@@ -36,7 +36,7 @@
                         <div class="col-lg mb-3">
                             <span class="text-secondary">Contribution, INR</span><br/>
                             <h3>450.00</h3>
-                            <a href="" class="btn-sm text-violet">Running Leagues: 3</a>
+                            <a href="" v-scroll-to="'#current-pl'" class="btn-sm text-violet">Running Leagues: 3</a>
                         </div>
                         <div class="col-lg mb-3">
                             <span class="text-secondary">Curr. Value, INR</span><br/>
@@ -46,11 +46,6 @@
                             <span class="text-secondary">P&L</span><br/>
                             <h3 class="text-success">45.04%</h3>
                         </div>
-                        <div class="col-lg">
-                            <span class="text-secondary">Funds, INR</span><br/>
-                            <h3>63.00</h3>
-                            <a href="#" class="btn-sm text-violet">Add Funds</a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -58,8 +53,82 @@
 
         <div v-if="associatedLeagues.length > 0">
             <div class="p-5 mx-auto text-center bg-white">
-                <div class="container">
+                <div class="container" id="current-pl">
                     <h1 class="text-violet mt-1 mb-5">Current P&L</h1>
+
+
+
+                        <b-container fluid  class="p-0">
+                            <b-row class="my-0 py-0">
+                                <b-col md="7">
+                                    <b-form-group class="my-2">
+                                        <b-input-group>
+                                            <b-form-input v-model="filter" placeholder="Type to Search" />
+                                        </b-input-group>
+                                    </b-form-group>
+                                </b-col>
+                                <b-col md="5">
+                                    <b-form-group label-cols="3" label="Per Pg" class="my-2">
+                                        <b-form-select :options="pageOptions" v-model="perPage" />
+                                    </b-form-group>
+                                </b-col>
+                            </b-row>
+                            <b-form-group class="my-2 d-md-none">
+                                <b-input-group>
+                                    <b-col cols="8" class="p-0">
+                                        <b-form-select v-model="sortBy" :options="sortOptions">
+                                            <option slot="first" :value="null">Select field to sort by...</option>
+                                        </b-form-select>
+                                    </b-col>
+                                    <b-col class="p-0">
+                                        <b-form-select :disabled="!sortBy" v-model="sortDesc" slot="append">
+                                            <option :value="false">
+                                                Asc
+                                            </option>
+                                            <option :value="true">
+                                                Desc
+                                            </option>
+                                        </b-form-select>
+                                    </b-col>
+                                </b-input-group>
+                            </b-form-group>
+                            <div class="w-100 table-responsive mt-4 mb-4 px-1">
+                                <b-table 
+                                    stacked="md"
+                                    :items="itemsCurrent"
+                                    :fields="fields"
+                                    :current-page="currentPage"
+                                    :per-page="perPage"
+                                    :filter="filter"
+                                    :sort-by.sync="sortBy"
+                                    :sort-desc.sync="sortDesc"
+                                    :sort-direction="sortDirection"
+                                    @filtered="onFiltered"
+                                    show-empty
+                                    class="w-100 align-middle"
+                                >
+                                    <template slot="empty" slot-scope="scope">
+                                        <h4>{{ scope.emptyText }}</h4>
+                                    </template>
+                                    <template slot="emptyfiltered" slot-scope="scope">
+                                        <h4>{{ scope.emptyFilteredText }}</h4>
+                                    </template>
+                                    <span slot="id" slot-scope="data" v-html="data.value" />
+                                </b-table>
+                            </div>
+                            <b-row class="mx-auto">
+                                <b-col class="w-100 my-1 mx-auto text-center b-pagination">
+                                    <b-pagination
+                                        :total-rows="totalRowsCurrent"
+                                        :per-page="perPage"
+                                        v-model="currentPage"
+                                        class="justify-content-center"
+                                    />
+                                </b-col>
+                            </b-row>
+                        </b-container>
+                    <br/>
+                    <br/>
                     <div class="w-100 max-height-90vh table-responsive mt-4 mb-4">
                         <table class="table sortable">
                             <thead>
@@ -71,13 +140,12 @@
                                     <th>#Players</th>
                                     <th>Contribution</th>
                                     <th>P&L</th>
-                                    <th>Link</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="(league, index) in associatedLeagues">
                                     <td>
-                                        <span @click.prevent="gotoLeagueDashboard(league)" class="mb-2 text-bold cursorPointer">{{league.league_shortid}} </span>
+                                        <span @click.prevent="gotoLeagueDashboard(league)" class="mb-2 text-violet text-underline cursorPointer">{{league.league_shortid}}<br/> <small>Click to Open</small></span>
                                     </td>
                                     <td>
                                         {{league.league_name}}
@@ -96,9 +164,6 @@
                                     </td>
                                     <td>
                                         {{league.profit_loss}}
-                                    </td>
-                                    <td>
-                                        <a href="" @click.prevent="gotoLeagueDashboard(league)">Open</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -206,9 +271,48 @@
             return {
                 userDetails: null,
                 associatedLeagues: [],
-                errors: []
+                errors: [],
+                itemsCurrent: [
+                    { 
+                        id: "<span class='text-violet'>H5l6sgZUu<span><br/><a href='' class='text-violet'><small>Click to Open</small></a>", 
+                        league: 'Amigos', 
+                        tournament: 'Cricket World Cup 2019', 
+                        admin: 'Gowthaman Ilango',
+                        players: 7, 
+                        contribution: 10, 
+                        pl: -8.33
+                    },
+                ],
+                fields: [
+                    { key: 'id', label: 'Game Id', sortable: true },
+                    { key: 'tournament', label: 'Tournament', sortable: true },
+                    { key: 'league', label: 'League', sortable: true },                    
+                    { key: 'admin', label: 'Admin', sortable: true },
+                    { key: 'players', label: '# Players', sortable: true },
+                    { key: 'contribution', label: 'Contribution', sortable: true },
+                    { key: 'pl', label: 'P&L', sortable: true }
+                ],
+                currentPage: 1,
+                perPage: 20,
+                totalRowsCurrent: 40,
+                totalRowsPast: 20,
+                pageOptions: [10, 20, 30, 40, 50, "Infinte Scroll"],
+                sortBy: 'date',
+                sortDesc: false,
+                sortDirection: 'asc',
+                filter: null
             }
         },
+        computed: {
+            sortOptions() {
+                // Create an options list from our fields
+                return this.fields
+                .filter(f => f.sortable)
+                .map(f => {
+                    return { text: f.label, value: f.key }
+                })
+            }
+        },        
         methods: {
             getAssociatedLeagues: function(shortid) {
                 var self = this;
@@ -242,7 +346,12 @@
 				this.$router.push({
 					name: componentName,
 				})
-			},
+            },
+            onFiltered(filteredItems) {
+                // Trigger pagination to update the number of buttons/pages due to filtering
+                this.totalRows = filteredItems.length
+                this.currentPage = 1
+            }
         }
     }
 </script>
