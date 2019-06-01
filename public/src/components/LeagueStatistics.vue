@@ -191,6 +191,10 @@ import MemberMenu from '@/components/MemberMenu';
                     }).then(result => {
                         self.showLoadingIcon = false;
                         self.leagueStatistics = result.data.leagueStatistics;
+                        self.leagueStatistics.filter(league=>{
+                            league.profit_loss = parseFloat(league.profit_loss);
+                            league.risk_taking_score = parseFloat(league.risk_taking_score);
+                        });
                     },
                     err => {
                         self.showLoadingIcon = false;
