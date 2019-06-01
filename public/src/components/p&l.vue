@@ -71,7 +71,7 @@
                                         <h4>{{ scope.emptyFilteredText }}</h4>
                                     </template>
                                     <template slot="link" slot-scope="scope">
-                                        <a href="" @click.prevent="gotoLeagueDashboard(scope.item)">Click</a>
+                                        <a href="" @click.prevent="gotoLeagueDashboard(scope.item)" class="text-violet">Click</a>
                                     </template>
                                 </b-table>
                             </div>

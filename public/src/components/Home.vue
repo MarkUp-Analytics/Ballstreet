@@ -44,7 +44,7 @@
                             <h3>{{current_value}}</h3>
                         </div>
                         <div class="col-lg mb-3">
-                            <span class="text-secondary">P&L</span><br/>
+                            <span class="text-secondary">P&L, INR</span><br/>
                             <h3 class="text-success">{{total_profit_loss}}</h3>
                         </div>
                     </div>
