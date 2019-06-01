@@ -205,10 +205,10 @@
         data: function() {
             return {
                 userDetails: null,
-                total_contribution: 0,
+                total_contribution: 0.0,
                 total_leagues_admin: 0,
-                current_value: 0,
-                total_profit_loss: 0,
+                current_value: 0.0,
+                total_profit_loss: 0.0,
                 associatedLeagues: [],
                 errors: []
             }
@@ -224,14 +224,14 @@
                     }).then(result => {
                             self.associatedLeagues = result.data.leagues;
                             self.associatedLeagues.filter(league=>{
-                                self.total_contribution += (league.tournament_total_games * league.league_minimum_bet);
+                                self.total_contribution += (league.tournament_total_games * parseFloat(league.league_minimum_bet));
                                 if(league.league_created_by == (self.userDetails.firstname + " " + self.userDetails.lastname)){
                                     self.total_leagues_admin += 1;
                                 }
                 
                 
-                self.total_profit_loss += league.profit_loss;
-                self.current_value += ((league.tournament_total_games * league.league_minimum_bet) + league.profit_loss);
+                            self.total_profit_loss += parseFloat(league.profit_loss);
+                            self.current_value += (parseFloat(league.tournament_total_games * league.league_minimum_bet) + parseFloat(league.profit_loss));
                             })
                         },
                         err => {
