@@ -35,20 +35,20 @@
                     <div class="row mt-5">
                         <div class="col-lg mb-3">
                             <span class="text-secondary">Contribution, INR</span><br/>
-                            <h3>450.00</h3>
-                            <a href="" class="btn-sm text-violet">Running Leagues: 3</a>
+                            <h3>{{total_contribution}}</h3>
+                            <a href="" class="btn-sm text-violet">Running Leagues: {{total_leagues_admin}}</a>
                         </div>
                         <div class="col-lg mb-3">
                             <span class="text-secondary">Curr. Value, INR</span><br/>
-                            <h3>652.69</h3>
+                            <h3>{{current_value}}</h3>
                         </div>
                         <div class="col-lg mb-3">
                             <span class="text-secondary">P&L</span><br/>
-                            <h3 class="text-success">45.04%</h3>
+                            <h3 class="text-success">{{total_profit_loss}}</h3>
                         </div>
                         <div class="col-lg">
                             <span class="text-secondary">Funds, INR</span><br/>
-                            <h3>63.00</h3>
+                            <h3>TBD</h3>
                             <a href="#" class="btn-sm text-violet">Add Funds</a>
                         </div>
                     </div>
@@ -205,6 +205,10 @@
         data: function() {
             return {
                 userDetails: null,
+                total_contribution: 0,
+                total_leagues_admin: 0,
+                current_value: 0,
+                total_profit_loss: 0,
                 associatedLeagues: [],
                 errors: []
             }
@@ -219,6 +223,16 @@
                         }
                     }).then(result => {
                             self.associatedLeagues = result.data.leagues;
+                            self.associatedLeagues.filter(league=>{
+                                self.total_contribution += (league.tournament_total_games * league.league_minimum_bet);
+                                if(league.league_created_by == (self.userDetails.firstname + " " + self.userDetails.lastname)){
+                                    self.total_leagues_admin += 1;
+                                }
+                
+                
+                self.total_profit_loss += league.profit_loss;
+                self.current_value += ((league.tournament_total_games * league.league_minimum_bet) + league.profit_loss);
+                            })
                         },
                         err => {
                             if (err.response.data.message) {
