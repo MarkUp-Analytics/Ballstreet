@@ -2,6 +2,7 @@
     <div>
         <div class="row p-5 mx-auto text-center bg-light">
             <div class="container">
+                <loading-spinner v-if="showLoadingIcon"></loading-spinner>
                 <h1 class="text-violet mt-1 mb-1">Overview</h1>
                 <h4 class="text-violet mt-1 mb-3">Games and Your P&L</h4>
                 <!-- Block-01: Is this code necessary -->
@@ -36,15 +37,15 @@
                         <div class="col-lg mb-3">
                             <span class="text-secondary">Contribution, INR</span><br/>
                             <h3>450.00</h3>
-                            <a href="" v-scroll-to="'#current-pl'" class="btn-sm text-violet">Running Leagues: 3</a>
+                            <a href="" v-scroll-to="'#current-pl'" class="btn-sm text-violet">Running Leagues: {{total_leagues_admin}}</a>
                         </div>
                         <div class="col-lg mb-3">
                             <span class="text-secondary">Curr. Value, INR</span><br/>
-                            <h3>652.69</h3>
+                            <h3>{{current_value}}</h3>
                         </div>
                         <div class="col-lg mb-3">
                             <span class="text-secondary">P&L</span><br/>
-                            <h3 class="text-success">45.04%</h3>
+                            <h3 class="text-success">{{total_profit_loss}}</h3>
                         </div>
                     </div>
                 </div>
@@ -248,8 +249,12 @@
 
 <script>
     import api from '@/services/api';
+    import LoadingSpinner from '@/components/LoadingSpinner';
     export default {
         name: 'Home',
+        components: {
+            LoadingSpinner,
+        },
         mounted() {
 			this.$nextTick(function () {
 				this.$scrollTo('#app')
@@ -270,6 +275,11 @@
         data: function() {
             return {
                 userDetails: null,
+                showLoadingIcon: false,
+                total_contribution: 0.0,
+                total_leagues_admin: 0,
+                current_value: 0.0,
+                total_profit_loss: 0.0,
                 associatedLeagues: [],
                 errors: [],
                 itemsCurrent: [
@@ -316,15 +326,28 @@
         methods: {
             getAssociatedLeagues: function(shortid) {
                 var self = this;
+                self.showLoadingIcon = true;
                 if (shortid) {
                     api().get('/profile/associatedLeagues', {
                         params: {
                             shortid: shortid
                         }
                     }).then(result => {
+                        self.showLoadingIcon = false;
                             self.associatedLeagues = result.data.leagues;
+                            self.associatedLeagues.filter(league=>{
+                                self.total_contribution += (league.tournament_total_games * parseFloat(league.league_minimum_bet));
+                                if(league.league_created_by == (self.userDetails.firstname + " " + self.userDetails.lastname)){
+                                    self.total_leagues_admin += 1;
+                                }
+                
+                
+                            self.total_profit_loss += parseFloat(league.profit_loss);
+                            self.current_value += (parseFloat(league.tournament_total_games * league.league_minimum_bet) + parseFloat(league.profit_loss));
+                            })
                         },
                         err => {
+                            self.showLoadingIcon = false;
                             if (err.response.data.message) {
                                 self.errors.push(err.response.data.message);
                             } else {

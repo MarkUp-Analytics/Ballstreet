@@ -28,7 +28,7 @@
 								<a class="text-red" href="" @click.prevent="redirectPage('Create')" :class="{'textBold': $route.name === 'Create'}">Create</a>
 							</li>
 							<li class="nav-item m-2">
-								<a class="text-red" href="" @click.prevent="redirectPage('p&l')" :class="{'textBold': $route.name === 'p&l'}">P&L</a>
+								<a class="text-red" href="" @click.prevent="redirectPage('PandL')" :class="{'textBold': $route.name === 'PandL'}">P&L</a>
 							</li>
 							<li class="nav-item m-2">
 								<a class="text-red" href="" @click.prevent="redirectPage('Profile')" :class="{'textBold': $route.name === 'Profile'}">
