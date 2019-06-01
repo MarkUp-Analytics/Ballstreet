@@ -43,38 +43,34 @@
             <div class="col-lg">
             </div>
         </form>
-        <div v-if="leagueSearchResults && leagueSearchResults.length > 0" class="w-100 max-height-90vh table-responsive-xl mb-2">
-                            <table class="table sortable">
-                                <thead>
-                                    <tr class="text-violet">
-                                        <th scope="col-2">Id</th>
-                                        <th scope="col-2">Owner</th>
-                                        <th scope="col-2"># Players</th>
-                                        <th scope="col-2">Capital Req.</th>
-                                        <th scope="col-2">Link</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="league in leagueSearchResults">
-                                        <td class="align-middle">
-                                            {{league.league_shortid}}
-                                        </td>
-                                        <td class="align-middle">
-                                            {{league.league_created_by}}
-                                        </td>
-                                        <td class="align-middle">
-                                            {{league.league_total_members}}
-                                        </td>
-                                        <td class="align-middle">
-                                            {{league.league_minimum_bet*totalGames}}
-                                        </td>
-                                        <td class="align-middle">
-                                            <a href="" @click.prevent="gotoLeagueDashboard(league)" class="text-violet">Visit League</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+        <hr/>
+        <div v-if="leagueSearchResults && leagueSearchResults.length > 0" class="mb-2">
+            <div v-for="league in leagueSearchResults">
+                <div class="row">
+                    <div class="col-lg mb-2">
+                        <span class="text-secondary">Game Id</span><br/>
+                        {{league.league_shortid}}
+                    </div>
+                    <div class="col-lg mb-2">
+                        <span class="text-secondary">Admin</span><br/>
+                        {{league.league_created_by}}
+                    </div>
+                    <div class="col-lg mb-2">
+                        <span class="text-secondary"># Players</span><br/>
+                        {{league.league_total_members}}
+                    </div>
+                    <div class="col-lg mb-2">
+                        <span class="text-secondary">Contribution</span><br/>
+                        {{league.league_minimum_bet*totalGames}}
+                    </div>
+                    <div class="col-lg mb-2">
+                        <span class="text-secondary">Link</span><br/>
+                        <a href="" @click.prevent="gotoLeagueDashboard(league)" class="text-violet">Visit League</a>
+                    </div>
+                </div>
+                <hr/>
+            </div>
+        </div>
     </div>
 </template>
 

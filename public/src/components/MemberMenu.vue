@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-light bg-light shadow-sm w-100 z-index-3">
+    <nav class="navbar sticky-top navbar-light bg-white shadow-sm w-100 z-index-1 border-top">
             <div class=" px-5 mx-auto">
                 <nav class="nav nav-secondary justify-content-center">
                     <a class="nav-link text-secondary" href="" @click.prevent="redirectPage('LeagueDashboard')">

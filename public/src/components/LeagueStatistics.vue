@@ -8,11 +8,16 @@
                 
                 <b-container fluid class="my-4 px-0">
                     <b-row class="my-0 py-0">
-                        <b-col>
+                        <b-col md="7">
                             <b-form-group class="my-2">
                                 <b-input-group>
                                     <b-form-input v-model="filter" placeholder="Type to Search" />
                                 </b-input-group>
+                            </b-form-group>
+                        </b-col>
+                        <b-col md="5">
+                            <b-form-group label-cols="3" label="Per Pg" class="my-2">
+                                <b-form-select :options="pageOptions" v-model="perPage" />
                             </b-form-group>
                         </b-col>
                     </b-row>
@@ -41,6 +46,8 @@
                             :items="leagueStatistics"
                             :fields="fields"
                             :filter="filter"
+                            :current-page="currentPage"
+                            :per-page="perPage"
                             :sort-by.sync="sortBy"
                             :sort-desc.sync="sortDesc"
                             :sort-direction="sortDirection"
@@ -56,6 +63,16 @@
                             </template>
                         </b-table>
                     </div>
+                    <b-row class="mx-auto">
+                        <b-col class="w-100 my-1 mx-auto text-center b-pagination">
+                            <b-pagination
+                                :total-rows="totalRows"
+                                :per-page="perPage"
+                                v-model="currentPage"
+                                class="justify-content-center"
+                            />
+                        </b-col>
+                    </b-row>
                 </b-container>
             </div>
         </div>
@@ -127,7 +144,11 @@ import MemberMenu from '@/components/MemberMenu';
                 sortBy: 'member_name',
                 sortDesc: false,
                 sortDirection: 'asc',
-                filter: null
+                filter: null,
+                currentPage: 1,
+                perPage: 20,
+                totalRows: 40,
+                pageOptions: [10, 20, 30, 40, 50, "Infinte Scroll"]
             }
         },
         computed: {

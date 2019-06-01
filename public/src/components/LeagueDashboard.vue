@@ -22,10 +22,10 @@
                             <div class="col-lg">
                                 <div class="row">
                                     <div class="col-sm-1">
-                                        <i class="fas fa-calendar-day text-violet"></i>
+                                        <i class="fas fa-calendar-day text-secondary"></i>
                                     </div>
                                     <div class="col-sm-11">
-                                        <span class="text-violet">Dates</span><br/>
+                                        <span class="text-secondary">Dates</span><br/>
                                         <span>{{details ? details.tournament_start_date : '' | formatDate}} to {{details ? details.tournament_end_date : '' | formatDate}}</span><br/><br/>
                                     </div>
                                 </div>
@@ -33,10 +33,10 @@
                             <div class="col-lg">
                                 <div class="row">
                                     <div class="col-sm-1">
-                                        <i class="fas fa-id-badge text-violet"></i>
+                                        <i class="fas fa-id-badge text-secondary"></i>
                                     </div>
                                     <div class="col-sm-11">
-                                        <span class="text-violet">Admin</span><br/>
+                                        <span class="text-secondary">Admin</span><br/>
                                         <span>{{league.league_created_by}}</span><br/><br/>
                                     </div>
                                 </div>
@@ -44,10 +44,10 @@
                             <div class="col-lg">
                                 <div class="row">
                                     <div class="col-sm-1">
-                                        <i class="fas fa-glass-cheers text-violet"></i>
+                                        <i class="fas fa-glass-cheers text-secondary"></i>
                                     </div>
                                     <div class="col-sm-11">
-                                        <span class="text-violet"># Players</span><br/>
+                                        <span class="text-secondary"># Players</span><br/>
                                         <span>{{league.league_total_members}}</span><br/><br/>
                                     </div>
                                 </div>
@@ -55,10 +55,10 @@
                             <div class="col-lg">
                                 <div class="row">
                                     <div class="col-sm-1">
-                                        <i class="fas fa-credit-card text-violet"></i>
+                                        <i class="fas fa-credit-card text-secondary"></i>
                                     </div>
                                     <div class="col-sm-11">
-                                        <span class="text-violet">Value</span><br/>
+                                        <span class="text-secondary">Value</span><br/>
                                         <span>{{league.league_minimum_bet}}</span><br/><br/>
                                     </div>
                                 </div>
@@ -66,10 +66,10 @@
                             <div class="col-lg">
                                 <div class="row">
                                     <div class="col-sm-1">
-                                        <i class="fas fa-sitemap text-violet"></i>
+                                        <i class="fas fa-sitemap text-secondary"></i>
                                     </div>
                                     <div class="col-sm-11">
-                                        <span class="text-violet"># Games</span><br/>
+                                        <span class="text-secondary"># Games</span><br/>
                                         <span>{{totalGames}}</span><br/><br/>
                                     </div>
                                 </div>
