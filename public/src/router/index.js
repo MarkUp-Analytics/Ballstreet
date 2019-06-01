@@ -197,7 +197,7 @@ Vue.use(BootstrapVue)
     },
     {
       path: '/p&l',
-      name: 'p&l',
+      name: 'PandL',
       component: PandL,
       meta: {requiresAuth: true, roles: ['ADMIN', 'LEAGUE_MEMBER']}
     },

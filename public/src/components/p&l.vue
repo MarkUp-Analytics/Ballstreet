@@ -69,7 +69,9 @@
                                     <template slot="emptyfiltered" slot-scope="scope">
                                         <h4>{{ scope.emptyFilteredText }}</h4>
                                     </template>
-                                    <span slot="link" slot-scope="data" v-html="data.value" />
+                                    <template slot="link" slot-scope="scope">
+                                        <a href="" @click.prevent="gotoLeagueDashboard(scope.item)">Click</a>
+                                    </template>
                                 </b-table>
                             </div>
                             <b-row class="mx-auto">
@@ -163,48 +165,40 @@
 </template>
 
 <script>
+    import api from '@/services/api';
+    import LoadingSpinner from '@/components/LoadingSpinner';
     export default {
-        name: 'p&l',
+        name: 'PandL',
+        components: {
+            LoadingSpinner,
+        },
+        created() {
+            if (localStorage.getItem('userDetails')) {
+                this.userDetails = JSON.parse(localStorage.getItem('userDetails'));
+                this.getAssociatedLeagues(this.userDetails.shortid);
+            } else {
+                this.$router.push({
+                    name: 'Index',
+                })
+            }
+    
+        },
         data() {
             return {
-                itemsCurrent: [
-                    { tournament: 'Indian Premier League 2019', league: 'Amigos Indian XX IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Indian League 2019', league: 'Am IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Premier League 2019', league: 'Amigos IPL', date: '20/Mar/2019', owner: 'mithunsivagurunathan', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'League 2019', league: 'Amigos', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: '2019', league: 'IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Indian Premier League 2019', league: 'Amigos Indian XX IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Indian League 2019', league: 'Am IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Premier League 2019', league: 'Amigos IPL', date: '20/Mar/2019', owner: 'mithunsivagurunathan', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'League 2019', league: 'Amigos', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: '2019', league: 'IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Indian Premier League 2019', date: '20/Mar/2019', league: 'Amigos Indian XX IPL', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Indian League 2019', league: 'Am IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Premier League 2019', league: 'Amigos IPL', date: '20/Mar/2019', owner: 'mithunsivagurunathan', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'League 2019', league: 'Amigos', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: '2019', league: 'IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Indian Premier League 2019', league: 'Amigos Indian XX IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Indian League 2019', league: 'Am IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Premier League 2019', league: 'Amigos IPL', date: '20/Mar/2019', owner: 'mithunsivagurunathan', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'League 2019', league: 'Amigos', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: '2019', league: 'IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" }
-                ],
-                itemsPast: [
-                    { tournament: 'Past Indian Premier League 2019', league: 'Amigos Indian XX IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Past Indian League 2019', league: 'Am IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Past Premier League 2019', league: 'Amigos IPL', date: '20/Mar/2019', owner: 'mithunsivagurunathan', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Past League 2019', league: 'Amigos', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" },
-                    { tournament: 'Past 2019', league: 'IPL', date: '20/Mar/2019', owner: 'mithsi', capital: 100, current: 120, pl: "20%", link: "<a href='' class='text-violet'>Click</a>" }
-                ],
+                userDetails: null,
+                associatedLeagues: [],
+                errors: [],
+                showLoadingIcon: false,
+                itemsCurrent: [],
+                itemsPast: [],
                 fields: [
-                    { key: 'date', label: 'Date', sortable: true },
-                    { key: 'tournament', label: 'Tournament', sortable: true },
-                    { key: 'league', label: 'League', sortable: true },                    
-                    { key: 'owner', label: 'Owner', sortable: true },
+                    { key: 'tournament_name', label: 'Tournament', sortable: true },
+                    { key: 'league_name', label: 'League', sortable: true },                    
+                    { key: 'league_created_by', label: 'Owner', sortable: true },
                     { key: 'capital', label: 'Capital', sortable: true },
-                    { key: 'current', label: 'Current', sortable: true },
-                    { key: 'pl', label: 'P&L', sortable: true },
-                    { key: 'link', label: 'Link', sortable: true },
+                    { key: 'current_value', label: 'Current', sortable: true },
+                    { key: 'profit_loss', label: 'P&L', sortable: true },
+                    { key: 'link', label: 'Link', sortable: false },
                 ],
                 currentPage: 1,
                 perPage: 20,
@@ -232,7 +226,44 @@
                 // Trigger pagination to update the number of buttons/pages due to filtering
                 this.totalRows = filteredItems.length
                 this.currentPage = 1
-            }
+            },
+
+            getAssociatedLeagues: function(shortid) {
+                var self = this;
+                self.showLoadingIcon = true;
+                if (shortid) {
+                    api().get('/profile/associatedLeagues', {
+                        params: {
+                            shortid: shortid
+                        }
+                    }).then(result => {
+                            self.showLoadingIcon = false;
+                            self.itemsCurrent = result.data.leagues;
+                            self.itemsCurrent.filter(league=>{
+                                league.capital = (league.tournament_total_games * parseFloat(league.league_minimum_bet));
+                                league.profit_loss = parseFloat(league.profit_loss);
+                                league.current_value = (parseFloat(league.tournament_total_games * league.league_minimum_bet) + parseFloat(league.profit_loss));
+                            })
+                        },
+                        err => {
+                            sel.showLoadingIcon = false;
+                            if (err.response.data.message) {
+                                self.errors.push(err.response.data.message);
+                            } else {
+                                self.errors.push("Error creating associated leagues");
+                            }
+                        })
+                }
+            },
+            gotoLeagueDashboard: function(league){
+				this.$router.push({
+                    name: 'LeagueDashboard',
+                    query:{
+                        league: league.league_shortid
+                    }
+                    
+				})
+            },
         }
     }
 </script>
