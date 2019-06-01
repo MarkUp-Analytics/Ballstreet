@@ -3,6 +3,7 @@
         <div class="p-5 mx-auto text-center bg-light">
             <h1 class="text-violet mb-4">P&L</h1>            
             <div class="container h-100 py-2">
+                <loading-spinner v-if="showLoadingIcon"></loading-spinner>
                 <ul class="nav nav-pills nav-fill mt-3">
                     <li class="nav-item current-investments-pill">
                         <a class="nav-link active" data-toggle="tab" href="#current-investments-tab">Current P&L</a>

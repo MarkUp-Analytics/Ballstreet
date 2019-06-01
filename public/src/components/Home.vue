@@ -2,6 +2,7 @@
     <div>
         <div class="row p-5 mx-auto text-center bg-light">
             <div class="container">
+                <loading-spinner v-if="showLoadingIcon"></loading-spinner>
                 <h1 class="text-violet mt-1 mb-1">Overview</h1>
                 <h4 class="text-violet mt-1 mb-3">Games and Your P&L</h4>
                 <!-- Block-01: Is this code necessary -->
@@ -183,8 +184,12 @@
 
 <script>
     import api from '@/services/api';
+    import LoadingSpinner from '@/components/LoadingSpinner';
     export default {
         name: 'Home',
+        components: {
+            LoadingSpinner,
+        },
         mounted() {
 			this.$nextTick(function () {
 				this.$scrollTo('#app')
@@ -205,6 +210,7 @@
         data: function() {
             return {
                 userDetails: null,
+                showLoadingIcon: false,
                 total_contribution: 0.0,
                 total_leagues_admin: 0,
                 current_value: 0.0,
@@ -216,12 +222,14 @@
         methods: {
             getAssociatedLeagues: function(shortid) {
                 var self = this;
+                self.showLoadingIcon = true;
                 if (shortid) {
                     api().get('/profile/associatedLeagues', {
                         params: {
                             shortid: shortid
                         }
                     }).then(result => {
+                        self.showLoadingIcon = false;
                             self.associatedLeagues = result.data.leagues;
                             self.associatedLeagues.filter(league=>{
                                 self.total_contribution += (league.tournament_total_games * parseFloat(league.league_minimum_bet));
@@ -235,6 +243,7 @@
                             })
                         },
                         err => {
+                            self.showLoadingIcon = false;
                             if (err.response.data.message) {
                                 self.errors.push(err.response.data.message);
                             } else {
