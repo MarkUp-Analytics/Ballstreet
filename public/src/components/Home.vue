@@ -114,7 +114,12 @@
                                     <template slot="emptyfiltered" slot-scope="scope">
                                         <h4>{{ scope.emptyFilteredText }}</h4>
                                     </template>
-                                    <span slot="id" slot-scope="data" v-html="data.value" />
+                                    <template slot="league_shortid" slot-scope="scope">
+                                        <span @click.prevent="gotoLeagueDashboard(scope.item)" class="text-violet cursorPointer"><b>{{scope.item.league_shortid}}</b></span>
+                                    </template>
+                                    <template slot="link" slot-scope="scope">
+                                        <a href="" @click.prevent="gotoLeagueDashboard(scope.item)" class="text-violet">Click</a>
+                                    </template>
                                 </b-table>
                             </div>
                             <b-row class="mx-auto">
@@ -242,25 +247,14 @@
                 total_profit_loss: 0.0,
                 associatedLeagues: [],
                 errors: [],
-                itemsCurrent: [
-                    { 
-                        id: "<span class='text-violet'>H5l6sgZUu<span><br/><a href='' class='text-violet'><small>Click to Open</small></a>", 
-                        league: 'Amigos', 
-                        tournament: 'Cricket World Cup 2019', 
-                        admin: 'Gowthaman Ilango',
-                        players: 7, 
-                        contribution: 10, 
-                        pl: -8.33
-                    },
-                ],
                 fields: [
                     { key: 'league_shortid', label: 'Game Id', sortable: true },
                     { key: 'tournament_name', label: 'Tournament', sortable: true },
-                    { key: 'league_name', label: 'League', sortable: true },                    
                     { key: 'league_created_by', label: 'Admin', sortable: true },
                     { key: 'league_total_members', label: '# Players', sortable: true },
                     { key: 'contribution', label: 'Contribution', sortable: true },
-                    { key: 'profit_loss', label: 'P&L', sortable: true }
+                    { key: 'profit_loss', label: 'P&L', sortable: true },
+                    { key: 'link', label: 'Visit League', sortable: false}
                 ],
                 currentPage: 1,
                 perPage: 20,
