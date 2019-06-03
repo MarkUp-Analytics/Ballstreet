@@ -36,7 +36,7 @@
                     <div class="row mt-5">
                         <div class="col-lg mb-3">
                             <span class="text-secondary">Contribution, INR</span><br/>
-                            <h3>450.00</h3>
+                            <h3>{{total_contribution}}</h3>
                             <a href="" v-scroll-to="'#current-pl'" class="btn-sm text-violet">Running Leagues: {{total_leagues_admin}}</a>
                         </div>
                         <div class="col-lg mb-3">
@@ -96,7 +96,7 @@
                             <div class="w-100 table-responsive mt-4 mb-4 px-1">
                                 <b-table 
                                     stacked="md"
-                                    :items="itemsCurrent"
+                                    :items="associatedLeagues"
                                     :fields="fields"
                                     :current-page="currentPage"
                                     :per-page="perPage"
@@ -130,46 +130,6 @@
                         </b-container>
                     <br/>
                     <br/>
-                    <div class="w-100 max-height-90vh table-responsive mt-4 mb-4">
-                        <table class="table sortable">
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>League</th>
-                                    <th>Tournament</th>
-                                    <th>Admin</th>
-                                    <th>#Players</th>
-                                    <th>Contribution</th>
-                                    <th>P&L</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="(league, index) in associatedLeagues">
-                                    <td>
-                                        <span @click.prevent="gotoLeagueDashboard(league)" class="mb-2 text-violet text-underline cursorPointer">{{league.league_shortid}}<br/> <small>Click to Open</small></span>
-                                    </td>
-                                    <td>
-                                        {{league.league_name}}
-                                    </td>
-                                    <td>
-                                        {{league.tournament_name}}
-                                    </td>
-                                    <td>
-                                        {{league.league_created_by}}
-                                    </td>
-                                    <td>
-                                        {{league.league_total_members}}
-                                    </td>
-                                    <td>
-                                        {{league.league_minimum_bet}}
-                                    </td>
-                                    <td>
-                                        {{league.profit_loss}}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
             </div>
         </div>
@@ -294,13 +254,13 @@
                     },
                 ],
                 fields: [
-                    { key: 'id', label: 'Game Id', sortable: true },
-                    { key: 'tournament', label: 'Tournament', sortable: true },
-                    { key: 'league', label: 'League', sortable: true },                    
-                    { key: 'admin', label: 'Admin', sortable: true },
-                    { key: 'players', label: '# Players', sortable: true },
+                    { key: 'league_shortid', label: 'Game Id', sortable: true },
+                    { key: 'tournament_name', label: 'Tournament', sortable: true },
+                    { key: 'league_name', label: 'League', sortable: true },                    
+                    { key: 'league_created_by', label: 'Admin', sortable: true },
+                    { key: 'league_total_members', label: '# Players', sortable: true },
                     { key: 'contribution', label: 'Contribution', sortable: true },
-                    { key: 'pl', label: 'P&L', sortable: true }
+                    { key: 'profit_loss', label: 'P&L', sortable: true }
                 ],
                 currentPage: 1,
                 perPage: 20,
@@ -336,6 +296,7 @@
                         self.showLoadingIcon = false;
                             self.associatedLeagues = result.data.leagues;
                             self.associatedLeagues.filter(league=>{
+                                league.contribution = league.tournament_total_games * parseFloat(league.league_minimum_bet);
                                 self.total_contribution += (league.tournament_total_games * parseFloat(league.league_minimum_bet));
                                 if(league.league_created_by == (self.userDetails.firstname + " " + self.userDetails.lastname)){
                                     self.total_leagues_admin += 1;
