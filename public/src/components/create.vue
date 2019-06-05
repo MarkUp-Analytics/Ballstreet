@@ -14,7 +14,7 @@
                 </div>
                 <form>
                     <div class="form-group mt-4">
-                        <label>Sport</label>
+                        <label>Category</label>
                         <select class="form-control" v-model="sportFilter">
                             <option v-for="sport in sportsList">
                                 {{ sport }}
@@ -23,7 +23,7 @@
                         
                     </div>
                     <div class="form-group mt-3">
-                        <label>Tournament</label>
+                        <label>Event</label>
                         <select class="form-control" v-model="selectedTour" :disabled="!sportFilter">
                             <option v-for="tour in filteredUpcomingTours" :value="tour">
                                 {{ tour.tournament_name }}
@@ -32,7 +32,7 @@
                         <small v-if="selectedTour">No. of Games: {{totalGames}}</small>
                     </div>
                     <div class="form-group mt-3">
-                        <label>Enter Cash Per Game, INR</label>
+                        <label>Enter Contribution Per Game, INR</label>
                         <input class="form-control" type="text" placeholder="Example: INR 10" v-model="minimum_bet">
                         <small v-if="minimum_bet">Total Contribution Required, {{'INR'}}: {{minimum_bet * totalGames}}</a></small>
                     </div>

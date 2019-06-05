@@ -59,83 +59,81 @@
             <div class="p-5 mx-auto text-center bg-white">
                 <div class="container" id="current-pl">
                     <h1 class="text-violet mt-1 mb-5">Ongoing Leagues</h1>
-                        <b-container fluid  class="p-0">
-                            <b-row class="my-0 py-0">
-                                <b-col md="7">
-                                    <b-form-group class="my-2">
-                                        <b-input-group>
-                                            <b-form-input v-model="filter" placeholder="Type to Search" />
-                                        </b-input-group>
-                                    </b-form-group>
+                    <b-container fluid  class="p-0">
+                        <b-row class="my-0 py-0">
+                            <b-col md="7">
+                                <b-form-group class="my-2">
+                                    <b-input-group>
+                                        <b-form-input v-model="filter" placeholder="Type to Search" />
+                                    </b-input-group>
+                                </b-form-group>
+                            </b-col>
+                            <b-col md="5">
+                                <b-form-group label-cols="3" label="Per Pg" class="my-2">
+                                    <b-form-select :options="pageOptions" v-model="perPage" />
+                                </b-form-group>
+                            </b-col>
+                        </b-row>
+                        <b-form-group class="my-2 d-md-none">
+                            <b-input-group>
+                                <b-col cols="8" class="p-0">
+                                    <b-form-select v-model="sortBy" :options="sortOptions">
+                                        <option slot="first" :value="null">Select field to sort by...</option>
+                                    </b-form-select>
                                 </b-col>
-                                <b-col md="5">
-                                    <b-form-group label-cols="3" label="Per Pg" class="my-2">
-                                        <b-form-select :options="pageOptions" v-model="perPage" />
-                                    </b-form-group>
+                                <b-col class="p-0">
+                                    <b-form-select :disabled="!sortBy" v-model="sortDesc" slot="append">
+                                        <option :value="false">
+                                            Asc
+                                        </option>
+                                        <option :value="true">
+                                            Desc
+                                        </option>
+                                    </b-form-select>
                                 </b-col>
-                            </b-row>
-                            <b-form-group class="my-2 d-md-none">
-                                <b-input-group>
-                                    <b-col cols="8" class="p-0">
-                                        <b-form-select v-model="sortBy" :options="sortOptions">
-                                            <option slot="first" :value="null">Select field to sort by...</option>
-                                        </b-form-select>
-                                    </b-col>
-                                    <b-col class="p-0">
-                                        <b-form-select :disabled="!sortBy" v-model="sortDesc" slot="append">
-                                            <option :value="false">
-                                                Asc
-                                            </option>
-                                            <option :value="true">
-                                                Desc
-                                            </option>
-                                        </b-form-select>
-                                    </b-col>
-                                </b-input-group>
-                            </b-form-group>
-                            <div class="w-100 table-responsive mt-4 mb-4 px-1">
-                                <b-table 
-                                    stacked="md"
-                                    :items="associatedLeagues"
-                                    :fields="fields"
-                                    :current-page="currentPage"
+                            </b-input-group>
+                        </b-form-group>
+                        <div class="w-100 table-responsive mt-4 mb-4 px-1">
+                            <b-table 
+                                stacked="md"
+                                :items="associatedLeagues"
+                                :fields="fields"
+                                :current-page="currentPage"
+                                :per-page="perPage"
+                                :filter="filter"
+                                :sort-by.sync="sortBy"
+                                :sort-desc.sync="sortDesc"
+                                :sort-direction="sortDirection"
+                                @filtered="onFiltered"
+                                show-empty
+                                class="w-100 align-middle"
+                            >
+                                <template slot="empty" slot-scope="scope">
+                                    <h4>{{ scope.emptyText }}</h4>
+                                </template>
+                                <template slot="emptyfiltered" slot-scope="scope">
+                                    <h4>{{ scope.emptyFilteredText }}</h4>
+                                </template>
+                                <template slot="league_shortid" slot-scope="scope">
+                                    <span @click.prevent="gotoLeagueDashboard(scope.item)" class="text-violet cursorPointer"><b>{{scope.item.league_shortid}}</b></span>
+                                </template>
+                            </b-table>
+                        </div>
+                        <b-row class="mx-auto">
+                            <b-col class="w-100 my-1 mx-auto text-center b-pagination">
+                                <b-pagination
+                                    :total-rows="totalRowsCurrent"
                                     :per-page="perPage"
-                                    :filter="filter"
-                                    :sort-by.sync="sortBy"
-                                    :sort-desc.sync="sortDesc"
-                                    :sort-direction="sortDirection"
-                                    @filtered="onFiltered"
-                                    show-empty
-                                    class="w-100 align-middle"
-                                >
-                                    <template slot="empty" slot-scope="scope">
-                                        <h4>{{ scope.emptyText }}</h4>
-                                    </template>
-                                    <template slot="emptyfiltered" slot-scope="scope">
-                                        <h4>{{ scope.emptyFilteredText }}</h4>
-                                    </template>
-                                    <template slot="league_shortid" slot-scope="scope">
-                                        <span @click.prevent="gotoLeagueDashboard(scope.item)" class="text-violet cursorPointer"><b>{{scope.item.league_shortid}}</b></span>
-                                    </template>
-                                </b-table>
-                            </div>
-                            <b-row class="mx-auto">
-                                <b-col class="w-100 my-1 mx-auto text-center b-pagination">
-                                    <b-pagination
-                                        :total-rows="totalRowsCurrent"
-                                        :per-page="perPage"
-                                        v-model="currentPage"
-                                        class="justify-content-center"
-                                    />
-                                </b-col>
-                            </b-row>
-                        </b-container>
-                    <br/>
-                    <br/>
+                                    v-model="currentPage"
+                                    class="justify-content-center"
+                                />
+                            </b-col>
+                        </b-row>
+                    </b-container>
                 </div>
             </div>
         </div>
-
+        <hr/>
         <div class="p-5 mx-auto text-center bg-white">
             <div class="container">
                 <h1 class="text-violet mt-1 mb-1">Upcoming Tournaments</h1>
@@ -212,11 +210,12 @@
                 errors: [],
                 fields: [
                     { key: 'league_shortid', label: 'League Id', sortable: true },
-                    { key: 'league_shortid', label: 'League Name', sortable: true },
+                    { key: '', label: 'League Name', sortable: true },
                     { key: 'tournament_name', label: 'Event', sortable: true },
                     { key: 'league_created_by', label: 'Admin', sortable: true },
                     { key: 'league_total_members', label: '#Players', sortable: true },
                     { key: 'contribution', label: 'Contribution', sortable: true },
+                    { key: 'contribution', label: 'Current Value', sortable: true },
                     { key: 'profit_loss', label: 'P&L', sortable: true },
                     { key: 'profit_loss', label: 'P&L, %', sortable: true }
                 ],

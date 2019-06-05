@@ -16,7 +16,7 @@
                     <loading-spinner v-if="showLoadingIcon"></loading-spinner>
                     <form>
                         <div class="form-group mt-3">
-                            <label>Sport</label>
+                            <label>Category</label>
                             <select class="form-control" v-model="selectedSport">
                                 <option v-for="sport in sportsList" :value="sport">
                                     {{ sport.sport_name }}
@@ -24,7 +24,7 @@
                             </select>
                         </div>
                         <div class="form-group mt-3">
-                            <label>Tournament</label>
+                            <label>Event</label>
                             <select class="form-control" v-model="selectedtournament">
                                 <option v-for="tour in filteredTournamentList" :value="tour">
                                     {{ tour.tournament_name }}

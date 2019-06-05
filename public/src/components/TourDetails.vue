@@ -53,8 +53,12 @@
             <div v-for="league in leagueSearchResults">                
                 <div class="row">
                     <div class="col-lg mb-2">
-                        <span class="text-secondary">Game Id</span><br/>
-                        {{league.league_shortid}}
+                        <span class="text-secondary">League Id</span><br/>
+                        <a href="" @click.prevent="gotoLeagueDashboard(league)" class="text-violet text-bold">{{league.league_shortid}}</a>
+                    </div>
+                    <div class="col-lg mb-2">
+                        <span class="text-secondary">League Name</span><br/>
+                        {{league.league_name}}
                     </div>
                     <div class="col-lg mb-2">
                         <span class="text-secondary">Admin</span><br/>
@@ -67,10 +71,6 @@
                     <div class="col-lg mb-2">
                         <span class="text-secondary">Contribution</span><br/>
                         {{league.league_minimum_bet*totalGames}}
-                    </div>
-                    <div class="col-lg mb-2">
-                        <span class="text-secondary">Link</span><br/>
-                        <a href="" @click.prevent="gotoLeagueDashboard(league)" class="text-violet">Visit League</a>
                     </div>
                 </div>
                 <hr/>
