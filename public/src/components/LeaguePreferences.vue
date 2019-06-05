@@ -62,7 +62,7 @@
                 <div class="card-columns">
 					<div v-for="game in games.slice(0, limitGames)" class="card bg-white">                        
                         <div class="card-header bg-none">
-                            A vs B
+                            {{getTeamFromGlobalList(game.team_1_id).team_abbreviation}} vs {{getTeamFromGlobalList(game.team_2_id).team_abbreviation}}
                         </div>
 						<div class="card-body">                       
 							<div class="text-left p-1">

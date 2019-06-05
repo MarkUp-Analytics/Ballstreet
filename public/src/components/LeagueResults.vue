@@ -6,12 +6,12 @@
                 <loading-spinner v-if="showLoadingIcon"></loading-spinner>
                 <h1 class="text-violet mt-1 mb-5">Results</h1>
                 
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalPlayers">
+                <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalPlayers">
                     Launch demo modal
-                </button>
+                </button> -->
 
                 <!-- Modal -->
-                <div class="modal fade" id="ModalPlayers" tabindex="-1" role="dialog" aria-labelledby="ModalPlayersTitle" aria-hidden="true">
+                <!-- <div class="modal fade" id="ModalPlayers" tabindex="-1" role="dialog" aria-labelledby="ModalPlayersTitle" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-body">
@@ -69,7 +69,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 
                 <b-container fluid class="my-4 px-0">
                     <b-row class="my-0 py-0">
