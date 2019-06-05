@@ -137,7 +137,7 @@ import MemberMenu from '@/components/MemberMenu';
                 fields: [
                     { key: 'member_name', label: 'Name', sortable: true },
                     { key: 'email', label: 'Email', sortable: true },
-                    { key: 'profit_loss', label: 'Net P&L', sortable: true },
+                    { key: 'profit_loss', label: 'P&L', sortable: true },
                     { key: 'current_streak', label: 'Current Streak', sortable: true },
                     { key: 'risk_taking_score', label: 'Risk Score', sortable: true }
                 ],

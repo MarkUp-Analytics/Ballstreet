@@ -43,9 +43,14 @@
             <div class="col-lg">
             </div>
         </form>
-        <hr/>
+        
         <div v-if="leagueSearchResults && leagueSearchResults.length > 0" class="mb-2">
-            <div v-for="league in leagueSearchResults">
+            <div class="row">
+                <div class="col-lg">
+                    <hr/>
+                </div>
+            </div>
+            <div v-for="league in leagueSearchResults">                
                 <div class="row">
                     <div class="col-lg mb-2">
                         <span class="text-secondary">Game Id</span><br/>

@@ -34,7 +34,7 @@
                     <div class="form-group mt-3">
                         <label>Enter Cash Per Game, INR</label>
                         <input class="form-control" type="text" placeholder="Example: INR 10" v-model="minimum_bet">
-                        <small v-if="minimum_bet">Total Cash Required, {{'INR'}}: {{minimum_bet * totalGames}}</a></small>
+                        <small v-if="minimum_bet">Total Contribution Required, {{'INR'}}: {{minimum_bet * totalGames}}</a></small>
                     </div>
                     <div class="form-group mt-3">
                         <label>League Name</label>

@@ -37,7 +37,6 @@
                         <div class="col-lg mb-3">
                             <span class="text-secondary">Contribution, INR</span><br/>
                             <h3>{{total_contribution}}</h3>
-                            <a href="" v-scroll-to="'#current-pl'" class="btn-sm text-violet">Running Leagues: {{total_leagues_admin}}</a>
                         </div>
                         <div class="col-lg mb-3">
                             <span class="text-secondary">Curr. Value, INR</span><br/>
@@ -47,6 +46,10 @@
                             <span class="text-secondary">P&L, INR</span><br/>
                             <h3 class="text-success">{{total_profit_loss}}</h3>
                         </div>
+                        <div class="col-lg mb-3">
+                            <span class="text-secondary">P&L, %</span><br/>
+                            <h3 class="text-success">{{Number((total_profit_loss*100/current_value).toFixed(2))}}%</h3>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -55,10 +58,7 @@
         <div v-if="associatedLeagues.length > 0">
             <div class="p-5 mx-auto text-center bg-white">
                 <div class="container" id="current-pl">
-                    <h1 class="text-violet mt-1 mb-5">Current P&L</h1>
-
-
-
+                    <h1 class="text-violet mt-1 mb-5">Ongoing Leagues</h1>
                         <b-container fluid  class="p-0">
                             <b-row class="my-0 py-0">
                                 <b-col md="7">
@@ -117,9 +117,6 @@
                                     <template slot="league_shortid" slot-scope="scope">
                                         <span @click.prevent="gotoLeagueDashboard(scope.item)" class="text-violet cursorPointer"><b>{{scope.item.league_shortid}}</b></span>
                                     </template>
-                                    <template slot="link" slot-scope="scope">
-                                        <a href="" @click.prevent="gotoLeagueDashboard(scope.item)" class="text-violet">Click</a>
-                                    </template>
                                 </b-table>
                             </div>
                             <b-row class="mx-auto">
@@ -143,10 +140,7 @@
             <div class="container">
                 <h1 class="text-violet mt-1 mb-1">Upcoming Tournaments</h1>
                 <h4 class="text-violet mt-1 mb-1">Basis Your Preferences</h4>
-                <a href="" @click.prevent="redirectPage('Discover')" class="text-violet">
-                    <h6 class="mt-1 mb-5">Click here to update your sports preferences</h6>
-                </a>
-
+                <a href="" class="text-violet"><h6 class="mt-1 mb-5">Click here to update your sports preferences</h6></a>
                 <div class="text-center mt-4 mb-5">
                     <div class="row mb-1">
                         <div class="col h3">
@@ -155,59 +149,28 @@
                     </div>
                     <div class="row">
                         <div class="col-lg mb-2">
-                            <img src="../../static/assets/images/ipl.png" class="rounded border" width="50px" height="50px"/>
+                            <img src="/static/img/ipl.ef8e5c1.png" width="50px" height="50px" class="rounded border">
                         </div>
                         <div class="col-lg mb-2">
-                            <span class="text-secondary">Teams</span><br/>
+                            <span class="text-secondary">Teams</span><br>
                             Austalia, England, India, Srilanka, Pakistan
                         </div>
                         <div class="col-lg mb-2">
-                            <span class="text-secondary">Dates</span><br/>
+                            <span class="text-secondary">Dates</span><br>
                             28-June-2018 to 31-December-2018
                         </div>
                         <div class="col-lg mb-2">
-                            <span class="text-secondary">Venue</span><br/>
+                            <span class="text-secondary">Venue</span><br>
                             Australia
                         </div>
                         <div class="col-lg mb-2">
-                            <span class="text-secondary"># Games</span><br/>
+                            <span class="text-secondary"># Games</span><br>
                             72
                         </div>
                     </div>
-                </div>  
-
-                <div class="text-center mt-4 mb-5">
-                    <div class="row mb-1">
-                        <div class="col h3">
-                            <a href="#" class="text-violet">Gavaskar-Border Trophy 2018</a> | <a href="#" class="text-violet">Cricket</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg mb-2">
-                            <img src="../../static/assets/images/ipl.png" class="rounded border" width="50px" height="50px"/>
-                        </div>
-                        <div class="col-lg mb-2">
-                            <span class="text-secondary">Teams</span><br/>
-                            Austalia, England, India, Srilanka, Pakistan
-                        </div>
-                        <div class="col-lg mb-2">
-                            <span class="text-secondary">Dates</span><br/>
-                            28-June-2018 to 31-December-2018
-                        </div>
-                        <div class="col-lg mb-2">
-                            <span class="text-secondary">Venue</span><br/>
-                            Australia
-                        </div>
-                        <div class="col-lg mb-2">
-                            <span class="text-secondary"># Games</span><br/>
-                            72
-                        </div>
-                    </div>
-                </div>                
-            </div>                    
-            <a href="" @click.prevent="redirectPage('Discover')" class="text-violet">
-                <h6 class="mt-1 mb-5">Click here to discover all the upcoming tournaments</h6>
-            </a>
+                </div> 
+            </div>
+            <a href="" class="text-violet"><h6 class="mt-1 mb-5">Click here to discover all the upcoming tournaments</h6></a>
         </div>
     </div>
 </template>
@@ -248,13 +211,14 @@
                 associatedLeagues: [],
                 errors: [],
                 fields: [
-                    { key: 'league_shortid', label: 'Game Id', sortable: true },
-                    { key: 'tournament_name', label: 'Tournament', sortable: true },
+                    { key: 'league_shortid', label: 'League Id', sortable: true },
+                    { key: 'league_shortid', label: 'League Name', sortable: true },
+                    { key: 'tournament_name', label: 'Event', sortable: true },
                     { key: 'league_created_by', label: 'Admin', sortable: true },
-                    { key: 'league_total_members', label: '# Players', sortable: true },
+                    { key: 'league_total_members', label: '#Players', sortable: true },
                     { key: 'contribution', label: 'Contribution', sortable: true },
                     { key: 'profit_loss', label: 'P&L', sortable: true },
-                    { key: 'link', label: 'Visit League', sortable: false}
+                    { key: 'profit_loss', label: 'P&L, %', sortable: true }
                 ],
                 currentPage: 1,
                 perPage: 20,

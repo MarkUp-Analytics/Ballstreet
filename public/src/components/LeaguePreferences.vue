@@ -16,10 +16,9 @@
         </div>
         <div class="p-5 mx-auto text-center bg-light">
             <div v-if="userIsLeagueMember" class="container">
-                <h1 class="text-violet mt-1 ">Team Preference</h1>
-                <div>
-                    <span class="text-secondary mb-3" style="font-size:smaller">Drag the team name to modify your preference</span>
-                </div>
+                <h1 class="text-violet mt-3">Team Preference</h1>
+                <h6 class="text-secondary">Drag the teams to the order of your preferences - All upcoming game selections will be basis your preference list</h6>
+                <a href="" v-scroll-to="'#upcoming-games'" class="text-violet mb-3"><h6 class="mt-1 mb-5">To override the preferences list, for the upcoming games, click here</h6></a>
                 <div class="row my-4">
                     <div class="col-lg my-4">
                     </div>
@@ -53,44 +52,56 @@
                 </div>              
             </div>
         </div>
-        <div class="p-5 mx-auto text-center bg-white">
+        <div class="p-5 mx-auto text-center bg-white" id="upcoming-games">
             <div class="container pb-5">
-                <h3 class="text-violet mt-1 mb-1">Upcoming Games</h3>
+                <h3 class="text-violet mt-3 mb-1">Upcoming Games</h3>
                 <h6 class="mt-1 mb-5">
                     <a href="" @click.prevent="limitGames=3" v-if="totalGames >= 3" class="text-violet mx-2">3 Games</a> <a href="" @click.prevent="limitGames = 5" v-if="totalGames >= 5" class="text-violet mx-2">5 Games</a> <a href="" @click.prevent="limitGames = 7" v-if="totalGames >= 7" class="text-violet mx-2">7 Games</a> <a href="" @click.prevent="limitGames = 14" v-if="totalGames >= 14" class="text-violet mx-2">14 Games</a>
                 </h6>
                 
                 <div class="card-columns">
-					<div v-for="game in games.slice(0, limitGames)" class="card bg-white">
-                        <div v-if="game.errors.length" class="alert alert-danger alert-dismissible fade show w-100" role="alert">
-                            <span v-for="error in game.errors">
-                                <strong>Error!</strong> {{error}}
-                            </span>
-                            <button type="button" class="close" data-dismiss="alert" @click="game.errors = [];" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+					<div v-for="game in games.slice(0, limitGames)" class="card bg-white">                        
+                        <div class="card-header bg-none">
+                            A vs B
                         </div>
-                        <div v-if="game.success.length" class="alert alert-success alert-dismissible fade show w-100" role="alert">
-                            <span v-for="success in game.success">
-                                <strong>Success!</strong> {{success}}
-                            </span>
-                            <button type="button" class="close" data-dismiss="alert" @click="game.success = [];" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-						<div class="card-body">
+						<div class="card-body">                       
 							<div class="text-left p-1">
+                                <div class="form-group">
+                                    <div v-if="game.errors.length" class="alert alert-danger alert-dismissible fade show w-100" role="alert">
+                                        <span v-for="error in game.errors">
+                                            <strong>Error!</strong> {{error}}
+                                        </span>
+                                        <button type="button" class="close" data-dismiss="alert" @click="game.errors = [];" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div v-if="game.success.length" class="alert alert-success alert-dismissible fade show w-100" role="alert">
+                                        <span v-for="success in game.success">
+                                            <strong>Success!</strong> {{success}}
+                                        </span>
+                                        <button type="button" class="close" data-dismiss="alert" @click="game.success = [];" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>                                     
+                                </div>                                
                                 <div class="form-group mt-2">
-                                    <label>Match Starts: {{getDate(game.match_fixture_start_date, game.stadium_timezone) | formatDate}} {{" " + game.match_fixture_toss_time}} </label>                                    
+                                    <label>
+                                        <span class="text-secondary">Date:<br/></span>{{getDate(game.match_fixture_start_date, game.stadium_timezone) | formatDate}} {{" " + game.match_fixture_toss_time}} 
+                                    </label>                                    
                                 </div>
                                 <div class="form-group mt-2">
-                                    <label>Time left: {{getRemainingTime(game.match_fixture_start_date, game.match_fixture_toss_time, game.stadium_timezone)}}</label>                                    
+                                    <label>
+                                        <span class="text-secondary">Time left:<br/></span>{{getRemainingTime(game.match_fixture_start_date, game.match_fixture_toss_time, game.stadium_timezone)}}
+                                    </label>                                    
                                 </div>
                                 <div class="form-group mt-2">
-                                    <label>{{game.stadium_name}}</label>                                    
+                                    <label>
+                                        <span class="text-secondary">Venue:<br/></span>{{game.stadium_name}}
+                                    </label>                                    
                                 </div>
                                 <div class="form-group mt-2">
-                                    <label>Preference:</label>
+                                    <label>
+                                        <span class="text-secondary">Preference:</span></label>
                                     <v-select v-model="game.selected_team_model" :options="game.teamList" 
                                         item-value="team_id"
                                         item-text="team_abbreviation"
@@ -98,7 +109,10 @@
                                     </v-select>
                                 </div>
                                 <div class="form-group mt-2">
-                                    <small><a href="" v-scroll-to="'#update-preferences'" class="text-violet">Override is applicable only for this game. To update preferences for all games, click here.</a></small>
+                                    <small>
+                                        <span class="text-secondary">Note:<br/></span>Override is applicable only for this game.<br/>
+                                        <a href="" v-scroll-to="'#update-preferences'" class="text-violet">To update the master list of preferences for all upcoming games, click here.</a>
+                                    </small>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg mt-4">
