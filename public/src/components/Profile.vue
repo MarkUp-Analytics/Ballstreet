@@ -1,15 +1,19 @@
 <template>
     <div>
-        <nav class="navbar sticky-top navbar-light bg-white shadow-sm w-100 z-index-1 border-top" id="profile-navbar">
+        <nav class="navbar navbar-light bg-white shadow-sm w-100 z-index-1000000 border-top" id="profile-navbar">
             <div class=" px-5 mx-auto">
                 <nav class="nav nav-secondary justify-content-center">
                     <a class="nav-link text-secondary b-0" href="" v-scroll-to="'#user'">
-                        <span class="d-sm-none" title="User-Info">User</span>
+                        <span class="" title="User-Info"><i class="fas fa-user-tag"></i></span>
                         <span class="d-none d-sm-block">User Info</span>
                     </a>
                     <a class="nav-link text-secondary b-0" href="" v-scroll-to="'#password'">
-                        <span class="d-sm-none" title="Password">Pass</span>
+                        <span class="" title="Password"><i class="fas fa-key"></i></span>
                         <span class="d-none d-sm-block">Password</span>
+                    </a>
+                    <a class="nav-link text-secondary b-0" href="" v-scroll-to="'#log'">
+                        <span class="" title="Password"><i class="fas fa-warehouse"></i></span>
+                        <span class="d-none d-sm-block">Actions Log</span>
                     </a>
                 </nav>
             </div>
@@ -124,6 +128,20 @@
                                 </div>
                             </div>
                         </form>
+                    </div>
+                    <div class="col-md"></div>
+                </div>
+            </section>
+            <hr/>
+            <section class="p-5 text-center" id="log">
+                <h1 class="text-violet mt-3 mb-4">Actions Log</h1>
+                <div class="row mx-auto mb-2">
+                    <div class="col-md"></div>
+                    <div class="col-md">
+                        <p>Action 1: Mithun</p>
+                        <p>Action 1: Mithun</p>
+                        <p>Action 1: Mithun</p>
+                        <p>Action 1: Mithun</p>
                     </div>
                     <div class="col-md"></div>
                 </div>

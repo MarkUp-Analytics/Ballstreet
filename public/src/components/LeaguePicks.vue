@@ -4,34 +4,56 @@
         <div class="p-5 mx-auto text-center bg-light">
             <div class="container">
                 <loading-spinner v-if="showLoadingIcon"></loading-spinner>
-                <h1 class="text-violet mt-1 mb-5">Picks</h1>
+                <h1 class="text-violet mt-1">Picks</h1>
+                <h6 class="text-secondary mb-5">Select the game to know the teams the players have picked.</h6>
                 
-                <b-container fluid class="my-4 px-0">
-                    <div class="form-group mt-2">
-                        <label style="display: inline;">
-                            <span class="text-secondary">Game:</span>
-                        </label>
-                        <v-select style="display: inline-block; margin-left:10px; width:200px;" v-if="lockedGames && lockedGames.length > 0" v-model="selected_game" :options="lockedGames" 
-                            item-value="match_fixture_id"
-                            item-text="displayText"
-                            label="displayText">
-                        </v-select>
+                <b-container fluid class="my-4">
+                    <div class="row">
+                        <div class="col-lg-3">
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mt-2">
+                                <label style="display: inline;">
+                                    <span class="text-secondary">Game:</span>
+                                </label>
+                                <v-select class="text-center" v-if="lockedGames && lockedGames.length > 0" v-model="selected_game" :options="lockedGames" 
+                                    item-value="match_fixture_id"
+                                    item-text="displayText"
+                                    label="displayText">
+                                </v-select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                        </div>
                     </div>
-                    <b-row class="my-0 py-0">
-                        <b-col>
-                            <img style=" " v-if="selected_game && selected_game != null" :src="getTeamFromGlobalList(selected_game.team_a_id).team_image" width="75px" height="50px"/>
-                            <div style="margin-top:15px;" v-if="selected_game && selected_game != null" v-for="member in membersWithTeamA">
-                                <h6>{{member.name}}</h6>
+                    
+                    <hr class="my-5"/>
+
+                    <h3>IND v SA</h3>
+                    <h5 class="mb-5">23-Jun-2019 15:00 Hrs | The Oval Cricket Ground (The Oval), Kennington</h5>
+                    
+                    <div class="row">
+                        <div class="col-lg-2">
+                        </div>
+                        <div class="col-lg-4 mb-5">
+                            <img style=" " v-if="selected_game && selected_game != null" :src="getTeamFromGlobalList(selected_game.team_a_id).team_image" width="50px" height="50px"/>
+                            <h4 class="mt-2 mb-0">Ind</h4>
+                            <h5 class="mt-0 mb-4">Supporters: 10</h5>
+                            <div class="" v-if="selected_game && selected_game != null" v-for="member in membersWithTeamA">
+                                <p>{{member.name}}</p>                               
                             </div>
-                                
-                        </b-col>
-                        <b-col>
-                            <img v-if="selected_game && selected_game != null" :src="getTeamFromGlobalList(selected_game.team_b_id).team_image" width="75px" height="50px"/> 
-                            <div style="margin-top:15px;" v-if="selected_game && selected_game != null" v-for="member in membersWithTeamB">
-                                <h6>{{member.name}}</h6>
+                        </div>
+                        <div class="col-lg-4 mb-5">
+                            <img style=" " v-if="selected_game && selected_game != null" :src="getTeamFromGlobalList(selected_game.team_b_id).team_image" width="50px" height="50px"/>
+                            <h4 class="mt-2 mb-0">Ind</h4>
+                            <h5 class="mt-0 mb-4">Supporters: 10</h5>
+                            <div class="" v-if="selected_game && selected_game != null" v-for="member in membersWithTeamB">
+                                <p>{{member.name}}</p>                               
                             </div>
-                        </b-col>
-                    </b-row>
+                        </div>
+                        <div class="col-lg-2">
+                        </div>
+                    </div>
                 </b-container>
             </div>
         </div>
@@ -209,7 +231,7 @@ import MemberMenu from '@/components/MemberMenu';
                 }).then(result => {
                         self.lockedGames = result.data.scheduleList;
                         self.lockedGames.filter(game=>{
-                            game.displayText = game.team_a_abbreviation + " VS " + game.team_b_abbreviation;
+                            game.displayText = "23-June-2019 15:00 Hrs" + " | " + game.team_a_abbreviation + " VS " + game.team_b_abbreviation;
                         });
                         self.selected_game = self.lockedGames[self.lockedGames.length - 1];
                     },

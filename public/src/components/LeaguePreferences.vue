@@ -16,13 +16,13 @@
         </div>
         <div class="p-5 mx-auto text-center bg-light">
             <div v-if="userIsLeagueMember" class="container">
-                <h1 class="text-violet mt-3">Team Preference</h1>
+                <h1 class="text-violet mt-1">Team Preference</h1>
                 <h6 class="text-secondary">Drag the teams to the order of your preferences - All upcoming game selections will be basis your preference list</h6>
-                <a href="" v-scroll-to="'#upcoming-games'" class="text-violet mb-3"><h6 class="mt-1 mb-5">To override the preferences list, for the upcoming games, click here</h6></a>
-                <div class="row my-4">
-                    <div class="col-lg my-4">
+                <a href="" v-scroll-to="'#upcoming-games'" class="text-violet mb-5"><h6 class="mt-1 mb-5">To override the preferences list, for the upcoming games, click here</h6></a>
+                <div class="row mt-5 mb-4">
+                    <div class="col-lg">
                     </div>
-                    <div class="col-lg my-4">
+                    <div class="col-lg">
                         <draggable v-model="teamPreferenceList" :options="{animation:150}" @start="drag=true" @end="drag=false" @change="updatePreference()">
                              <transition-group type="transition" name="flip-list">
                             <div v-for="team in teamPreferenceList" :key="team.team_id">
@@ -45,10 +45,8 @@
                             </transition-group>
                         </draggable>
                     </div>
-                    <div class="col-lg my-4">
-                        
+                    <div class="col-lg">
                     </div>
-                    
                 </div>              
             </div>
         </div>
