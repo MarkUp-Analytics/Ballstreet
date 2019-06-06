@@ -9,6 +9,7 @@ import Create from '@/components/Create'
 import Discover from '@/components/Discover'
 import LeagueDashboard from '@/components/LeagueDashboard'
 import LeaguePreferences from '@/components/LeaguePreferences'
+import LeaguePicks from '@/components/LeaguePicks'
 import LeaguePlayers from '@/components/LeaguePlayers'
 import LeagueResults from '@/components/LeagueResults'
 import LeagueStatistics from '@/components/LeagueStatistics'
@@ -156,6 +157,12 @@ Vue.use(BootstrapVue)
       path: '/preference',
       name: 'LeaguePreferences',
       component: LeaguePreferences,
+      meta: {requiresAuth: true, roles: ['ADMIN', 'LEAGUE_MEMBER']}
+    },
+    {
+      path: '/picks',
+      name: 'LeaguePicks',
+      component: LeaguePicks,
       meta: {requiresAuth: true, roles: ['ADMIN', 'LEAGUE_MEMBER']}
     },
     {

@@ -58,4 +58,19 @@ router.get('/getLeagueStatistics', (req, res, next) => { //Method to get league 
     })
 });
 
+router.get('/getLeaguePicks', (req, res, next) => { //Method to get league picks for locked games
+    leagueMemberController.getLeaguePicks(req.query.leagueId, function (err, leaguePicks) {
+        if (err) {
+            res.status(400).json({
+                message: "Unable to get member picks for the league"
+            })
+        }
+        else {
+            res.status(200).json({
+                leaguePicks: leaguePicks
+            })
+        }
+    })
+});
+
 module.exports = router;

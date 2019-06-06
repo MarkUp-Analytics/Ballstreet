@@ -279,7 +279,7 @@ export default {
                         this.errors.push(err.response.data.message);
                     })
                 
-            },
+        },
         getTeamFromGlobalList: function(teamId){
             return this.teamsInTournamentList.find(team=>{
                 return team.team_id === teamId;

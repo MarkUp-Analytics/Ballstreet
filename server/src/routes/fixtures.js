@@ -115,6 +115,21 @@ router.get('/getScheduleByTournamentId', (req, res, next) =>{
     })
 });
 
+router.get('/getLockedMatchFixtures', (req, res, next) =>{
+    fixturesController.getLockedMatchFixtures(req.query.tournamentId, function(err, scheduleList){
+        if(err){
+            res.status(400).json({
+                message: "Unable to get locked schedules based on tournament ID"
+            })
+        }
+        else{
+            res.status(200).json({
+                scheduleList: scheduleList
+            })
+        }
+    })
+});
+
 router.post('/updateMatchResult', (req, res, next) => {
     userController.checkUserIsAdmin(req.body.userid, function(err, userIsAdmin){
         if(err){
