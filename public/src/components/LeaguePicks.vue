@@ -29,24 +29,24 @@
                     
                     <hr class="my-5"/>
 
-                    <h3>IND v SA</h3>
-                    <h5 class="mb-5">23-Jun-2019 15:00 Hrs | The Oval Cricket Ground (The Oval), Kennington</h5>
+                    <h3 v-if="selected_game">{{getTeamFromGlobalList(selected_game.team_a_id).team_abbreviation + " v " + getTeamFromGlobalList(selected_game.team_b_id).team_abbreviation}}</h3>
+                    <h5 v-if="selected_game" class="mb-5">{{$options.filters.formatDate(selected_game.match_fixture_start_date) + " " + selected_game.match_fixture_toss_time.split(':').slice(0,2).join(":") + " Hrs | " + selected_game.stadium_name + ", " + selected_game.stadium_city}}</h5>
                     
                     <div class="row">
                         <div class="col-lg-2">
                         </div>
                         <div class="col-lg-4 mb-5">
                             <img style=" " v-if="selected_game && selected_game != null" :src="getTeamFromGlobalList(selected_game.team_a_id).team_image" width="50px" height="50px"/>
-                            <h4 class="mt-2 mb-0">Ind</h4>
-                            <h5 class="mt-0 mb-4">Supporters: 10</h5>
+                            <h4 v-if="selected_game" class="mt-2 mb-0">{{getTeamFromGlobalList(selected_game.team_a_id).team_abbreviation}}</h4>
+                            <h5 v-if="selected_game" class="mt-0 mb-4">{{"Supporters: " + membersWithTeamA.length}}</h5>
                             <div class="" v-if="selected_game && selected_game != null" v-for="member in membersWithTeamA">
                                 <p>{{member.name}}</p>                               
                             </div>
                         </div>
                         <div class="col-lg-4 mb-5">
                             <img style=" " v-if="selected_game && selected_game != null" :src="getTeamFromGlobalList(selected_game.team_b_id).team_image" width="50px" height="50px"/>
-                            <h4 class="mt-2 mb-0">Ind</h4>
-                            <h5 class="mt-0 mb-4">Supporters: 10</h5>
+                            <h4 v-if="selected_game" class="mt-2 mb-0">{{getTeamFromGlobalList(selected_game.team_b_id).team_abbreviation}}</h4>
+                            <h5 v-if="selected_game" class="mt-0 mb-4">{{"Supporters: " + membersWithTeamB.length}}</h5>
                             <div class="" v-if="selected_game && selected_game != null" v-for="member in membersWithTeamB">
                                 <p>{{member.name}}</p>                               
                             </div>
@@ -231,7 +231,7 @@ import MemberMenu from '@/components/MemberMenu';
                 }).then(result => {
                         self.lockedGames = result.data.scheduleList;
                         self.lockedGames.filter(game=>{
-                            game.displayText = "23-June-2019 15:00 Hrs" + " | " + game.team_a_abbreviation + " VS " + game.team_b_abbreviation;
+                            game.displayText = self.$options.filters.formatDate(game.match_fixture_start_date) + " " + game.match_fixture_toss_time.split(':').slice(0,2).join(":") +" Hrs | " + game.team_a_abbreviation + " VS " + game.team_b_abbreviation;
                         });
                         self.selected_game = self.lockedGames[self.lockedGames.length - 1];
                     },

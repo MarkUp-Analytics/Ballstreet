@@ -225,6 +225,10 @@ table {
   z-index: 5;
 }
 
+.z-index-1000000 {
+  z-index: 1000000;
+}
+
 .b-pagination .pagination>li>a, .b-pagination .pagination>li>span, .b-pagination {
   color:#462446;
 }
