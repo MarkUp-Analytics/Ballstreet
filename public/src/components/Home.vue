@@ -136,9 +136,9 @@
         <hr/>
         <div class="p-5 mx-auto text-center bg-white">
             <div class="container">
-                <h1 class="text-violet mt-1 mb-1">Upcoming Tournaments</h1>
+                <h1 class="text-violet mt-1 mb-1">Upcoming Events</h1>
                 <h4 class="text-violet mt-1 mb-1">Basis Your Preferences</h4>
-                <a href="" class="text-violet"><h6 class="mt-1 mb-5">Click here to update your sports preferences</h6></a>
+                <a href="" class="text-violet"><h6 class="mt-1 mb-5">Click here to update your event preferences</h6></a>
                 <div class="text-center mt-4 mb-5">
                     <div class="row mb-1">
                         <div class="col h3">
