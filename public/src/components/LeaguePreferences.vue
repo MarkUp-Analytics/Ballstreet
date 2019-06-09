@@ -84,7 +84,8 @@
                                 </div>                                
                                 <div class="form-group mt-2">
                                     <label>
-                                        <span class="text-secondary">Date:<br/></span>{{getDate(game.match_fixture_start_date, game.stadium_timezone) | formatDate}} {{" " + game.match_fixture_toss_time}} 
+                                        <!-- <span class="text-secondary">Date:<br/></span>{{getDate(game.match_fixture_start_date, game.stadium_timezone) | formatDate}} {{" " + game.match_fixture_toss_time}}  -->
+                                        <span class="text-secondary">Date:<br/></span>{{getMatchTimeInLocalTimeZone(game.match_fixture_start_date, game.match_fixture_toss_time, game.stadium_timezone)}}
                                     </label>                                    
                                 </div>
                                 <div class="form-group mt-2">
@@ -201,6 +202,17 @@ export default {
             var dateObj = new Date(new Date(date).toLocaleString("en-US", {timeZone: timeZone}));
             return dateObj;
             },
+        getMatchTimeInLocalTimeZone: function(matchStartDate, tossTime, timeZone){ //Method to display match start time in local time zone
+            var matchStartDate = moment(matchStartDate).format("YYYY-MM-DD");
+                            var venueLocalTime = moment.tz(matchStartDate + " " + tossTime, timeZone);
+                            var matchStartLocalTime = venueLocalTime.clone().tz(moment.tz.guess()).toDate();
+                            var localTimezone = moment.tz(moment.tz.guess()).zoneAbbr();
+                            
+
+                            var displayText = this.$options.filters.formatTime(matchStartLocalTime) + " " + localTimezone;
+                            
+                            return displayText;
+        },    
         getSeconds: function(date, hr, timeZone){
             var now = moment().tz(timeZone).format('YYYY/MM/DD HH:mm:ss'); //todays date
             var end = moment.tz(moment(date), timeZone).format('YYYY/MM/DD') + " " + hr; // match start date

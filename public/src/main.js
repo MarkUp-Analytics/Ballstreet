@@ -25,6 +25,18 @@ Vue.filter('formatDate', function(value) {
   }
 })
 
+Vue.filter('formatTime', function(value) {
+  if (value) {
+    if(typeof(value) == 'string'){
+      return moment(new Date(value)).format('DD-MMM-YYYY HH:mm')
+    }
+    else{
+      return moment(value).format('DD-MMM-YYYY HH:mm')
+    }
+    
+  }
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

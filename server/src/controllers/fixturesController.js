@@ -17,7 +17,7 @@ fixturesController.getAllMatchFixtures = function(callback){ //Method to get all
 };
 
 fixturesController.getLockedMatchFixtures = function(tournamentId, callback){ //Method to get all locked active match fixtures of a tournament
-    var queryText = 'select mf.match_fixture_id, t1.team_id as team_a_id, t1.team_name as team_a, t1.team_abbreviation as team_a_abbreviation, t2.team_id as team_b_id, t2.team_name as team_b, t2.team_abbreviation as team_b_abbreviation, mf.match_fixture_start_date, mf.match_fixture_toss_time, stadium.stadium_name, stadium.stadium_city from match_fixtures mf inner join team t1 on mf.match_fixture_team_1 = t1.team_id inner join team t2 on mf.match_fixture_team_2 = t2.team_id inner join stadium on stadium.stadium_id = mf.match_fixture_venue_stadium_id where mf.match_fixture_tournament_id = $1 AND mf.match_fixture_locked = true order by mf.match_fixture_id;';
+    var queryText = 'select mf.match_fixture_id, t1.team_id as team_a_id, t1.team_name as team_a, t1.team_abbreviation as team_a_abbreviation, t2.team_id as team_b_id, t2.team_name as team_b, t2.team_abbreviation as team_b_abbreviation, mf.match_fixture_start_date, mf.match_fixture_toss_time, stadium.stadium_name, stadium.stadium_city, stadium.stadium_timezone from match_fixtures mf inner join team t1 on mf.match_fixture_team_1 = t1.team_id inner join team t2 on mf.match_fixture_team_2 = t2.team_id inner join stadium on stadium.stadium_id = mf.match_fixture_venue_stadium_id where mf.match_fixture_tournament_id = $1 AND mf.match_fixture_locked = true order by mf.match_fixture_id;';
 
     var queryParams = [tournamentId];
     pool.query(queryText, queryParams, (err, result) => {

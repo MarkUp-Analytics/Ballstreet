@@ -16,11 +16,20 @@
                                 <label style="display: inline;">
                                     <span class="text-secondary">Game:</span>
                                 </label>
-                                <v-select class="text-center" v-if="lockedGames && lockedGames.length > 0" v-model="selected_game" :options="lockedGames" 
+                                <!-- <b-form-select v-model="selected_game" :options="lockedGames"></b-form-select> -->
+                                <b-form-select v-model="selected_game">           
+                                    <option v-for="(game, indexOpt) in lockedGames" 
+                                        :key="indexOpt"
+                                        :value="game"
+                                    >
+                                        {{ game.displayText }}
+                                    </option>
+                                </b-form-select>
+                                <!-- <v-select class="text-center" v-if="lockedGames && lockedGames.length > 0" v-model="selected_game" :options="lockedGames" 
                                     item-value="match_fixture_id"
                                     item-text="displayText"
                                     label="displayText">
-                                </v-select>
+                                </v-select> -->
                             </div>
                         </div>
                         <div class="col-lg-3">
@@ -64,6 +73,7 @@
 import api from '@/services/api';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import MemberMenu from '@/components/MemberMenu';
+import moment from 'moment-timezone';
     export default {
         name: 'LeaguePicks',
         components: {
@@ -231,7 +241,12 @@ import MemberMenu from '@/components/MemberMenu';
                 }).then(result => {
                         self.lockedGames = result.data.scheduleList;
                         self.lockedGames.filter(game=>{
-                            game.displayText = self.$options.filters.formatDate(game.match_fixture_start_date) + " " + game.match_fixture_toss_time.split(':').slice(0,2).join(":") +" Hrs | " + game.team_a_abbreviation + " VS " + game.team_b_abbreviation;
+                            var matchStartDate = moment(game.match_fixture_start_date).format("YYYY-MM-DD");
+                            var venueLocalTime = moment.tz(matchStartDate + " " + game.match_fixture_toss_time, game.stadium_timezone);
+                            var matchStartLocalTime = venueLocalTime.clone().tz(moment.tz.guess()).toDate();
+                            var localTimezone = moment.tz(moment.tz.guess()).zoneAbbr();
+
+                            game.displayText = self.$options.filters.formatTime(matchStartLocalTime) + " " + localTimezone + " | " + game.team_a_abbreviation + " VS " + game.team_b_abbreviation;
                         });
                         self.selected_game = self.lockedGames[self.lockedGames.length - 1];
                     },
