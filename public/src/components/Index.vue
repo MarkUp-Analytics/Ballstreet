@@ -214,7 +214,7 @@
                 }
             });
 			
-            if(localStorage.getItem('userDetails')){ //If user is already logged in, it takes it to profile page
+			if(localStorage.getItem('userDetails') && this.$route.name == 'Index'){ //If user is already logged in, it takes it to profile page
                 this.$router.push({
                             name: 'Home', 
                         })

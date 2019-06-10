@@ -6,71 +6,6 @@
                 <loading-spinner v-if="showLoadingIcon"></loading-spinner>
                 <h1 class="text-violet mt-1 mb-5">Results</h1>
                 
-                <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalPlayers">
-                    Launch demo modal
-                </button> -->
-
-                <!-- Modal -->
-                <!-- <div class="modal fade" id="ModalPlayers" tabindex="-1" role="dialog" aria-labelledby="ModalPlayersTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <h3>IND v SA</h3>
-                                <h5>23-Jun-2019 15:00 Hrs | The Oval Cricket Ground (The Oval), Kennington</h5>
-                                <hr class="mt-4 mb-3"/>
-                                <div class="row">
-                                    <div class="col-lg">
-                                        <h4 class="mt-2 mb-0">Ind</h4>
-                                        <h5 class="mt-0 mb-4">Supporters: 10</h5>
-                                        <div class="">
-                                            <p>Mithun S | mithsee@gmail.com</p>
-                                            <p>Gowthaman Ilango | gilango@g.clemson.edu</p>
-                                            <p>Shriram Kannusami | shriram.narayan66@gmail.com</p>
-                                            <p>Suriya Manivannan | smsuriya@gmail.com</p>
-                                            <p>Sikki Fazil | fazildan@gmail.com</p>
-                                            <p>Rajeshwaran B | rajesh.koolll9@gmail.com</p>
-                                            <p>Viwaswan bala | viwaswan90@gmail.com</p>
-                                            <p>Mithun S | mithsee@gmail.com</p>
-                                            <p>Gowthaman Ilango | gilango@g.clemson.edu</p>
-                                            <p>Shriram Kannusami | shriram.narayan66@gmail.com</p>
-                                            <p>Suriya Manivannan | smsuriya@gmail.com</p>
-                                            <p>Sikki Fazil | fazildan@gmail.com</p>
-                                            <p>Rajeshwaran B | rajesh.koolll9@gmail.com</p>
-                                            <p>Viwaswan bala | viwaswan90@gmail.com</p>
-                                            <p>Mithun S | mithsee@gmail.com</p>
-                                            <p>Gowthaman Ilango | gilango@g.clemson.edu</p>
-                                            <p>Shriram Kannusami | shriram.narayan66@gmail.com</p>
-                                            <p>Suriya Manivannan | smsuriya@gmail.com</p>
-                                            <p>Sikki Fazil | fazildan@gmail.com</p>
-                                            <p>Rajeshwaran B | rajesh.koolll9@gmail.com</p>
-                                            <p>Viwaswan bala | viwaswan90@gmail.com</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg">
-                                        <h4 class="mt-2 mb-0">Ind</h4>
-                                        <h5 class="mt-0 mb-4">Supporters: 10</h5>
-                                        <div class="">
-                                            <p>Mithun S | mithsee@gmail.com</p>
-                                            <p>Gowthaman Ilango | gilango@g.clemson.edu</p>
-                                            <p>Shriram Kannusami | shriram.narayan66@gmail.com</p>
-                                            <p>Suriya Manivannan | smsuriya@gmail.com</p>
-                                            <p>Sikki Fazil | fazildan@gmail.com</p>
-                                            <p>Rajeshwaran B | rajesh.koolll9@gmail.com</p>
-                                            <p>Viwaswan bala | viwaswan90@gmail.com</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-                
                 <b-container fluid class="my-4 px-0">
                     <b-row class="my-0 py-0">
                         <b-col md="7">
@@ -126,9 +61,6 @@
                             <template slot="emptyfiltered" slot-scope="scope">
                                 <h4>{{ scope.emptyFilteredText }}</h4>
                             </template>
-                            <template slot="match_fixture_start_date" slot-scope="data">
-                                            <span>{{data.item.match_fixture_start_date | formatDate}}</span>
-                                        </template>
                         </b-table>
                     </div>
                     <b-row class="mx-auto">
@@ -151,6 +83,7 @@
 import api from '@/services/api';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import MemberMenu from '@/components/MemberMenu';
+import moment from 'moment-timezone';
     export default {
         name: 'LeagueResults',
      components:{
@@ -203,7 +136,7 @@ import MemberMenu from '@/components/MemberMenu';
                 errors: [],
                 leagueResults: [],
                 fields: [
-                    { key: 'match_fixture_start_date', label: 'Date', sortable: true },
+                    { key: 'date', label: 'Date', sortable: true },
                     { key: 'stadium', label: 'Venue', sortable: true },
                     { key: 'team_a_abbreviation', label: 'Team A', sortable: true },
                     { key: 'team_b_abbreviation', label: 'Team B', sortable: true },
@@ -239,6 +172,17 @@ import MemberMenu from '@/components/MemberMenu';
                 this.totalRows = filteredItems.length
                 this.currentPage = 1
             },
+            getMatchTimeInLocalTimeZone: function(matchStartDate, tossTime, timeZone){ //Method to display match start time in local time zone
+            var matchStartDate = moment(matchStartDate).format("YYYY-MM-DD");
+                            var venueLocalTime = moment.tz(matchStartDate + " " + tossTime, timeZone);
+                            var matchStartLocalTime = venueLocalTime.clone().tz(moment.tz.guess()).toDate();
+                            var localTimezone = moment.tz(moment.tz.guess()).zoneAbbr();
+                            
+
+                            var displayText = this.$options.filters.formatTime(matchStartLocalTime) + " " + localTimezone;
+                            
+                            return displayText;
+            }, 
             memberBelongsToLeague: function(){ //Method to check if the user is part of the league.
                 var self = this;
                 this.showLoadingIcon = true;
@@ -309,6 +253,9 @@ import MemberMenu from '@/components/MemberMenu';
                     }).then(result => {
                         self.showLoadingIcon = false;
                         self.leagueResults = result.data.result;
+                        self.leagueResults.filter(result=>{
+                            result.date = self.getMatchTimeInLocalTimeZone(result.match_fixture_start_date, result.match_fixture_toss_time, result.stadium_timezone);
+                        })
                     },
                     err => {
                         self.showLoadingIcon = false;

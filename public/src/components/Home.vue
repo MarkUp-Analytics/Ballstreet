@@ -44,11 +44,11 @@
                         </div>
                         <div class="col-lg mb-3">
                             <span class="text-secondary">P&L, INR</span><br/>
-                            <h3 class="text-success">{{total_profit_loss}}</h3>
+                            <h3 :class="total_profit_loss > 0 ? 'text-success' : 'text-danger'">{{total_profit_loss}}</h3>
                         </div>
                         <div class="col-lg mb-3">
                             <span class="text-secondary">P&L, %</span><br/>
-                            <h3 class="text-success">{{Number((total_profit_loss*100/current_value).toFixed(2))}}%</h3>
+                            <h3 :class="total_profit_loss > 0 ? 'text-success' : 'text-danger'">{{Number((total_profit_loss*100/current_value).toFixed(2))}}%</h3>
                         </div>
                     </div>
                 </div>
@@ -116,6 +116,9 @@
                                 </template>
                                 <template slot="league_shortid" slot-scope="scope">
                                     <span @click.prevent="gotoLeagueDashboard(scope.item)" class="text-violet cursorPointer"><b>{{scope.item.league_shortid}}</b></span>
+                                </template>
+                                <template slot="profit_loss_percentage" slot-scope="scope">
+                                    <span>{{Number((scope.item.profit_loss*100/(scope.item.contribution + Number(scope.item.profit_loss))).toFixed(2))}}%</span>
                                 </template>
                             </b-table>
                         </div>
@@ -210,14 +213,14 @@
                 errors: [],
                 fields: [
                     { key: 'league_shortid', label: 'League Id', sortable: true },
-                    { key: '', label: 'League Name', sortable: true },
+                    { key: 'league_name', label: 'League Name', sortable: true },
                     { key: 'tournament_name', label: 'Event', sortable: true },
                     { key: 'league_created_by', label: 'Admin', sortable: true },
                     { key: 'league_total_members', label: '#Players', sortable: true },
                     { key: 'contribution', label: 'Contribution', sortable: true },
                     { key: 'contribution', label: 'Current Value', sortable: true },
                     { key: 'profit_loss', label: 'P&L', sortable: true },
-                    { key: 'profit_loss', label: 'P&L, %', sortable: true }
+                    { key: 'profit_loss_percentage', label: 'P&L, %', sortable: true }
                 ],
                 currentPage: 1,
                 perPage: 20,

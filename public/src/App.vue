@@ -55,28 +55,28 @@
 					<div class="col-sm-4 mb-4 col-md">
 						<h6 class="text-yellow font-weight-bold">Company</h6>
 						<ul class="list-unstyled font-size-14pc">
-							<li><a class="text-white" @click="scrollToTop(); redirectPage('AboutBallstreet')" href="">About</a></li>
-							<li><a class="text-white" @click="scrollToTop(); redirectPage('Careers')" href="">Careers</a></li>
-							<li><a class="text-white" @click="scrollToTop(); redirectPage('BrandCenter')" href="">Brand Center</a></li>
-							<li><a class="text-white" @click="scrollToTop(); redirectPage('Privacy')" href="">Privacy & Terms</a></li>
-							<li><a class="text-white" @click="scrollToTop(); redirectPage('Refund')" href="">Returns & Refunds</a></li>
-							<li><a class="text-white" @click="scrollToTop(); redirectPage('Contact')" href="">Get In Touch</a></li>
+							<li><a class="text-white cursorPointer displayAsLinkWhite" @click="scrollToTop(); redirectPage('AboutBallstreet')">About</a></li>
+							<li><a class="text-white cursorPointer displayAsLinkWhite" @click="scrollToTop(); redirectPage('Careers')">Careers</a></li>
+							<li><a class="text-white cursorPointer displayAsLinkWhite" @click="scrollToTop(); redirectPage('BrandCenter')">Brand Center</a></li>
+							<li><a class="text-white cursorPointer displayAsLinkWhite" @click="scrollToTop(); redirectPage('Privacy')">Privacy & Terms</a></li>
+							<li><a class="text-white cursorPointer displayAsLinkWhite" @click="scrollToTop(); redirectPage('Refund')">Returns & Refunds</a></li>
+							<li><a class="text-white cursorPointer displayAsLinkWhite" @click="scrollToTop(); redirectPage('Contact')">Get In Touch</a></li>
 						</ul>
 					</div>
 					<div class="col-sm-4 mb-2 col-md">
 						<h6 class="text-yellow font-weight-bold">Ballstreet</h6>
 						<ul class="list-unstyled font-size-14pc">
-							<li><a class="text-white" @click="scrollToTop(); redirectPage('Features')" href="">Features</a></li>
-							<li><a class="text-white" @click="scrollToTop(); redirectPage('Security')" href="">Security</a></li>
-							<li><a class="text-white" @click="scrollToTop(); redirectPage('Downloads')" href="">Downloads</a></li>
-							<li><a class="text-white" @click="scrollToTop(); redirectPage('GamesOfSkill')" href="">Games of Skill</a></li>
-							<li><a class="text-white" @click="scrollToTop(); redirectPage('HowBallstreetWorks')" href="">How it Works</a></li>
+							<li><a class="text-white cursorPointer displayAsLinkWhite" @click="scrollToTop(); redirectPage('Features')">Features</a></li>
+							<li><a class="text-white cursorPointer displayAsLinkWhite" @click="scrollToTop(); redirectPage('Security')">Security</a></li>
+							<li><a class="text-white cursorPointer displayAsLinkWhite" @click="scrollToTop(); redirectPage('Downloads')">Downloads</a></li>
+							<li><a class="text-white cursorPointer displayAsLinkWhite" @click="scrollToTop(); redirectPage('GamesOfSkill')">Games of Skill</a></li>
+							<li><a class="text-white cursorPointer displayAsLinkWhite" @click="scrollToTop(); redirectPage('HowBallstreetWorks')">How it Works</a></li>
 						</ul>
 					</div>
 					<div class="col-sm-4 mb-4 col-md">
 						<h6 class="text-yellow font-weight-bold">Help</h6>
 						<ul class="list-unstyled font-size-14pc">
-							<li><a class="text-white" @click="scrollToTop(); redirectPage('FAQS')" href="">FAQs</a></li>
+							<li><a class="text-white cursorPointer displayAsLinkWhite" @click="scrollToTop(); redirectPage('FAQS')">FAQs</a></li>
 							<li><a class="text-white" href="#">Blog</a></li>
 							<li><a class="text-white" href="#">Facebook</a></li>
 							<li><a class="text-white" href="#">Twitter</a></li>
