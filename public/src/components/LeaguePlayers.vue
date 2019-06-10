@@ -149,7 +149,7 @@ export default {
                 filter: null,
                 currentPage: 1,
                 perPage: 20,
-                totalRows: 40,
+                totalRows: null,
                 pageOptions: [10, 20, 30, 40, 50, "Infinte Scroll"]
             }
         },
@@ -214,6 +214,7 @@ export default {
                     }).then(result => {
                         self.showLoadingIcon = false;
                         self.leaguePlayers = result.data.leagueMembers;
+                        self.totalRows = self.leaguePlayers.length;
                     },
                     err => {
                         self.showLoadingIcon = false;

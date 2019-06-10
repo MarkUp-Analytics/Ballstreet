@@ -73,6 +73,9 @@
                                     <template slot="link" slot-scope="scope">
                                         <a href="" @click.prevent="gotoLeagueDashboard(scope.item)" class="text-violet">Click</a>
                                     </template>
+                                    <template slot="profit_loss_percentage" slot-scope="scope">
+                                    <span>{{Number((scope.item.profit_loss*100/(scope.item.current_value)).toFixed(2))}}%</span>
+                                </template>
                                 </b-table>
                             </div>
                             <b-row class="mx-auto">
@@ -200,11 +203,11 @@
                     { key: 'capital', label: 'Contribution', sortable: true },
                     { key: 'current_value', label: 'Current Value', sortable: true },
                     { key: 'profit_loss', label: 'P&L', sortable: true },
-                    { key: 'profit_loss', label: 'P&L, %', sortable: true },
+                    { key: 'profit_loss_percentage', label: 'P&L, %', sortable: true },
                 ],
                 currentPage: 1,
                 perPage: 20,
-                totalRowsCurrent: 40,
+                totalRowsCurrent: null,
                 totalRowsPast: 20,
                 pageOptions: [10, 20, 30, 40, 50, "Infinte Scroll"],
                 sortBy: 'date',
@@ -245,7 +248,8 @@
                                 league.capital = (league.tournament_total_games * parseFloat(league.league_minimum_bet));
                                 league.profit_loss = parseFloat(league.profit_loss);
                                 league.current_value = (parseFloat(league.tournament_total_games * league.league_minimum_bet) + parseFloat(league.profit_loss));
-                            })
+                            });
+                            self.totalRowsCurrent = self.itemsCurrent.length;
                         },
                         err => {
                             sel.showLoadingIcon = false;

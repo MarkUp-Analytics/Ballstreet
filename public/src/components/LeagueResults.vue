@@ -152,7 +152,7 @@ import moment from 'moment-timezone';
                 filter: null,
                 currentPage: 1,
                 perPage: 20,
-                totalRows: 40,
+                totalRows: null,
                 pageOptions: [10, 20, 30, 40, 50, "Infinte Scroll"]
             }
         },
@@ -255,7 +255,8 @@ import moment from 'moment-timezone';
                         self.leagueResults = result.data.result;
                         self.leagueResults.filter(result=>{
                             result.date = self.getMatchTimeInLocalTimeZone(result.match_fixture_start_date, result.match_fixture_toss_time, result.stadium_timezone);
-                        })
+                        });
+                        self.totalRows = self.leagueResults.length;
                     },
                     err => {
                         self.showLoadingIcon = false;

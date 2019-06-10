@@ -224,7 +224,7 @@
                 ],
                 currentPage: 1,
                 perPage: 20,
-                totalRowsCurrent: 40,
+                totalRowsCurrent: null,
                 totalRowsPast: 20,
                 pageOptions: [10, 20, 30, 40, 50, "Infinte Scroll"],
                 sortBy: 'date',
@@ -265,7 +265,8 @@
                 
                             self.total_profit_loss += parseFloat(league.profit_loss);
                             self.current_value += (parseFloat(league.tournament_total_games * league.league_minimum_bet) + parseFloat(league.profit_loss));
-                            })
+                            });
+                            self.totalRowsCurrent = self.associatedLeagues.length;
                         },
                         err => {
                             self.showLoadingIcon = false;
