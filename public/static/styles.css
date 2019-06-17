@@ -60,3 +60,11 @@
     border-radius: 10px;  
     background-color: #ffffff; 
 }
+
+.displayAsLinkWhite:link{
+    text-decoration: none !important;
+}
+.displayAsLinkWhite:hover{
+    text-decoration: underline !important;
+    color: white;
+}

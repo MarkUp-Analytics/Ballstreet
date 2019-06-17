@@ -138,8 +138,9 @@ import MemberMenu from '@/components/MemberMenu';
                     { key: 'member_name', label: 'Name', sortable: true },
                     { key: 'email', label: 'Email', sortable: true },
                     { key: 'profit_loss', label: 'P&L', sortable: true },
-                    { key: 'current_streak', label: 'Current Streak', sortable: true },
-                    { key: 'risk_taking_score', label: 'Risk Score', sortable: true }
+                    { key: 'last_5_games', label: 'Current Streak', sortable: true },
+                    { key: 'risk_taking_score', label: 'Risk Score', sortable: true },
+                    { key: 'accuracy', label: 'Accuracy', sortable: true}
                 ],
                 sortBy: 'member_name',
                 sortDesc: false,
@@ -147,7 +148,7 @@ import MemberMenu from '@/components/MemberMenu';
                 filter: null,
                 currentPage: 1,
                 perPage: 20,
-                totalRows: 40,
+                totalRows: null,
                 pageOptions: [10, 20, 30, 40, 50, "Infinte Scroll"]
             }
         },
@@ -215,7 +216,18 @@ import MemberMenu from '@/components/MemberMenu';
                         self.leagueStatistics.filter(league=>{
                             league.profit_loss = parseFloat(league.profit_loss);
                             league.risk_taking_score = parseFloat(league.risk_taking_score);
+                            league.last_5_games = league.current_streak.split(", ").slice(-5).join(", ");
+                            var total_wins = 0;
+                            var total_loss = 0;
+                            league.current_streak.split(", ").filter(item=>{item == "W" ? total_wins++ : item == "L" ? total_loss++ : '' });
+                            league.accuracy = 0;
+                            if(total_wins + total_loss > 0){
+                                league.accuracy = Number((total_wins/(total_wins + total_loss)).toFixed(2));
+                            }
+                            
+
                         });
+                        self.totalRows = self.leagueStatistics.length;
                     },
                     err => {
                         self.showLoadingIcon = false;
