@@ -12,33 +12,270 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form>
+                <form>                    
                     <div class="form-group mt-4">
-                        <label>Category</label>
-                        <select class="form-control" v-model="sportFilter">
-                            <option v-for="sport in sportsList">
-                                {{ sport }}
-                            </option>
+                        <label>Enter Deal Brief (Incl. Event Name)</label>
+                        <textarea class="form-control" type="text" placeholder="For example: Will Kapil Dev score more than 75 in India vs Pakistan?" v-model="league_name" rows="3"></textarea>
+                    </div>
+                    <div class="form-group mt-4">
+                        <label>Enter Scoring Methodology</label>
+                        <textarea class="form-control" type="text" placeholder="For example: Runs + Wickets*3 + Catches*5" v-model="league_name" rows="2"></textarea>
+                    </div>
+                    <div class="form-group mt-4">
+                        <label>Enter Date of the Event (DD/MM/YY HH:MM)</label>
+                        <input class="form-control mb-1" type="text" placeholder="Example: 23/05/90 20:30" />
+                        <select class="form-control">
+                            <option>Pick Time Zone</option>
+                            <option>UTC + 14 Hrs | LINT</option>
+                            <option>UTC + 13 Hrs | TOT</option>
+                            <option>UTC + 12:45 Hrs | CHAST</option>
+                            <option>UTC + 12 Hrs | ANAT</option>
+                            <option>UTC + 11 Hrs | SBT</option>
+                            <option>UTC + 10:30 Hrs | LHST</option>
+                            <option>UTC + 10 Hrs | AEST</option>
+                            <option>UTC + 9:30 Hrs | ACST</option>
+                            <option>UTC + 9 Hrs | JST</option>
+                            <option>UTC + 8:45 Hrs | ACWST</option>
+                            <option>UTC + 8 Hrs | CST</option>
+                            <option>UTC + 7 Hrs | WIB</option>
+                            <option>UTC + 6:30 Hrs | MMT</option>
+                            <option>UTC + 6 Hrs | BST</option>
+                            <option>UTC + 5:45 Hrs | NPT</option>
+                            <option>UTC + 5:30 Hrs | IST</option>
+                            <option>UTC + 5 Hrs | UZT</option>
+                            <option>UTC + 4:30 Hrs | IRDT</option>
+                            <option>UTC + 4 Hrs | GST</option>
+                            <option>UTC + 3 Hrs | MSK</option>
+                            <option>UTC + 2 Hrs | CEST</option>
+                            <option>UTC + 1 Hrs | BST</option>
+                            <option>UTC + 0 Hrs | GMT</option>
+                            <option>UTC - 1 Hrs | CVT</option>
+                            <option>UTC - 2 Hrs | WGST</option>
+                            <option>UTC - 2:30 Hrs | NDT</option>
+                            <option>UTC - 3 Hrs | ART</option>
+                            <option>UTC - 4 Hrs | EDT</option>
+                            <option>UTC - 5 Hrs | CDT</option>
+                            <option>UTC - 6 Hrs | CST</option>
+                            <option>UTC - 7 Hrs | PDT</option>
+                            <option>UTC - 8 Hrs | AKDT</option>
+                            <option>UTC - 9 Hrs | HDT</option>
+                            <option>UTC - 9:30 Hrs | MART</option>
+                            <option>UTC - 10 Hrs | HST</option>
+                            <option>UTC - 11 Hrs | NUT</option>
+                            <option>UTC - 12 Hrs | AoE</option>
                         </select>
-                        
                     </div>
-                    <div class="form-group mt-3">
-                        <label>Event</label>
-                        <select class="form-control" v-model="selectedTour" :disabled="!sportFilter">
-                            <option v-for="tour in filteredUpcomingTours" :value="tour">
-                                {{ tour.tournament_name }}
-                            </option>
+                    <div class="form-group mt-4">
+                        <label>Last Date to Join League (DD/MM/YY HH:MM)</label>
+                        <input class="form-control mb-1" type="text" placeholder="Example: 23/05/90 20:30" />
+                        <select class="form-control">
+                            <option>Pick Time Zone</option>
+                            <option>UTC + 14 Hrs | LINT</option>
+                            <option>UTC + 13 Hrs | TOT</option>
+                            <option>UTC + 12:45 Hrs | CHAST</option>
+                            <option>UTC + 12 Hrs | ANAT</option>
+                            <option>UTC + 11 Hrs | SBT</option>
+                            <option>UTC + 10:30 Hrs | LHST</option>
+                            <option>UTC + 10 Hrs | AEST</option>
+                            <option>UTC + 9:30 Hrs | ACST</option>
+                            <option>UTC + 9 Hrs | JST</option>
+                            <option>UTC + 8:45 Hrs | ACWST</option>
+                            <option>UTC + 8 Hrs | CST</option>
+                            <option>UTC + 7 Hrs | WIB</option>
+                            <option>UTC + 6:30 Hrs | MMT</option>
+                            <option>UTC + 6 Hrs | BST</option>
+                            <option>UTC + 5:45 Hrs | NPT</option>
+                            <option>UTC + 5:30 Hrs | IST</option>
+                            <option>UTC + 5 Hrs | UZT</option>
+                            <option>UTC + 4:30 Hrs | IRDT</option>
+                            <option>UTC + 4 Hrs | GST</option>
+                            <option>UTC + 3 Hrs | MSK</option>
+                            <option>UTC + 2 Hrs | CEST</option>
+                            <option>UTC + 1 Hrs | BST</option>
+                            <option>UTC + 0 Hrs | GMT</option>
+                            <option>UTC - 1 Hrs | CVT</option>
+                            <option>UTC - 2 Hrs | WGST</option>
+                            <option>UTC - 2:30 Hrs | NDT</option>
+                            <option>UTC - 3 Hrs | ART</option>
+                            <option>UTC - 4 Hrs | EDT</option>
+                            <option>UTC - 5 Hrs | CDT</option>
+                            <option>UTC - 6 Hrs | CST</option>
+                            <option>UTC - 7 Hrs | PDT</option>
+                            <option>UTC - 8 Hrs | AKDT</option>
+                            <option>UTC - 9 Hrs | HDT</option>
+                            <option>UTC - 9:30 Hrs | MART</option>
+                            <option>UTC - 10 Hrs | HST</option>
+                            <option>UTC - 11 Hrs | NUT</option>
+                            <option>UTC - 12 Hrs | AoE</option>
                         </select>
-                        <small v-if="selectedTour">No. of Games: {{totalGames}}</small>
+                    </div> 
+                    <div class="form-group mt-4">
+                        <label>Enter Responses</label>
+                        <input class="form-control mb-1" type="text" placeholder="Response 1" />
+                        <input class="form-control mb-1" type="text" placeholder="Response 2" />
+                        <input class="form-control mb-1" type="text" placeholder="Response 3" />
+                        <input class="form-control mb-1" type="text" placeholder="Response 4" />
+                        <a href="" class="btn btn-outline-secondary w-100">Add Response</a>
+                        <small>Max. number of responses: 100</small>
                     </div>
-                    <div class="form-group mt-3">
-                        <label>Enter Contribution Per Game, INR</label>
-                        <input class="form-control" type="text" placeholder="Example: INR 10" v-model="minimum_bet">
-                        <small v-if="minimum_bet">Total Contribution Required, {{'INR'}}: {{minimum_bet * totalGames}}</a></small>
+                    <div class="form-group mt-4">
+                        <label>Enter number of responses each player has to pick</label>
+                        <input class="form-control" type="text" placeholder="Example: 3" />
                     </div>
-                    <div class="form-group mt-3">
-                        <label>League Name</label>
-                        <input class="form-control" type="text" placeholder="Enter League name" v-model="league_name">
+                    <div class="form-group mt-4">
+                        <label>Enter Contribution Per Player, INR</label>
+                        <input class="form-control" type="text" placeholder="Example: INR 10" v-model="minimum_bet" />                        
+                    </div>
+                     <div class="form-group mt-4">
+                        <label>Enter Game Type</label>
+                        <select class="form-control">
+                            <option>Losers Lose; Winners Win</option>
+                            <option>Reward Top 1</option>
+                            <option>Reward Top 3</option>
+                            <option>Reward Top 5</option>
+                            <option>Reward Top 10%</option>
+                            <option>Reward Top 30%</option>
+                            <option>Reward Top 50%</option>
+                        </select>
+                    </div>
+                    <div class="form-group mt-4">
+                        <div class="mb-1">
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <tr class="table-secondary">
+                                        <th scope="col">Losers Lose; Winners Win</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Winners Share Total Contribution of Losers</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Losers Lose Their Contribution</td>
+                                    </tr>
+                                </tbody>
+                            </table>                           
+                        </div>
+                        <div class="mb-1">
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <tr class="table-secondary">
+                                        <th scope="col">Reward Top 1</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Rank #1 Wins 100% Of Total Pooled Contribution</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rest Lose Their Contribution</td>
+                                    </tr>
+                                </tbody>
+                            </table>                          
+                        </div>
+                        <div class="mb-1">
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <tr class="table-secondary">
+                                        <th scope="col">Reward Top 3</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Rank #1 Wins 50% Of Total Pooled Contribution</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rank #2 Wins 25% Of Total Pooled Contribution</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rank #3 Wins 25% Of Total Pooled Contribution</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rest Lose Their Contribution</td>
+                                    </tr>
+                                </tbody>
+                            </table>                          
+                        </div>
+                        <div class="mb-1">
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <tr class="table-secondary">
+                                        <th scope="col">Reward Top 5</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Rank #1 Wins 50% Of Total Pooled Contribution</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rank #2 Wins 20% Of Total Pooled Contribution</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rank #3 Wins 20% Of Total Pooled Contribution</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rank #4 Wins 5% Of Total Pooled Contribution</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rank #5 Wins 5% Of Total Pooled Contribution</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rest Lose Their Contribution</td>
+                                    </tr>
+                                </tbody>
+                            </table>                          
+                        </div>
+                        <div class="mb-1">
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <tr class="table-secondary">
+                                        <th scope="col">Reward Top 10%</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Top 10% Winners Share 100% Of Total Pooled Contribution</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rest Lose Their Contribution</td>
+                                    </tr>
+                                </tbody>
+                            </table>                          
+                        </div>
+                        <div class="mb-1">
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <tr class="table-secondary">
+                                        <th scope="col">Reward Top 30%</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Top 30% Winners Share 100% Of Total Pooled Contribution</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rest Lose Their Contribution</td>
+                                    </tr>
+                                </tbody>
+                            </table>                          
+                        </div>
+                        <div class="mb-1">
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <tr class="table-secondary">
+                                        <th scope="col">Reward Top 50%</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Top 50% Winners Share 100% Of Total Pooled Contribution</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rest Lose Their Contribution</td>
+                                    </tr>
+                                </tbody>
+                            </table>                          
+                        </div>
                     </div>
                     <div class="row mt-5 text-center">
                         <div class="col-lg">
@@ -190,7 +427,7 @@ import api from '@/services/api';
             }
         }
     }
-
+    
 </script>
 
 <style>
