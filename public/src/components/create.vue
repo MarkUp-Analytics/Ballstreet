@@ -1,6 +1,6 @@
 <template>
     <div class="p-5 mx-auto text-center bg-light">
-        <h1 class="mb-4 text-center text-violet">Create League</h1>
+        <h1 class="mb-4 text-center text-violet">Create</h1>
         <div class="row mx-auto mb-5">
             <div class="col-md"></div>
             <div class="col-md">
@@ -123,12 +123,19 @@
                         <input class="form-control" type="text" placeholder="Example: 3" />
                     </div>
                     <div class="form-group mt-4">
+                        <label>Mutually exclusive responses</label>
+                        <select class="form-control">
+                            <option>Yes</option>
+                            <option>No</option>
+                        </select>
+                    </div>
+                    <div class="form-group mt-4">
                         <label>Enter Contribution Per Player, INR</label>
                         <input class="form-control" type="text" placeholder="Example: INR 10" v-model="minimum_bet" />                        
                     </div>
                      <div class="form-group mt-4">
                         <label>Enter Game Type</label>
-                        <select class="form-control">
+                        <select class="form-control mb-1">
                             <option>Losers Lose; Winners Win</option>
                             <option>Reward Top 1</option>
                             <option>Reward Top 3</option>
@@ -137,145 +144,156 @@
                             <option>Reward Top 30%</option>
                             <option>Reward Top 50%</option>
                         </select>
-                    </div>
-                    <div class="form-group mt-4">
-                        <div class="mb-1">
-                            <table class="table table-sm table-bordered">
-                                <thead>
-                                    <tr class="table-secondary">
-                                        <th scope="col">Losers Lose; Winners Win</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Winners Share Total Contribution of Losers</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Losers Lose Their Contribution</td>
-                                    </tr>
-                                </tbody>
-                            </table>                           
-                        </div>
-                        <div class="mb-1">
-                            <table class="table table-sm table-bordered">
-                                <thead>
-                                    <tr class="table-secondary">
-                                        <th scope="col">Reward Top 1</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Rank #1 Wins 100% Of Total Pooled Contribution</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Rest Lose Their Contribution</td>
-                                    </tr>
-                                </tbody>
-                            </table>                          
-                        </div>
-                        <div class="mb-1">
-                            <table class="table table-sm table-bordered">
-                                <thead>
-                                    <tr class="table-secondary">
-                                        <th scope="col">Reward Top 3</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Rank #1 Wins 50% Of Total Pooled Contribution</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Rank #2 Wins 25% Of Total Pooled Contribution</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Rank #3 Wins 25% Of Total Pooled Contribution</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Rest Lose Their Contribution</td>
-                                    </tr>
-                                </tbody>
-                            </table>                          
-                        </div>
-                        <div class="mb-1">
-                            <table class="table table-sm table-bordered">
-                                <thead>
-                                    <tr class="table-secondary">
-                                        <th scope="col">Reward Top 5</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Rank #1 Wins 50% Of Total Pooled Contribution</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Rank #2 Wins 20% Of Total Pooled Contribution</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Rank #3 Wins 20% Of Total Pooled Contribution</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Rank #4 Wins 5% Of Total Pooled Contribution</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Rank #5 Wins 5% Of Total Pooled Contribution</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Rest Lose Their Contribution</td>
-                                    </tr>
-                                </tbody>
-                            </table>                          
-                        </div>
-                        <div class="mb-1">
-                            <table class="table table-sm table-bordered">
-                                <thead>
-                                    <tr class="table-secondary">
-                                        <th scope="col">Reward Top 10%</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Top 10% Winners Share 100% Of Total Pooled Contribution</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Rest Lose Their Contribution</td>
-                                    </tr>
-                                </tbody>
-                            </table>                          
-                        </div>
-                        <div class="mb-1">
-                            <table class="table table-sm table-bordered">
-                                <thead>
-                                    <tr class="table-secondary">
-                                        <th scope="col">Reward Top 30%</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Top 30% Winners Share 100% Of Total Pooled Contribution</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Rest Lose Their Contribution</td>
-                                    </tr>
-                                </tbody>
-                            </table>                          
-                        </div>
-                        <div class="mb-1">
-                            <table class="table table-sm table-bordered">
-                                <thead>
-                                    <tr class="table-secondary">
-                                        <th scope="col">Reward Top 50%</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Top 50% Winners Share 100% Of Total Pooled Contribution</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Rest Lose Their Contribution</td>
-                                    </tr>
-                                </tbody>
-                            </table>                          
-                        </div>
+                        <table class="table table-sm table-bordered mb-1">
+                            <thead>
+                                <tr class="table-secondary">
+                                    <th scope="col" class="px-2">Losers Lose; Winners Win</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="px-2">Winners Share Total Contribution of Losers</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-2">Losers Lose Their Contribution</td>
+                                </tr>
+                            </tbody>
+                        </table>                           
+                        <table class="table table-sm table-bordered mb-1">
+                            <thead>
+                                <tr class="table-secondary">
+                                    <th scope="col" class="px-2">Reward Top 1</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="px-2">
+                                        Rank #1 Wins 100% Of Total Pooled Contribution<br/>
+                                        <small>In case, multiple contenders share Rank #1, total pooled contribution gets shared amongst them</small>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-2">Rest Lose Their Contribution</td>
+                                </tr>
+                            </tbody>
+                        </table>                          
+                        <table class="table table-sm table-bordered mb-1">
+                            <thead>
+                                <tr class="table-secondary">
+                                    <th scope="col" class="px-2">Reward Top 3</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="px-2">
+                                        Rank #1 Wins 50% Of Total Pooled Contribution<br/>
+                                        <small>In case, multiple contenders share Rank #1, 50% of the total pooled contribution gets shared amongst them</small>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-2">
+                                        Rank #2 Wins 25% Of Total Pooled Contribution<br/>
+                                        <small>In case, multiple contenders share Rank #2, 25% of the total pooled contribution gets shared amongst them</small>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-2">
+                                        Rank #3 Wins 25% Of Total Pooled Contribution<br/>
+                                        <small>In case, multiple contenders share Rank #3, 25% of the total pooled contribution gets shared amongst them</small>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-2">Rest Lose Their Contribution</td>
+                                </tr>
+                            </tbody>
+                        </table>                          
+                        <table class="table table-sm table-bordered mb-1">
+                            <thead>
+                                <tr class="table-secondary">
+                                    <th scope="col" class="px-2">Reward Top 5</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="px-2">
+                                        Rank #1 Wins 50% Of Total Pooled Contribution<br/>
+                                        <small>In case, multiple contenders share Rank #1, 50% of the total pooled contribution gets shared amongst them</small>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-2">
+                                        Rank #2 Wins 20% Of Total Pooled Contribution<br/>
+                                        <small>In case, multiple contenders share Rank #2, 20% of the total pooled contribution gets shared amongst them</small>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-2">
+                                        Rank #3 Wins 20% Of Total Pooled Contribution<br/>
+                                        <small>In case, multiple contenders share Rank #3, 20% of the total pooled contribution gets shared amongst them</small>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-2">
+                                        Rank #4 Wins 5% Of Total Pooled Contribution<br/>
+                                        <small>In case, multiple contenders share Rank #4, 5% of the total pooled contribution gets shared amongst them</small>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-2">
+                                        Rank #5 Wins 5% Of Total Pooled Contribution<br/>
+                                        <small>In case, multiple contenders share Rank #5, 5% of the total pooled contribution gets shared amongst them</small>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-2">Rest Lose Their Contribution</td>
+                                </tr>
+                            </tbody>
+                        </table>                          
+                        <table class="table table-sm table-bordered mb-1">
+                            <thead>
+                                <tr class="table-secondary">
+                                    <th scope="col">Reward Top 10%</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Top 10% Winners Share 100% Of Total Pooled Contribution</td>
+                                </tr>
+                                <tr>
+                                    <td>Rest Lose Their Contribution</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-sm table-bordered mb-1">
+                            <thead>
+                                <tr class="table-secondary">
+                                    <th scope="col">Reward Top 30%</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Top 30% Winners Share 100% Of Total Pooled Contribution</td>
+                                </tr>
+                                <tr>
+                                    <td>Rest Lose Their Contribution</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-sm table-bordered mb-1">
+                            <thead>
+                                <tr class="table-secondary">
+                                    <th scope="col">Reward Top 50%</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Top 50% Winners Share 100% Of Total Pooled Contribution</td>
+                                </tr>
+                                <tr>
+                                    <td>Rest Lose Their Contribution</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <div class="row mt-5 text-center">
                         <div class="col-lg">
