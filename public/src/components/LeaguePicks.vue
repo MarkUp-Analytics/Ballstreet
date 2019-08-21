@@ -39,7 +39,7 @@
                     <hr class="my-5"/>
 
                     <h3 v-if="selected_game">{{getTeamFromGlobalList(selected_game.team_a_id).team_abbreviation + " v " + getTeamFromGlobalList(selected_game.team_b_id).team_abbreviation}}</h3>
-                    <h5 v-if="selected_game" class="mb-5">{{$options.filters.formatDate(selected_game.match_fixture_start_date) + " " + selected_game.match_fixture_toss_time.split(':').slice(0,2).join(":") + " Hrs | " + selected_game.stadium_name + ", " + selected_game.stadium_city}}</h5>
+                    <h5 v-if="selected_game" class="mb-5">{{ selected_game.displayTimeFull + " | " + selected_game.stadium_name + ", " + selected_game.stadium_city}}</h5>
                     
                     <div class="row">
                         <div class="col-lg-2">
@@ -246,7 +246,8 @@ import moment from 'moment-timezone';
                             var matchStartLocalTime = venueLocalTime.clone().tz(moment.tz.guess()).toDate();
                             var localTimezone = moment.tz(moment.tz.guess()).zoneAbbr();
 
-                            game.displayText = self.$options.filters.formatTime(matchStartLocalTime) + " " + localTimezone + " | " + game.team_a_abbreviation + " VS " + game.team_b_abbreviation;
+                            game.displayText = moment(game.match_fixture_start_date).format("DD-MMM-YYYY") + " | " + game.team_a_abbreviation + " VS " + game.team_b_abbreviation;
+                            game.displayTimeFull = self.$options.filters.formatTime(matchStartLocalTime) + " " + localTimezone;
                         });
                         self.selected_game = self.lockedGames[self.lockedGames.length - 1];
                     },

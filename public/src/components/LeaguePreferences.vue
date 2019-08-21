@@ -23,25 +23,37 @@
                     <div class="col-lg">
                     </div>
                     <div class="col-lg">
+                        <h6>Edit Mode</h6>
+                        <div class="btn-group btn-group-toggle mb-5 text-violet" data-toggle="buttons">
+                            <label class="btn btn-light border active">
+                                <input type="radio" name="options" id="option1" checked>
+                                Off
+                            </label>
+                            <label class="btn btn-light border">
+                                <input type="radio" name="options" id="option2">
+                                On
+                            </label>
+                        </div>
+
                         <draggable v-model="teamPreferenceList" :options="{animation:150}" @start="drag=true" @end="drag=false" @change="updatePreference()">
-                             <transition-group type="transition" name="flip-list">
-                            <div v-for="team in teamPreferenceList" :key="team.team_id">
-                                <table class='table bg-white rounded-lg border table-borderless' style="height:50px; cursor:pointer"> 
-                                    <tbody> 
-                                        <tr> 
-                                            <td class="align-middle text-center" width="33.33%" scope="col"> 
-                                                <img style=" " :src="team.team_image" width="30px" height="30px"/>
-                                            </td> 
-                                            <td class="align-middle text-center" width="33.33%" scope="col"> 
-                                                <h5>{{team.team_abbreviation}}</h5>
-                                            </td> 
-                                            <td class="align-middle text-center" width="33.33%" scope="col"> 
-                                                <h6>#{{team.preference_rank}}</h6>
-                                            </td>
-                                        </tr> 
-                                    </tbody> 
-                                </table>
-                            </div>
+                            <transition-group type="transition" name="flip-list">
+                                <div v-for="team in teamPreferenceList" :key="team.team_id">
+                                    <table class='table bg-white rounded-lg border table-borderless' style="height:50px; cursor:pointer"> 
+                                        <tbody> 
+                                            <tr> 
+                                                <td class="align-middle text-center" width="33.33%" scope="col"> 
+                                                    <img style=" " :src="team.team_image" width="30px" height="30px"/>
+                                                </td> 
+                                                <td class="align-middle text-center" width="33.33%" scope="col"> 
+                                                    <h5>{{team.team_abbreviation}}</h5>
+                                                </td> 
+                                                <td class="align-middle text-center" width="33.33%" scope="col"> 
+                                                    <h6>#{{team.preference_rank}}</h6>
+                                                </td>
+                                            </tr> 
+                                        </tbody> 
+                                    </table>
+                                </div>
                             </transition-group>
                         </draggable>
                     </div>
@@ -101,11 +113,11 @@
                                 <div class="form-group mt-2">
                                     <label>
                                         <span class="text-secondary">Preference:</span></label>
-                                    <v-select v-model="game.selected_team_model" :options="game.teamList" 
-                                        item-value="team_id"
-                                        item-text="team_abbreviation"
-                                        label="team_abbreviation">
-                                    </v-select>
+                                        <v-select v-model="game.selected_team_model" :options="game.teamList" 
+                                            item-value="team_id"
+                                            item-text="team_abbreviation"
+                                            label="team_abbreviation">
+                                        </v-select>
                                 </div>
                                 <div class="form-group mt-2">
                                     <small>
