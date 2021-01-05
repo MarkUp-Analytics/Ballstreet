@@ -17,7 +17,7 @@
     "deploydev": "npm run build && npm run copy-to-server"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.13",
     "moment": "^2.23.0",
